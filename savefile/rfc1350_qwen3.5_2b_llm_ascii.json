@@ -1,0 +1,347 @@
+{
+  "protocol": "",
+  "rfc": "",
+  "packet": [
+    {
+      "name": "Header",
+      "pdus": [],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "TCP Header",
+          "header_size_bytes": 20,
+          "byte_order": "little-endian",
+          "fields": [
+            {
+              "name": "version",
+              "display_name": "Version",
+              "offset_bits": 0,
+              "size_bits": 4,
+              "type": "integer",
+              "optional": false,
+              "constraints": [
+                "value == 4 or 6"
+              ]
+            },
+            {
+              "name": "tcp_flags",
+              "display_name": "TCP Flags",
+              "offset_bits": 4,
+              "size_bits": 32,
+              "type": "integer",
+              "optional": false,
+              "constraints": [
+                "value == 0 or 1"
+              ]
+            },
+            {
+              "name": "source_port",
+              "display_name": "Source Port",
+              "offset_bits": 36,
+              "size_bits": 16,
+              "type": "integer",
+              "optional": false,
+              "constraints": [
+                "positive"
+              ]
+            },
+            {
+              "name": "dest_port",
+              "display_name": "Destination Port",
+              "offset_bits": 52,
+              "size_bits": 16,
+              "type": "integer",
+              "optional": false,
+              "constraints": [
+                "positive"
+              ]
+            },
+            {
+              "name": "sequence_number",
+              "display_name": "Sequence Number",
+              "offset_bits": 68,
+              "size_bits": 32,
+              "type": "integer",
+              "optional": false,
+              "constraints": [
+                "non-negative"
+              ]
+            },
+            {
+              "name": "acknowledgement_number",
+              "display_name": "Acknowledgement Number",
+              "offset_bits": 100,
+              "size_bits": 32,
+              "type": "integer",
+              "optional": false,
+              "constraints": [
+                "non-negative"
+              ]
+            },
+            {
+              "name": "data_offset",
+              "display_name": "Data Offset",
+              "offset_bits": 132,
+              "size_bits": 4,
+              "type": "integer",
+              "optional": false,
+              "constraints": [
+                "value == 5"
+              ]
+            },
+            {
+              "name": "reserved",
+              "display_name": "Reserved",
+              "offset_bits": 136,
+              "size_bits": 0,
+              "type": "null",
+              "optional": true,
+              "constraints": []
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": 138,
+              "size_bits": 16,
+              "type": "integer",
+              "optional": false,
+              "constraints": [
+                "non-negative"
+              ]
+            },
+            {
+              "name": "unused",
+              "display_name": "Unused",
+              "offset_bits": 154,
+              "size_bits": 0,
+              "type": "null",
+              "optional": true,
+              "constraints": []
+            },
+            {
+              "name": "checksum_offset",
+              "display_name": "Checksum Offset",
+              "offset_bits": 154,
+              "size_bits": 8,
+              "type": "integer",
+              "optional": false,
+              "constraints": [
+                "non-negative"
+              ]
+            },
+            {
+              "name": "options",
+              "display_name": "Options",
+              "offset_bits": 163,
+              "size_bits": 24,
+              "type": "array",
+              "element_type": "length-optional"
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": 187,
+              "size_bits": 32,
+              "type": "integer",
+              "optional": false,
+              "constraints": [
+                "non-negative"
+              ]
+            },
+            {
+              "name": "options",
+              "display_name": "Options",
+              "offset_bits": 219,
+              "size_bits": 64,
+              "type": "array",
+              "element_type": "length-optional"
+            }
+          ],
+          "constraints": [
+            "checksum must be non-negative"
+          ],
+          "parse_from": "TCP Header",
+          "serialize_to": "TCP Header"
+        },
+        {
+          "name": "Data",
+          "pdus": [],
+          "bit_string_types": [
+            {
+              "name": "payload",
+              "size_bits": 40,
+              "type": "string"
+            }
+          ],
+          "enumerated_types": [],
+          "structure_types": [],
+          "array_types": [
+            {
+              "name": "data_length",
+              "element_type": "length-optional"
+            }
+          ],
+          "parsing_context": [
+            {
+              "name": "TCP Stream",
+              "type": "string"
+            }
+          ],
+          "helper_functions": [],
+          "transform_functions": []
+        },
+        {
+          "name": "TCP Connection State",
+          "pdus": [],
+          "bit_string_types": [],
+          "enumerated_types": [
+            {
+              "name": "tcp_state",
+              "variants": [
+                {
+                  "name": "closed",
+                  "type": "string",
+                  "condition": null
+                },
+                {
+                  "name": "sent",
+                  "type": "string",
+                  "condition": null
+                }
+              ]
+            }
+          ],
+          "structure_types": [],
+          "array_types": [],
+          "parsing_context": [
+            {
+              "name": "TCP Stream",
+              "type": "string"
+            }
+          ],
+          "helper_functions": [],
+          "transform_functions": []
+        },
+        {
+          "name": "UDP Header",
+          "pdus": [],
+          "bit_string_types": [
+            {
+              "name": "length",
+              "size_bits": 24,
+              "type": "string"
+            }
+          ],
+          "enumerated_types": [
+            {
+              "name": "udp_header",
+              "variants": []
+            }
+          ],
+          "structure_types": [],
+          "array_types": [
+            {
+              "name": "header_length",
+              "element_type": "length-optional"
+            }
+          ],
+          "parsing_context": [
+            {
+              "name": "UDP Stream",
+              "type": "string"
+            }
+          ],
+          "helper_functions": [],
+          "transform_functions": []
+        },
+        {
+          "name": "ARP Request",
+          "pdus": [],
+          "bit_string_types": [
+            {
+              "name": "packet_length",
+              "size_bits": 4,
+              "type": "string"
+            }
+          ],
+          "enumerated_types": [
+            {
+              "name": "arp_request_type",
+              "variants": []
+            }
+          ],
+          "structure_types": [],
+          "array_types": [],
+          "parsing_context": [
+            {
+              "name": "Ethernet Frame",
+              "type": "string"
+            }
+          ],
+          "helper_functions": [],
+          "transform_functions": []
+        },
+        {
+          "name": "ARP Reply",
+          "pdus": [],
+          "bit_string_types": [
+            {
+              "name": "packet_length",
+              "size_bits": 4,
+              "type": "string"
+            }
+          ],
+          "enumerated_types": [
+            {
+              "name": "arp_response_type",
+              "variants": []
+            }
+          ],
+          "structure_types": [],
+          "array_types": [],
+          "parsing_context": [
+            {
+              "name": "Ethernet Frame",
+              "type": "string"
+            }
+          ],
+          "helper_functions": [],
+          "transform_functions": []
+        },
+        {
+          "name": "IPv4 Packet",
+          "pdus": [],
+          "bit_string_types": [
+            {
+              "name": "payload_length",
+              "size_bits": 32,
+              "type": "string"
+            }
+          ],
+          "enumerated_types": [
+            {
+              "name": "ip_version",
+              "variants": []
+            }
+          ],
+          "structure_types": [],
+          "array_types": [
+            {
+              "name": "payload_length",
+              "element_type": "length-optional"
+            }
+          ],
+          "parsing_context": [
+            {
+              "name": "IP Header",
+              "type": "string"
+            }
+          ],
+          "helper_functions": [],
+          "transform_functions": []
+        }
+      ]
+    }
+  ]
+}

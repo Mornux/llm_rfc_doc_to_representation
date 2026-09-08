@@ -1,0 +1,115 @@
+{
+  "protocol": "IP/UDP (implied by Header name)",
+  "rfc": "1350",
+  "packet": [
+    {
+      "name": "Internet User Datagram Header",
+      "pdus": [
+        "Internet User Datagram Header"
+      ],
+      "bit_string_types": [
+        {
+          "name": "Source Port",
+          "size_bits": 16
+        },
+        {
+          "name": "Destination Port",
+          "size_bits": 16
+        },
+        {
+          "name": "Length",
+          "size_bits": 16
+        },
+        {
+          "name": "Checksum",
+          "size_bits": 16
+        }
+      ],
+      "enumerated_types": [
+        {
+          "name": "None",
+          "variants": [
+            {
+              "name": "default",
+              "type": "N/A",
+              "condition": "true"
+            }
+          ]
+        }
+      ],
+      "structure_types": [
+        {
+          "name": "Internet User Datagram Header",
+          "header_size_bytes": 8,
+          "byte_order": "Network (Big Endian)",
+          "fields": [
+            {
+              "name": "source_port",
+              "display_name": "Source Port",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": "unsigned short",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "destination_port",
+              "display_name": "Destination Port",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": "unsigned short",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "length",
+              "display_name": "Length",
+              "offset_bits": 32,
+              "size_bits": 16,
+              "type": "unsigned short",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "length >= 0"
+              ]
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": 48,
+              "size_bits": 16,
+              "type": "unsigned short",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            }
+          ],
+          "constraints": [
+            "Length is the number of bytes in UDP packet, including UDP header."
+          ],
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [
+        {
+          "name": "Packet Structure",
+          "type": "Internet User Datagram Header"
+        }
+      ],
+      "helper_functions": [
+        {
+          "name": "Calculate Length",
+          "description": "Length is the number of bytes in UDP packet, including UDP header.",
+          "input": [
+            "length"
+          ],
+          "output": "length"
+        }
+      ],
+      "transform_functions": []
+    }
+  ]
+}

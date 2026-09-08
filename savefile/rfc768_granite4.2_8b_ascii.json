@@ -1,0 +1,168 @@
+{
+  "protocol": "UDP",
+  "rfc": "768",
+  "packet": [
+    {
+      "name": "udp_header",
+      "pdus": [
+        "udp_header"
+      ],
+      "bit_string_types": [
+        {
+          "name": "source_port",
+          "size_bits": 16
+        },
+        {
+          "name": "dest_port",
+          "size_bits": 16
+        },
+        {
+          "name": "length",
+          "size_bits": 16
+        },
+        {
+          "name": "checksum",
+          "size_bits": 16
+        }
+      ],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "udp_header_struct",
+          "header_size_bytes": null,
+          "byte_order": "little",
+          "fields": [
+            {
+              "name": "source_port",
+              "display_name": "Source Port",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": "bit_string_types.source_port",
+              "optional": true,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "dest_port",
+              "display_name": "Destination Port",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": "bit_string_types.dest_port",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "length",
+              "display_name": "Length",
+              "offset_bits": 32,
+              "size_bits": 16,
+              "type": "bit_string_types.length",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": 48,
+              "size_bits": 16,
+              "type": "bit_string_types.checksum",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            }
+          ],
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "udp_pseudoheader",
+      "pdus": [
+        "udp_pseudoheader"
+      ],
+      "bit_string_types": [
+        {
+          "name": "source_address",
+          "size_bits": 32
+        },
+        {
+          "name": "dest_address",
+          "size_bits": 32
+        },
+        {
+          "name": "protocol",
+          "size_bits": 8
+        },
+        {
+          "name": "udp_length",
+          "size_bits": 16
+        }
+      ],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "udp_pseudoheader_struct",
+          "header_size_bytes": null,
+          "byte_order": "big",
+          "fields": [
+            {
+              "name": "source_address",
+              "display_name": "Source Address",
+              "offset_bits": 0,
+              "size_bits": 32,
+              "type": null,
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "dest_address",
+              "display_name": "Destination Address",
+              "offset_bits": 32,
+              "size_bits": 32,
+              "type": null,
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "protocol",
+              "display_name": "Protocol",
+              "offset_bits": 64,
+              "size_bits": 8,
+              "type": null,
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "udp_length",
+              "display_name": "UDP Length",
+              "offset_bits": 72,
+              "size_bits": 16,
+              "type": null,
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            }
+          ],
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "protocol": "TFTP",
+  "rfc": "RFC 1350",
+  "packet": [
+    {
+      "name": "RRQ/WRQ_packet",
+      "pdus": [
+        "rrq_packet",
+        "wrq_packet"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "rrq_wrq_packet",
+          "fields": [
+            {
+              "name": "opcode",
+              "display_name": "Opcode",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": null,
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "filename",
+              "display_name": "Filename",
+              "offset_bits": 16,
+              "size_bits": null,
+              "type": null,
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "filename is a sequence of bytes in netascii"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

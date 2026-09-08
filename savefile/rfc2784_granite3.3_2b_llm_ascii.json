@@ -1,0 +1,133 @@
+{
+  "protocol": "GRE (Generic Routing Encapsulation)",
+  "rfc": "RFC 2784",
+  "packet": [
+    {
+      "name": "GRE Encapsulated Packet",
+      "pdus": [
+        "Delivery Protocol"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "GRE Header",
+          "header_size_bytes": 4,
+          "byte_order": "big",
+          "fields": [
+            {
+              "name": "Compression Type",
+              "display_name": "C",
+              "offset_bits": "0",
+              "size_bits": "1",
+              "type": "Bit String Type",
+              "optional": "false",
+              "presence_condition": "null",
+              "constraints": [
+                "0 = 0"
+              ],
+              "parse_from": " RFC 2784, Section 2.1.1",
+              "serialize_to": "RFC 2784, Section 2.1.1"
+            },
+            {
+              "name": "Reserved0",
+              "display_name": "Reserved0",
+              "offset_bits": "1",
+              "size_bits": "1",
+              "type": "Bit String Type",
+              "optional": "false",
+              "presence_condition": "null",
+              "constraints": [
+                "0 = 0"
+              ],
+              "parse_from": "RFC 2784, Section 2.1.1",
+              "serialize_to": "RFC 2784, Section 2.1.1"
+            },
+            {
+              "name": "Version",
+              "display_name": "Version",
+              "offset_bits": "2",
+              "size_bits": "4",
+              "type": "Enumerated Type",
+              "optional": "false",
+              "presence_condition": "null",
+              "constraints": [
+                "0 <= version <= 4"
+              ],
+              "variants": [
+                {
+                  "name": "GRE Version 0",
+                  "type": "Integer",
+                  "condition": "version == 0"
+                },
+                {
+                  "name": "GRE Version 4",
+                  "type": "Integer",
+                  "condition": "version == 4"
+                }
+              ]
+            },
+            {
+              "name": "Protocol Type",
+              "display_name": "Protocol Type",
+              "offset_bits": "6",
+              "size_bits": "4",
+              "type": "Enumerated Type",
+              "optional": "false",
+              "presence_condition": "null",
+              "constraints": [
+                "0 <= protocol_type <= 255"
+              ],
+              "variants": [
+                {
+                  "name": "IPv4",
+                  "type": "Integer",
+                  "condition": "protocol_type == 8"
+                },
+                {
+                  "name": "IPv6",
+                  "type": "Integer",
+                  "condition": "protocol_type == 41"
+                },
+                {
+                  "name": "UDP",
+                  "type": "Integer",
+                  "condition": "protocol_type == 17"
+                },
+                {
+                  "name": "Other",
+                  "type": "Bit String Type",
+                  "condition": "protocol_type == 0"
+                }
+              ]
+            },
+            {
+              "name": "Payload Length",
+              "display_name": "Payload Length",
+              "offset_bits": "10",
+              "size_bits": "4",
+              "type": "Bit String Type",
+              "optional": "false",
+              "presence_condition": "null",
+              "constraints": [
+                "0 <= payload_length <= 2^4"
+              ],
+              "parse_from": "RFC 2784, Section 2.1.2",
+              "serialize_to": "RFC 2784, Section 2.1.2"
+            }
+          ],
+          "constraints": [
+            "0 <= C <= 1",
+            "0 <= Ver <= 4",
+            "0 <= Protocol Type <= 255",
+            "0 <= Payload Length <= 2^4"
+          ]
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

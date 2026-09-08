@@ -1,0 +1,81 @@
+{
+  "protocol": "User Datagram Protocol (UDP)",
+  "rfc": "RFC 1350",
+  "packet": [
+    {
+      "name": "Internet User Datagram Header",
+      "pdus": [],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "Internet UDP Header",
+          "header_size_bytes": "40",
+          "byte_order": "big endian",
+          "fields": [
+            {
+              "name": "Source Port",
+              "display_name": "Source Port",
+              "offset_bits": "0-4",
+              "size_bits": "8",
+              "type": "Bit String Type",
+              "optional": "false",
+              "presence_condition": "null",
+              "constraints": [
+                "0..65535"
+              ],
+              "parse_from": "null",
+              "serialize_to": "null"
+            },
+            {
+              "name": "Destination Port",
+              "display_name": "Destination Port",
+              "offset_bits": "8-12",
+              "size_bits": "16",
+              "type": "Bit String Type",
+              "optional": "false",
+              "presence_condition": "null",
+              "constraints": [
+                "65..65535"
+              ],
+              "parse_from": "null",
+              "serialize_to": "null"
+            },
+            {
+              "name": "Length",
+              "display_name": "Length",
+              "offset_bits": "12-16",
+              "size_bits": "16",
+              "type": "Bit String Type",
+              "optional": "false",
+              "presence_condition": "null",
+              "constraints": [
+                "1..4600"
+              ],
+              "parse_from": "null",
+              "serialize_to": "null"
+            },
+            {
+              "name": "Checksum",
+              "display_name": "Checksum",
+              "offset_bits": "16-22",
+              "size_bits": "16",
+              "type": "Bit String Type",
+              "optional": "false",
+              "presence_condition": "null",
+              "constraints": [
+                "Valid Checksum"
+              ],
+              "parse_from": "null",
+              "serialize_to": "null"
+            }
+          ]
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

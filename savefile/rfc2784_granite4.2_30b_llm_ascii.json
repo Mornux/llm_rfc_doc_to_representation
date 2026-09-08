@@ -1,0 +1,107 @@
+{
+  "protocol": "GRE",
+  "rfc": "2784",
+  "packet": [
+    {
+      "name": "gre_header",
+      "pdus": [
+        "gre_header"
+      ],
+      "bit_string_types": [
+        {
+          "name": "checksum_present_bit",
+          "size_bits": 1
+        }
+      ],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "gre_header",
+          "header_size_bytes": null,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "carryon_bit",
+              "display_name": "C bit (Carry)",
+              "offset_bits": 0,
+              "size_bits": 1,
+              "type": null,
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "reserved0",
+              "display_name": "Reserved (by the protocol deployment)",
+              "offset_bits": 1,
+              "size_bits": 7,
+              "type": null,
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "version",
+              "display_name": "Version",
+              "offset_bits": 8,
+              "size_bits": 3,
+              "type": null,
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "protocol_type",
+              "display_name": "Protocol Type",
+              "offset_bits": 11,
+              "size_bits": 16,
+              "type": null,
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "if the payload is IPv4, value == 0x800"
+              ]
+            },
+            {
+              "name": "checksum_present",
+              "display_name": "Checksum Present bit (bit 0)",
+              "offset_bits": 28,
+              "size_bits": 1,
+              "type": "checksum_present_bit",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum (optional)",
+              "offset_bits": 29,
+              "size_bits": 16,
+              "type": null,
+              "optional": true,
+              "presence_condition": "checksum_present == 1",
+              "constraints": []
+            },
+            {
+              "name": "reserved1",
+              "display_name": "Reserved (Optional)",
+              "offset_bits": 45,
+              "size_bits": 16,
+              "type": null,
+              "optional": true,
+              "presence_condition": "carryon_bit == ?? && checksum_present == 1",
+              "constraints": []
+            }
+          ],
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

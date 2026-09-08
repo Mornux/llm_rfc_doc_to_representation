@@ -1,0 +1,132 @@
+{
+  "protocol": "Generic Routing Encapsulation",
+  "rfc": "RFC 2784",
+  "packet": [
+    {
+      "name": "gre_header",
+      "pdus": [
+        "gre_header"
+      ],
+      "bit_string_types": [
+        {
+          "name": "checksum_present_bit",
+          "size_bits": 1
+        },
+        {
+          "name": "reserved0_bits",
+          "size_bits": 12
+        },
+        {
+          "name": "version_number_bits",
+          "size_bits": 3
+        },
+        {
+          "name": "protocol_type_value",
+          "size_bits": 16
+        },
+        {
+          "name": "checksum_value",
+          "size_bits": 16
+        },
+        {
+          "name": "reserved1_bits",
+          "size_bits": 16
+        }
+      ],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "gre_header",
+          "header_size_bytes": null,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "checksum_present",
+              "display_name": "Checksum Present",
+              "offset_bits": 0,
+              "size_bits": 1,
+              "type": "checksum_present_bit",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "reserved0",
+              "display_name": "Reserved0",
+              "offset_bits": 1,
+              "size_bits": 12,
+              "type": "reserved0_bits",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "bits 6-12 must be sent as zero",
+                "receiver must discard the packet if any of bits 1-5 are non-zero unless the receiver implements RFC 1701"
+              ]
+            },
+            {
+              "name": "version_number",
+              "display_name": "Version Number",
+              "offset_bits": 13,
+              "size_bits": 3,
+              "type": "version_number_bits",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "value == 0"
+              ]
+            },
+            {
+              "name": "protocol_type",
+              "display_name": "Protocol Type",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": "protocol_type_value",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "if the payload is IPv4, value == 0x800"
+              ]
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": 32,
+              "size_bits": 16,
+              "type": "checksum_value",
+              "optional": true,
+              "presence_condition": "checksum_present == 1",
+              "constraints": [
+                "checksum is the IP one's complement checksum of all 16-bit words in the GRE header and payload packet",
+                "checksum value is treated as zero when computing the checksum"
+              ]
+            },
+            {
+              "name": "reserved1",
+              "display_name": "Reserved1",
+              "offset_bits": 48,
+              "size_bits": 16,
+              "type": "reserved1_bits",
+              "optional": true,
+              "presence_condition": "checksum_present == 1",
+              "constraints": [
+                "value == 0 when present"
+              ]
+            }
+          ],
+          "constraints": [
+            "checksum and reserved1 are present when checksum_present == 1",
+            "checksum and reserved1 are absent when checksum_present == 0",
+            "header size is 4 bytes when checksum_present == 0",
+            "header size is 8 bytes when checksum_present == 1"
+          ],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

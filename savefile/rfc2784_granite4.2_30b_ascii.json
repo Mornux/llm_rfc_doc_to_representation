@@ -1,0 +1,118 @@
+{
+  "protocol": "generic routing encapsulation",
+  "rfc": "RFC 2784",
+  "packet": [
+    {
+      "name": "gre_header",
+      "pdus": [
+        "GRE Header"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [
+        {
+          "name": "protocol_type",
+          "variants": [
+            {
+              "name": "ipv4",
+              "type": "0x0000",
+              "condition": "null"
+            },
+            {
+              "name": "appletristand",
+              "type": "0x0000",
+              "condition": "null"
+            },
+            {
+              "name": "网兰",
+              "type": "0x0000",
+              "condition": "null"
+            }
+          ]
+        }
+      ],
+      "structure_types": [
+        {
+          "name": "gre_header",
+          "header_size_bytes": null,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "c",
+              "display_name": "C",
+              "offset_bits": 0,
+              "size_bits": 1,
+              "type": "bit_string",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "reserved0",
+              "display_name": "Reserved0",
+              "offset_bits": 1,
+              "size_bits": 7,
+              "type": "bit_string",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "ver",
+              "display_name": "Ver",
+              "offset_bits": 8,
+              "size_bits": 3,
+              "type": "bit_string",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "protocol_type",
+              "display_name": "Protocol Type",
+              "offset_bits": 11,
+              "size_bits": 16,
+              "type": "bit_string",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": [
+                "if the payload is IPv4, value == 0x800"
+              ]
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum (optional)",
+              "offset_bits": 27,
+              "size_bits": 16,
+              "type": "bit_string",
+              "optional": true,
+              "presence_condition": "c == 1",
+              "constraints": []
+            },
+            {
+              "name": "reserved1",
+              "display_name": "Reserved1",
+              "offset_bits": 48,
+              "size_bits": 16,
+              "type": "bit_string",
+              "optional": true,
+              "presence_condition": "c == 1",
+              "constraints": [
+                "value == 0 when present"
+              ]
+            }
+          ],
+          "constraints": [
+            "c == 1 -> presence_checksum_true",
+            "c == 0 -> absence_checksum_false"
+          ],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

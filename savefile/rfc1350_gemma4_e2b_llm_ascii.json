@@ -1,0 +1,106 @@
+{
+  "protocol": "TFTP",
+  "rfc": "RFC 1350",
+  "packet": [
+    {
+      "name": "Order of Headers",
+      "pdus": [
+        "WRQ",
+        "RRQ",
+        "ACK",
+        "DATA"
+      ],
+      "bit_string_types": [
+        {
+          "name": "WRQ",
+          "size_bits": null
+        },
+        {
+          "name": "RRQ",
+          "size_bits": null
+        },
+        {
+          "name": "ACK",
+          "size_bits": null
+        },
+        {
+          "name": "DATA",
+          "size_bits": null
+        }
+      ],
+      "enumerated_types": [
+        {
+          "name": "Initial Transfer Request",
+          "variants": [
+            {
+              "name": "WRQ",
+              "type": "WRQ",
+              "condition": null
+            },
+            {
+              "name": "Read Request",
+              "type": "RRQ",
+              "condition": null
+            }
+          ]
+        }
+      ],
+      "structure_types": [
+        {
+          "name": "Order of Headers",
+          "header_size_bytes": null,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "Local Medium",
+              "display_name": "Local Medium",
+              "offset_bits": null,
+              "size_bits": null,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "Internet",
+              "display_name": "Internet",
+              "offset_bits": null,
+              "size_bits": null,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "Datagram",
+              "display_name": "Datagram",
+              "offset_bits": null,
+              "size_bits": null,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "TFTP",
+              "display_name": "TFTP",
+              "offset_bits": null,
+              "size_bits": null,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            }
+          ],
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

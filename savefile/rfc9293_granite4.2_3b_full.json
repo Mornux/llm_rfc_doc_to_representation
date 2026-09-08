@@ -1,0 +1,11 @@
+{
+  "assertions": [
+    {
+      "numb": 1,
+      "text": "The TCP specification described in the provided text defines several states like LISTEN STATE, SYN-SENT STATE, ESTABLISHED STATE, FIN-WAIT-1 STATE, FIN-WAIT-2 STATE, CLOSE-WAIT STATE, CLOSING STATE, LAST-ACK STATE, TIME-WAIT STATE. Therefore, it is correct that these states are defined in the TCP specification."
+    }
+  ],
+  "errors": 0,
+  "raw_input": "3.10.1. OPEN Call ...",
+  "status": "success"
+}

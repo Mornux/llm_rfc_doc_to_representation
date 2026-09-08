@@ -1,0 +1,66 @@
+{
+  "protocol": "example protocol format",
+  "rfc": "RFC document identifier",
+  "packet": [
+    {
+      "name": "Source IP Address",
+      "pdus": [
+        "ip_header"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "ip_header",
+          "header_size_bytes": null,
+          "byte_order": "big-endian",
+          "fields": [
+            {
+              "name": "version",
+              "display_name": "Version",
+              "offset_bits": 0,
+              "size_bits": 4,
+              "type": "enumerated_type",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": [
+                "value == 4"
+              ]
+            },
+            {
+              "name": "hop_limit",
+              "display_name": "Hops Limit",
+              "offset_bits": 4,
+              "size_bits": 8,
+              "type": "unsigned_integer",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "value < 256"
+              ]
+            },
+            {
+              "name": "protocol_type",
+              "display_name": "Protocol Type",
+              "offset_bits": 12,
+              "size_bits": 16,
+              "type": "string",
+              "optional": true,
+              "presence_condition": null,
+              "constraints": [
+                "value == 'TCP' || value == 'UDP']"
+              ]
+            },
+            "constraints`: [null], ",
+            "parse_from"
+          ],
+          "array_types": [],
+          "parsing_context": [],
+          "helper_functions": [],
+          "transform_functions": []
+        }
+      ],
+      "packet": []
+    }
+  ]
+}

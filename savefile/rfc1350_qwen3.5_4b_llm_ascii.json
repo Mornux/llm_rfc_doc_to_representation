@@ -1,0 +1,17 @@
+{
+  "protocol": "TFTP",
+  "rfc": "RFC 1350",
+  "packet": [
+    {
+      "name": "header_structure",
+      "pdus": [],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

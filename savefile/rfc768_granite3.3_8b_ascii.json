@@ -1,6 +1,6 @@
 {
-  "protocol": "User Datagram Protocol (UDP)",
-  "rfc": "RFC 768",
+  "protocol": "UDP",
+  "rfc": "768",
   "packet": [
     {
       "name": "udp_header",
@@ -23,7 +23,6 @@
               "type": "bit_string",
               "optional": true,
               "presence_condition": null,
-              "description": "Optional field indicating the sender's port.",
               "constraints": []
             },
             {
@@ -34,7 +33,6 @@
               "type": "bit_string",
               "optional": false,
               "presence_condition": null,
-              "description": "Represents the port of the intended recipient.",
               "constraints": []
             },
             {
@@ -45,7 +43,6 @@
               "type": "bit_string",
               "optional": false,
               "presence_condition": null,
-              "description": "Length of the UDP data, minimum 8 octets.",
               "constraints": [
                 "length >= 8"
               ]
@@ -58,15 +55,12 @@
               "type": "bit_string",
               "optional": false,
               "presence_condition": null,
-              "description": "16-bit one's complement of checksum of header and data.",
               "constraints": []
             }
           ],
-          "constraints": [
-            "length >= 8"
-          ],
-          "parse_from": null,
-          "serialize_to": null
+          "constraints": [],
+          "parse_from": "raw_bytes",
+          "serialize_to": "raw_bytes"
         }
       ],
       "array_types": [],

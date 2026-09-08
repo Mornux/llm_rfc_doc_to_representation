@@ -1,0 +1,76 @@
+{
+  "protocol": "Internet Protocol Version 6 (IPv6)",
+  "rfc": "RFC 8200",
+  "packet": [
+    {
+      "name": "ipv6_option_tlv",
+      "pdus": [
+        "ipv6_option"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "ipv6_option",
+          "header_size_bytes": 2,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "option_type",
+              "display_name": "Option Type",
+              "offset_bits": 0,
+              "size_bits": 8,
+              "type": null,
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "the highest-order 2 bits specify the action to take if the Option Type is not recognized",
+                "the third-highest-order bit specifies whether the Option Data may change en route",
+                "the three high-order bits are part of the full 8-bit Option Type"
+              ]
+            }
+          ],
+          "constraints": []
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "ipv6_header",
+      "pdus": [
+        "ipv6_header"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "ipv6_header",
+          "header_size_bytes": 40,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "version",
+              "display_name": "Version",
+              "offset_bits": 0,
+              "size_bits": 4,
+              "type": null,
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "value == 6"
+              ]
+            }
+          ],
+          "constraints": []
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

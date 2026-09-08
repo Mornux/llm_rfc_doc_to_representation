@@ -1,0 +1,224 @@
+{
+  "protocol": "tcp",
+  "rfc": "N/A",
+  "packet": [
+    {
+      "name": "tcp_segment",
+      "pdus": [
+        "tcp_header",
+        "optional_options",
+        "payload_data"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [
+        {
+          "name": "tcp_option_kind",
+          "variants": [
+            {
+              "name": "end_of_option_list",
+              "type": "uint8",
+              "condition": "Kind == 0"
+            },
+            {
+              "name": "no_operation",
+              "type": "uint8",
+              "condition": "Kind == 1"
+            },
+            {
+              "name": "maximum_segment_size",
+              "type": "uint8",
+              "condition": "Kind == 2"
+            }
+          ]
+        }
+      ],
+      "structure_types": [
+        {
+          "name": "optional_options",
+          "header_size_bytes": "null",
+          "byte_order": "null",
+          "fields": [
+            {
+              "name": "option_kind",
+              "display_name": "Option Kind",
+              "offset_bits": "0",
+              "size_bits": "8",
+              "type": "uint8",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "option_length",
+              "display_name": "Option Length",
+              "offset_bits": "8",
+              "size_bits": "8",
+              "type": "uint8",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "option_data",
+              "display_name": "Option Data",
+              "offset_bits": "16",
+              "size_bits": "null",
+              "type": "bit_string",
+              "optional": true,
+              "presence_condition": "option_length > 2"
+            }
+          ],
+          "constraints": [
+            "Must contain a sequence of valid options until an End of Option List Option (Kind 0) is encountered."
+          ],
+          "parse_from": "Figure 1: TCP Header Format",
+          "serialize_to": "Figure 1: TCP Header Format"
+        },
+        {
+          "name": "maximum_segment_size_option",
+          "header_size_bytes": "4",
+          "byte_order": "null",
+          "fields": [
+            {
+              "name": "option_kind",
+              "display_name": "Option Kind",
+              "offset_bits": "0",
+              "size_bits": "8",
+              "type": "uint8",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "Kind == 2"
+              ]
+            },
+            {
+              "name": "option_length",
+              "display_name": "Option Length",
+              "offset_bits": "8",
+              "size_bits": "8",
+              "type": "uint8",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "Length == 4"
+              ]
+            },
+            {
+              "name": "maximum_segment_size",
+              "display_name": "Maximum Segment Size",
+              "offset_bits": "16",
+              "size_bits": "16",
+              "type": "uint16",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "Value is limited by the IP reassembly limit.",
+                "MUST NOT be sent in segments other than the initial connection request (SYN bit set)."
+              ]
+            }
+          ],
+          "constraints": [],
+          "parse_from": "Figure 6: Basic Three-Way Handshake for Connection Synchronization",
+          "serialize_to": "Figure 6: Basic Three-Way Handshake for Connection Synchronization"
+        },
+        {
+          "name": "end_of_option_list_option",
+          "header_size_bytes": "2",
+          "byte_order": "null",
+          "fields": [
+            {
+              "name": "option_kind",
+              "display_name": "Option Kind",
+              "offset_bits": "0",
+              "size_bits": "8",
+              "type": "uint8",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "Kind == 0"
+              ]
+            },
+            {
+              "name": "option_length",
+              "display_name": "Option Length",
+              "offset_bits": "8",
+              "size_bits": "8",
+              "type": "uint8",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "Length == 2"
+              ]
+            }
+          ],
+          "constraints": [],
+          "parse_from": "Figure 4: End of Option List Option",
+          "serialize_to": "Figure 4: End of Option List Option"
+        },
+        {
+          "name": "no_operation_option",
+          "header_size_bytes": "2",
+          "byte_order": "null",
+          "fields": [
+            {
+              "name": "option_kind",
+              "display_name": "Option Kind",
+              "offset_bits": "0",
+              "size_bits": "8",
+              "type": "uint8",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "Kind == 1"
+              ]
+            },
+            {
+              "name": "option_length",
+              "display_name": "Option Length",
+              "offset_bits": "8",
+              "size_bits": "8",
+              "type": "uint8",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "Length == 2"
+              ]
+            }
+          ],
+          "constraints": [],
+          "parse_from": "Figure 5: No-Operation Option",
+          "serialize_to": "Figure 5: No-Operation Option"
+        }
+      ],
+      "array_types": [
+        {
+          "name": "tcp_options_list",
+          "element_type": "option_struct",
+          "length": "null"
+        }
+      ],
+      "parsing_context": [
+        {
+          "name": "rcv_window",
+          "type": "uint16"
+        },
+        {
+          "name": "send_window",
+          "type": "uint16"
+        }
+      ],
+      "helper_functions": [
+        {
+          "name": "calculate_window_advance_condition"
+        }
+      ],
+      "transform_functions": [
+        {
+          "name": "transform_tcp_options",
+          "from": "Mandatory Option Set (Table 1)",
+          "to": "List of structured option types (End of Option List, No-Operation, Maximum Segment Size)"
+        }
+      ]
+    }
+  ]
+}

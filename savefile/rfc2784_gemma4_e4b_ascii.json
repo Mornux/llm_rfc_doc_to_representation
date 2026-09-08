@@ -1,0 +1,86 @@
+{
+  "protocol": "GRE",
+  "rfc": "RFC 2784",
+  "packet": [
+    {
+      "name": "gre_header",
+      "pdus": [
+        "GRE Header"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "gre_header",
+          "header_size_bytes": null,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "c",
+              "display_name": "C",
+              "offset_bits": 0,
+              "size_bits": 1,
+              "type": "Bit String",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "reserved0",
+              "display_name": "Reserved0",
+              "offset_bits": 1,
+              "size_bits": 7,
+              "type": "Bit String",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "ver",
+              "display_name": "Ver",
+              "offset_bits": 8,
+              "size_bits": 2,
+              "type": "Bit String",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "protocol_type",
+              "display_name": "Protocol Type",
+              "offset_bits": 10,
+              "size_bits": 14,
+              "type": "Bit String",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "checksum_present",
+              "display_name": "Checksum (optional)",
+              "offset_bits": 24,
+              "size_bits": 1,
+              "type": "Bit String",
+              "optional": true,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "reserved1",
+              "display_name": "Reserved1 (Optional)",
+              "offset_bits": 25,
+              "size_bits": null,
+              "type": "Bit String",
+              "optional": true,
+              "presence_condition": null,
+              "constraints": []
+            }
+          ],
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ]
+    }
+  ]
+}

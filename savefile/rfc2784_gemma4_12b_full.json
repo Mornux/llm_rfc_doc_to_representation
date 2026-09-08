@@ -1,0 +1,94 @@
+{
+  "protocol": "Generic Routing Encapsulation (GRE)",
+  "rfc": "RFC 2784",
+  "packet": [
+    {
+      "name": "GRE",
+      "pdus": [
+        "GRE Header"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "GRE Header",
+          "header_size_bytes": 8,
+          "byte_order": "big-endian",
+          "fields": [
+            {
+              "name": "checksum_present",
+              "display_name": "Checksum Present",
+              "offset_bits": 0,
+              "size_bits": 1,
+              "type": "bit",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "reserved_0",
+              "display_name": "Reserved0",
+              "offset_bits": 1,
+              "size_bits": 12,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "bits 1-5 must be zero unless receiver implements RFC 1701",
+                "bits 6-12 must be zero"
+              ]
+            },
+            {
+              "name": "version_number",
+              "display_name": "Version Number",
+              "offset_bits": 13,
+              "size_bits": 3,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "must contain value 0"
+              ]
+            },
+            {
+              "name": "protocol_type",
+              "display_name": "Protocol Type",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": 32,
+              "size_bits": 16,
+              "type": "bit_string",
+              "optional": true,
+              "presence_condition": "checksum_present == 1",
+              "constraints": []
+            },
+            {
+              "name": "reserved_1",
+              "display_name": "Reserved1",
+              "offset_bits": 48,
+              "size_bits": 16,
+              "type": "bit_string",
+              "optional": true,
+              "presence_condition": "checksum_present == 1",
+              "constraints": [
+                "must be zero"
+              ]
+            }
+          ]
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

@@ -3,49 +3,46 @@
   "rfc": "768",
   "packet": [
     {
-      "name": "udp_header",
+      "name": "user_datagram_header",
       "pdus": [
-        "UDP Header"
+        "user_datagram_header"
       ],
       "bit_string_types": [],
       "enumerated_types": [],
       "structure_types": [
         {
-          "name": "udp_header",
-          "header_size_bytes": null,
-          "byte_order": null,
+          "name": "user_datagram_header",
+          "header_size_bytes": "4",
+          "byte_order": "big_endian",
           "fields": [
             {
               "name": "source_port",
               "display_name": "Source Port",
-              "offset_bits": 16,
-              "size_bits": 16,
-              "type": "uint16",
+              "offset_bits": "16",
+              "size_bits": "16",
+              "type": "integer",
               "optional": true,
               "presence_condition": null,
-              "description": "Optional field indicating the sender's port.",
               "constraints": []
             },
             {
               "name": "destination_port",
               "display_name": "Destination Port",
-              "offset_bits": 16,
-              "size_bits": 16,
-              "type": "uint16",
-              "optional": false,
+              "offset_bits": "16",
+              "size_bits": "16",
+              "type": "integer",
+              "optional": null,
               "presence_condition": null,
-              "description": "Destination port.",
               "constraints": []
             },
             {
               "name": "length",
               "display_name": "Length",
-              "offset_bits": 16,
-              "size_bits": 16,
-              "type": "uint16",
-              "optional": false,
+              "offset_bits": "16",
+              "size_bits": "16",
+              "type": "integer",
+              "optional": null,
               "presence_condition": null,
-              "description": "Total length of the UDP header and data.",
               "constraints": [
                 "length >= 8"
               ]
@@ -53,18 +50,21 @@
             {
               "name": "checksum",
               "display_name": "Checksum",
-              "offset_bits": 16,
-              "size_bits": 16,
-              "type": "uint16",
-              "optional": false,
+              "offset_bits": "16",
+              "size_bits": "16",
+              "type": "integer",
+              "optional": null,
               "presence_condition": null,
-              "description": "16-bit one's complement of the pseudo header sum.",
-              "constraints": []
+              "constraints": [
+                "calculated from preceding fields"
+              ]
             }
           ],
-          "constraints": [],
-          "parse_from": null,
-          "serialize_to": null
+          "constraints": [
+            "length >= 8"
+          ],
+          "parse_from": "network byte order",
+          "serialize_to": "network byte order"
         }
       ],
       "array_types": [],

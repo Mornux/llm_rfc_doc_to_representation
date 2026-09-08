@@ -1,0 +1,195 @@
+{
+  "protocol": "generic_routing_encapsulation",
+  "rfc": "2784",
+  "packet": [
+    {
+      "name": "gre_header",
+      "pdus": [],
+      "bit_string_types": [
+        {
+          "name": "reserved0",
+          "size_bits": null,
+          "constraints": []
+        },
+        {
+          "name": "version_number",
+          "size_bits": null,
+          "constraints": []
+        }
+      ],
+      "enumerated_types": [
+        {
+          "name": "protocol_type",
+          "variants": [
+            {
+              "name": "ethertype",
+              "type": "uint16",
+              "condition": null
+            },
+            {
+              "name": "etypes",
+              "type": "uint16",
+              "condition": null
+            }
+          ]
+        }
+      ],
+      "structure_types": [
+        {
+          "name": "delivery_header",
+          "header_size_bytes": null,
+          "byte_order": null,
+          "fields": [],
+          "constraints": []
+        },
+        {
+          "name": "gre_header",
+          "header_size_bytes": 16,
+          "byte_order": "big",
+          "fields": [
+            {
+              "name": "reserved0",
+              "display_name": "Reserved0",
+              "offset_bits": 4,
+              "size_bits": null,
+              "type": "uint32",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "checksum_present",
+              "display_name": "Checksum Present",
+              "offset_bits": 16,
+              "size_bits": null,
+              "type": "uint8",
+              "optional": true,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": 17,
+              "size_bits": 4,
+              "type": "uint32",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "reserved1",
+              "display_name": "Reserved1",
+              "offset_bits": 22,
+              "size_bits": null,
+              "type": "uint32",
+              "optional": true,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "reserved0_5",
+              "display_name": "Reserved0",
+              "offset_bits": 28,
+              "size_bits": null,
+              "type": "uint32",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "reserved1_15",
+              "display_name": "Reserved1",
+              "offset_bits": 34,
+              "size_bits": null,
+              "type": "uint32",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "reserved0_6_12",
+              "display_name": "Reserved0 (bits 6-12)",
+              "offset_bits": 40,
+              "size_bits": null,
+              "type": "uint32",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "version_number",
+              "display_name": "Version Number",
+              "offset_bits": 48,
+              "size_bits": 3,
+              "type": "uint16",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "< 0x527fffe0"
+              ]
+            },
+            {
+              "name": "checksum_present",
+              "display_name": "Checksum Present",
+              "offset_bits": 51,
+              "size_bits": 4,
+              "type": "uint16",
+              "optional": true,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": 52,
+              "size_bits": 4,
+              "type": "uint32",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "< 0x3f7ffffb"
+              ]
+            },
+            {
+              "name": "protocol_type",
+              "display_name": "Protocol Type",
+              "offset_bits": 56,
+              "size_bits": 4,
+              "type": "uint32",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "== 0x800 for IPv4 payloads"
+              ]
+            }
+          ],
+          "constraints": [
+            {
+              "description": "Reserved0 bits must be zero",
+              "expression": ""
+            },
+            {
+              "description": "Checksum present bit MUST be set if Checksum is transmitted",
+              "expression": ""
+            },
+            {
+              "description": "Version Number MUST be zero",
+              "expression": ""
+            },
+            {
+              "description": "Protocol Type MUST be 0x800 for IPv4 payload",
+              "expression": ""
+            }
+          ],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

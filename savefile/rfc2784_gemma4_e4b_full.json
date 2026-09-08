@@ -1,0 +1,148 @@
+{
+  "protocol": "GRE",
+  "rfc": "2784",
+  "packet": [
+    {
+      "name": "GRE Encapsulation",
+      "pdus": [
+        "GRE Header",
+        "Payload packet"
+      ],
+      "bit_string_types": [
+        {
+          "name": "checksum_present_bit",
+          "size_bits": "1"
+        },
+        {
+          "name": "reserved0",
+          "size_bits": "13"
+        },
+        {
+          "name": "version_number",
+          "size_bits": "3"
+        },
+        {
+          "name": "protocol_type",
+          "size_bits": "16"
+        }
+      ],
+      "enumerated_types": [
+        {
+          "name": "payload_protocol_type",
+          "variants": [
+            {
+              "name": "ether_types",
+              "type": "Protocol Type",
+              "condition": null
+            },
+            {
+              "name": "etypes",
+              "type": "Protocol Type",
+              "condition": null
+            }
+          ]
+        }
+      ],
+      "structure_types": [
+        {
+          "name": "gre_header",
+          "header_size_bytes": "8",
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "checksum_present",
+              "display_name": "Checksum Present",
+              "offset_bits": "0",
+              "size_bits": "1",
+              "type": "Bit String Type",
+              "optional": "null",
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "reserved0",
+              "display_name": "Reserved0",
+              "offset_bits": "1",
+              "size_bits": "12",
+              "type": "Bit String Type",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": [
+                "Bits 1-5 must be zero unless the receiver implements RFC 1701."
+              ]
+            },
+            {
+              "name": "version_number",
+              "display_name": "Version Number",
+              "offset_bits": "13",
+              "size_bits": "3",
+              "type": "Bit String Type",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": [
+                "Value must be zero."
+              ]
+            },
+            {
+              "name": "protocol_type",
+              "display_name": "Protocol Type",
+              "offset_bits": "16",
+              "size_bits": "16",
+              "type": "Bit String Type",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": [
+                "Must be defined in [RFC1700] or [ETYPES].",
+                "If not listed, the receiving implementation SHOULD discard the packet."
+              ]
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": "32",
+              "size_bits": "16",
+              "type": "Bit String Type",
+              "optional": true,
+              "presence_condition": "checksum_present == 1",
+              "constraints": [
+                "Contains the IP (one's complement) checksum sum of all 16 bit words in the GRE header and the payload packet. For computing, the value of the checksum field is zero."
+              ]
+            },
+            {
+              "name": "reserved1",
+              "display_name": "Reserved1",
+              "offset_bits": "48",
+              "size_bits": "16",
+              "type": "Bit String Type",
+              "optional": true,
+              "presence_condition": "checksum_present == 1",
+              "constraints": [
+                "Must be transmitted as zero."
+              ]
+            }
+          ],
+          "constraints": [
+            "The Checksum field is present only if the Checksum Present bit is set to one.",
+            "The Reserved1 field is present only when the Checksum field is present (that is, Checksum Present bit is set to one)."
+          ],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [
+        {
+          "name": "compute_checksum"
+        }
+      ],
+      "transform_functions": [
+        {
+          "name": "calculate_checksum",
+          "from": "GRE header and Payload packet",
+          "to": "checksum"
+        }
+      ]
+    }
+  ]
+}

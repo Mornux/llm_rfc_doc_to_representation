@@ -1,0 +1,90 @@
+{
+  "protocol": "Generic Routing Encapsulation",
+  "rfc": "2784",
+  "packet": [
+    {
+      "name": "gre_header",
+      "pdus": [
+        "gre_header"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "gre_header",
+          "header_size_bytes": 4,
+          "byte_order": "big_endian",
+          "fields": [
+            {
+              "name": "c",
+              "display_name": "C Flag",
+              "offset_bits": 0,
+              "size_bits": 1,
+              "type": "bit_string",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "reserved0",
+              "display_name": "Reserved 0",
+              "offset_bits": 1,
+              "size_bits": 3,
+              "type": "bit_string",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "version",
+              "display_name": "Version",
+              "offset_bits": 4,
+              "size_bits": 2,
+              "type": "bit_string",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "protocol_type",
+              "display_name": "Protocol Type",
+              "offset_bits": 6,
+              "size_bits": 8,
+              "type": "bit_string",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum (Optional)",
+              "offset_bits": 16,
+              "size_bits": null,
+              "type": "bit_string",
+              "optional": true,
+              "presence_condition": "c == 1",
+              "constraints": []
+            },
+            {
+              "name": "reserved1",
+              "display_name": "Reserved 1 (Optional)",
+              "offset_bits": 24,
+              "size_bits": 8,
+              "type": "bit_string",
+              "optional": true,
+              "presence_condition": "c == 1",
+              "constraints": []
+            }
+          ],
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

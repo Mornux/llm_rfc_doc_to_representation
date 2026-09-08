@@ -1,0 +1,19 @@
+{
+  "protocol": "IPv6",
+  "rfc": "RFC 8200 IPv6 Specification July 2017",
+  "packet": [
+    {
+      "name": "IPv6 Header",
+      "pdus": [
+        "IPv6 header"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

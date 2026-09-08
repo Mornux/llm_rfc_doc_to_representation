@@ -1,0 +1,128 @@
+{
+  "protocol": "GRE",
+  "rfc": "RFC 2784",
+  "packet": [
+    {
+      "name": "gre_packet",
+      "pdus": [
+        "GRE Encapsulated Packet"
+      ],
+      "bit_string_types": [
+        {
+          "name": "checksum",
+          "size_bits": 16
+        },
+        {
+          "name": "reserved1",
+          "size_bits": 16
+        }
+      ],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "delivery_header",
+          "header_size_bytes": null,
+          "byte_order": null,
+          "fields": [],
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        },
+        {
+          "name": "gre_header",
+          "header_size_bytes": 32,
+          "byte_order": "network",
+          "fields": [
+            {
+              "name": "checksum_present",
+              "display_name": "C",
+              "offset_bits": 0,
+              "size_bits": 1,
+              "type": "boolean",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "reserved0",
+              "display_name": "Reserved0",
+              "offset_bits": 1,
+              "size_bits": 29,
+              "type": "reserved",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "version",
+              "display_name": "Ver",
+              "offset_bits": 30,
+              "size_bits": 2,
+              "type": "integer",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "version == 1"
+              ]
+            },
+            {
+              "name": "protocol_type",
+              "display_name": "Protocol Type",
+              "offset_bits": 2,
+              "size_bits": 16,
+              "type": "integer",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": 32,
+              "size_bits": 16,
+              "type": "checksum",
+              "optional": true,
+              "presence_condition": "checksum_present == 1",
+              "constraints": [
+                "size == (protocol_type != 0)"
+              ]
+            },
+            {
+              "name": "reserved1",
+              "display_name": "Reserved1",
+              "offset_bits": 48,
+              "size_bits": 16,
+              "type": "reserved",
+              "optional": true,
+              "presence_condition": "checksum_present == 1",
+              "constraints": []
+            }
+          ],
+          "constraints": [
+            "checksum_present == 1 implies reserved1 present"
+          ],
+          "parse_from": null,
+          "serialize_to": null
+        },
+        {
+          "name": "payload_packet",
+          "header_size_bytes": null,
+          "byte_order": null,
+          "fields": [],
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [
+        {
+          "name": "delivery_header",
+          "type": "header"
+        }
+      ],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

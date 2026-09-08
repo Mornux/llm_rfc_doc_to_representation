@@ -7,7 +7,12 @@
       "pdus": [
         "UDP Datagram"
       ],
-      "bit_string_types": [],
+      "bit_string_types": [
+        {
+          "name": "data_octets",
+          "size_bits": null
+        }
+      ],
       "enumerated_types": [],
       "structure_types": [
         {
@@ -23,7 +28,6 @@
               "type": null,
               "optional": true,
               "presence_condition": null,
-              "description": "indicates the port of the sending process",
               "constraints": []
             },
             {
@@ -34,7 +38,6 @@
               "type": null,
               "optional": false,
               "presence_condition": null,
-              "description": "meaning within the context of a particular internet destination address",
               "constraints": []
             },
             {
@@ -45,7 +48,6 @@
               "type": null,
               "optional": false,
               "presence_condition": null,
-              "description": "the length in octets of this user datagram including this header and the data",
               "constraints": [
                 "length >= 8"
               ]
@@ -58,7 +60,6 @@
               "type": null,
               "optional": false,
               "presence_condition": null,
-              "description": "the 16-bit one's complement of the one's complement sum of a pseudo header, the UDP header, and the data",
               "constraints": []
             }
           ],
@@ -69,8 +70,8 @@
       ],
       "array_types": [
         {
-          "name": "data_octets",
-          "element_type": "octet",
+          "name": "data",
+          "element_type": "data_octets",
           "length": "length - 8"
         }
       ],
@@ -80,15 +81,13 @@
     },
     {
       "name": "Pseudo Header",
-      "pdus": [
-        "UDP Pseudo Header"
-      ],
+      "pdus": [],
       "bit_string_types": [],
       "enumerated_types": [],
       "structure_types": [
         {
           "name": "pseudo_header",
-          "header_size_bytes": 12,
+          "header_size_bytes": null,
           "byte_order": null,
           "fields": [
             {
@@ -99,7 +98,6 @@
               "type": null,
               "optional": false,
               "presence_condition": null,
-              "description": "source address",
               "constraints": []
             },
             {
@@ -110,7 +108,6 @@
               "type": null,
               "optional": false,
               "presence_condition": null,
-              "description": "destination address",
               "constraints": []
             },
             {
@@ -121,7 +118,6 @@
               "type": null,
               "optional": false,
               "presence_condition": null,
-              "description": "zero",
               "constraints": []
             },
             {
@@ -132,7 +128,6 @@
               "type": null,
               "optional": false,
               "presence_condition": null,
-              "description": "protocol",
               "constraints": []
             },
             {
@@ -143,7 +138,6 @@
               "type": null,
               "optional": false,
               "presence_condition": null,
-              "description": "UDP length",
               "constraints": []
             }
           ],

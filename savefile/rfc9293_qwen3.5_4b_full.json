@@ -1,0 +1,281 @@
+{
+  "protocol": "Transmission Control Protocol",
+  "rfc": "RFC 9293",
+  "packet": [
+    {
+      "name": "tcp_header",
+      "pdus": [],
+      "bit_string_types": [
+        {
+          "name": "source_port",
+          "size_bits": 16,
+          "offset_bits": null,
+          "display_name": "Source Port",
+          "constraints": []
+        },
+        {
+          "name": "destination_port",
+          "size_bits": 16,
+          "offset_bits": null,
+          "display_name": "Destination Port",
+          "constraints": []
+        },
+        {
+          "name": "sequence_number",
+          "size_bits": 32,
+          "offset_bits": null,
+          "display_name": "Sequence Number",
+          "constraints": []
+        },
+        {
+          "name": "acknowledgment_number",
+          "size_bits": 32,
+          "offset_bits": null,
+          "display_name": "Acknowledgment Number",
+          "constraints": []
+        },
+        {
+          "name": "data_offset",
+          "size_bits": 4,
+          "offset_bits": null,
+          "display_name": "Data Offset",
+          "constraints": []
+        },
+        {
+          "name": "reserved",
+          "size_bits": 4,
+          "offset_bits": null,
+          "display_name": "Reserved",
+          "constraints": []
+        },
+        {
+          "name": "control_bits",
+          "size_bits": 8,
+          "offset_bits": null,
+          "display_name": "Control Bits",
+          "type": "enumerated",
+          "constraints": []
+        },
+        {
+          "name": "window",
+          "size_bits": 16,
+          "offset_bits": null,
+          "display_name": "Window",
+          "constraints": []
+        },
+        {
+          "name": "checksum",
+          "size_bits": 16,
+          "offset_bits": null,
+          "display_name": "Checksum",
+          "constraints": []
+        },
+        {
+          "name": "urgent_pointer",
+          "size_bits": 16,
+          "offset_bits": null,
+          "display_name": "Urgent Pointer",
+          "constraints": []
+        }
+      ],
+      "enumerated_types": [
+        {
+          "name": "control_bits",
+          "variants": [
+            {
+              "name": "cwr",
+              "type": "string",
+              "condition": null,
+              "value": 10
+            },
+            {
+              "name": "ece",
+              "type": "string",
+              "condition": null,
+              "value": 9
+            },
+            {
+              "name": "urg",
+              "type": "string",
+              "condition": null,
+              "value": 10
+            },
+            {
+              "name": "ack",
+              "type": "string",
+              "condition": null,
+              "value": 11
+            },
+            {
+              "name": "ps",
+              "type": "string",
+              "condition": null,
+              "value": 12
+            },
+            {
+              "name": "rst",
+              "type": "string",
+              "condition": null,
+              "value": 13
+            },
+            {
+              "name": "syn",
+              "type": "string",
+              "condition": null,
+              "value": 14
+            },
+            {
+              "name": "fin",
+              "type": "string",
+              "condition": null,
+              "value": 15
+            }
+          ]
+        }
+      ],
+      "structure_types": [
+        {
+          "name": "tcp_segment",
+          "header_size_bytes": 20,
+          "byte_order": "big_endian",
+          "fields": [
+            {
+              "name": "source_port",
+              "display_name": "Source Port",
+              "offset_bits": null,
+              "size_bits": 16,
+              "type": "bit_string",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "destination_port",
+              "display_name": "Destination Port",
+              "offset_bits": null,
+              "size_bits": 16,
+              "type": "bit_string",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "sequence_number",
+              "display_name": "Sequence Number",
+              "offset_bits": null,
+              "size_bits": 32,
+              "type": "bit_string",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "acknowledgment_number",
+              "display_name": "Acknowledgment Number",
+              "offset_bits": null,
+              "size_bits": 32,
+              "type": "bit_string",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "data_offset",
+              "display_name": "Data Offset",
+              "offset_bits": null,
+              "size_bits": 4,
+              "type": "bit_string",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "reserved",
+              "display_name": "Reserved",
+              "offset_bits": null,
+              "size_bits": 4,
+              "type": "bit_string",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "control_bits",
+              "display_name": "Control Bits",
+              "offset_bits": null,
+              "size_bits": 8,
+              "type": "enumerated",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "window",
+              "display_name": "Window",
+              "offset_bits": null,
+              "size_bits": 16,
+              "type": "bit_string",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": null,
+              "size_bits": 16,
+              "type": "bit_string",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "urgent_pointer",
+              "display_name": "Urgent Pointer",
+              "offset_bits": null,
+              "size_bits": 16,
+              "type": "bit_string",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "options",
+              "display_name": "Options",
+              "offset_bits": null,
+              "size_bits": "((data_offset - 5) * 32)",
+              "type": "array",
+              "optional": null,
+              "presence_condition": "(data_offset > 5)",
+              "constraints": []
+            },
+            {
+              "name": "data",
+              "display_name": "Data",
+              "offset_bits": null,
+              "size_bits": "header_length - ((data_offset + options) * 32)",
+              "type": "bit_string",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            }
+          ],
+          "constraints": [],
+          "parse_from": "binary",
+          "serialize_to": "binary"
+        }
+      ],
+      "array_types": [
+        {
+          "name": "tcp_options",
+          "element_type": "bit_string",
+          "length": "((data_offset - 5) * 32)",
+          "constraints": []
+        }
+      ],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

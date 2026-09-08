@@ -1,0 +1,60 @@
+{
+  "protocol": "GRE",
+  "rfc": "RFC 2784",
+  "packet": [
+    {
+      "name": "generic_routing_encapsulation_packet",
+      "pdus": [
+        "generic_routing_encapsulation_packet"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "generic_routing_encapsulation_packet",
+          "header_size_bytes": null,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "delivery_header",
+              "display_name": "Delivery Header",
+              "offset_bits": "0",
+              "size_bits": "null",
+              "type": "null",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "gre_header",
+              "display_name": "GRE Header",
+              "offset_bits": "0",
+              "size_bits": "null",
+              "type": "null",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "payload_packet",
+              "display_name": "Payload packet",
+              "offset_bits": "0",
+              "size_bits": "null",
+              "type": "null",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            }
+          ],
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

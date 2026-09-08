@@ -1,0 +1,236 @@
+{
+  "protocol": "IPv6",
+  "rfc": "RFC 8200",
+  "packet": [
+    {
+      "name": "IPv6 Header",
+      "pdus": [
+        "IPv6"
+      ],
+      "bit_string_types": [
+        {
+          "name": "Version",
+          "size_bits": "4"
+        },
+        {
+          "name": "Traffic Class",
+          "size_bits": "8"
+        },
+        {
+          "name": "Flow Label",
+          "size_bits": "20"
+        },
+        {
+          "name": "Payload Length",
+          "size_bits": "16"
+        },
+        {
+          "name": "Next Header",
+          "size_bits": "8"
+        },
+        {
+          "name": "Hop Limit",
+          "size_bits": "8"
+        },
+        {
+          "name": "Source Address",
+          "size_bits": "128"
+        },
+        {
+          "name": "Destination Address",
+          "size_bits": "128"
+        }
+      ],
+      "enumerated_types": [
+        {
+          "name": "Unspecified",
+          "variants": [
+            {
+              "name": "Type",
+              "type": "enum",
+              "condition": "null"
+            }
+          ]
+        }
+      ],
+      "structure_types": [
+        {
+          "name": "IPv6 Header",
+          "header_size_bytes": "40",
+          "byte_order": "big",
+          "fields": [
+            {
+              "name": "Version",
+              "display_name": "Version",
+              "offset_bits": "0-7",
+              "size_bits": "4",
+              "type": "enum",
+              "optional": "false",
+              "presence_condition": "null",
+              "constraints": [
+                "4"
+              ],
+              "parse_from": "RFC 2460",
+              "serialize_to": "RFC 2460"
+            },
+            {
+              "name": "Traffic Class",
+              "display_name": "Traffic Class",
+              "offset_bits": "8-15",
+              "size_bits": "8",
+              "type": "enum",
+              "optional": "false",
+              "presence_condition": "null",
+              "constraints": [
+                "0-7"
+              ],
+              "parse_from": "RFC 2460",
+              "serialize_to": "RFC 2460"
+            },
+            {
+              "name": "Flow Label",
+              "display_name": "Flow Label",
+              "offset_bits": "15-23",
+              "size_bits": "20",
+              "type": "enum",
+              "optional": "false",
+              "presence_condition": "null",
+              "constraints": [
+                "0-20"
+              ],
+              "parse_from": "RFC 2460",
+              "serialize_to": "RFC 2460"
+            },
+            {
+              "name": "Payload Length",
+              "display_name": "Payload Length",
+              "offset_bits": "24-31",
+              "size_bits": "16",
+              "type": "uint16",
+              "optional": "false",
+              "presence_condition": "null",
+              "constraints": [
+                "0-65535"
+              ],
+              "parse_from": "RFC 2460",
+              "serialize_to": "RFC 2460"
+            },
+            {
+              "name": "Next Header",
+              "display_name": "Next Header",
+              "offset_bits": "32-39",
+              "size_bits": "8",
+              "type": "enum",
+              "optional": "false",
+              "presence_condition": "null",
+              "constraints": [
+                "0-4"
+              ],
+              "parse_from": "RFC 2460",
+              "serialize_to": "RFC 2460"
+            },
+            {
+              "name": "Hop Limit",
+              "display_name": "Hop Limit",
+              "offset_bits": "40-47",
+              "size_bits": "8",
+              "type": "uint8",
+              "optional": "false",
+              "presence_condition": "null",
+              "constraints": [
+                "0-255"
+              ],
+              "parse_from": "RFC 2460",
+              "serialize_to": "RFC 2460"
+            },
+            {
+              "name": "Source Address",
+              "display_name": "Source Address",
+              "offset_bits": "48-63",
+              "size_bits": "128",
+              "type": "ipv6-address",
+              "optional": "false",
+              "presence_condition": "null",
+              "constraints": [
+                "null"
+              ],
+              "parse_from": "RFC 2460",
+              "serialize_to": "RFC 2460"
+            },
+            {
+              "name": "Destination Address",
+              "display_name": "Destination Address",
+              "offset_bits": "64-87",
+              "size_bits": "128",
+              "type": "ipv6-address",
+              "optional": "false",
+              "presence_condition": "null",
+              "constraints": [
+                "null"
+              ],
+              "parse_from": "RFC 2460",
+              "serialize_to": "RFC 2460"
+            }
+          ]
+        }
+      ],
+      "array_types": [
+        {
+          "name": "Extension Headers",
+          "length": "8-bit",
+          "element_type": "extension_header",
+          "parse_from": "RFC 2460",
+          "serialize_to": "RFC 2460"
+        }
+      ],
+      "parsing_context": [
+        {
+          "name": "default",
+          "type": "expression",
+          "expression": "no_parse"
+        }
+      ],
+      "helper_functions": [
+        {
+          "name": "next_header",
+          "arguments": [],
+          "type": "function",
+          "value": "next_header_value"
+        }
+      ],
+      "transform_functions": [
+        {
+          "name": "ipv6_header_transform",
+          "from": "ipv6_packet",
+          "to": "raw_packet",
+          "transformations": [
+            {
+              "type": "bit_string_type_to_int",
+              "field": "Next Header"
+            },
+            {
+              "type": "int_to_bit_string_type",
+              "field": "Payload Length"
+            },
+            {
+              "type": "bit_string_type_to_int",
+              "field": "Hop Limit"
+            },
+            {
+              "type": "int_to_bit_string_type",
+              "field": "Next Header"
+            },
+            {
+              "type": "int_to_bit_string_type",
+              "field": "Source Address"
+            },
+            {
+              "type": "int_to_bit_string_type",
+              "field": "Destination Address"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,186 @@
+{
+  "protocol": "Generic Routing Encapsulation (GRE)",
+  "rfc": "RFC 2784",
+  "packet": [
+    {
+      "name": "GRE Encapsulated Packet",
+      "pdus": [],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "Delivery Header",
+          "header_size_bytes": null,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "C",
+              "display_name": "Checksum Present",
+              "offset_bits": null,
+              "size_bits": "integer or null",
+              "type": "boolean",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": [],
+              "parse_from": null,
+              "serialize_to": null
+            },
+            {
+              "name": "Reserved0",
+              "display_name": "Reserved0 (bits 1-12)",
+              "offset_bits": null,
+              "size_bits": "integer or null",
+              "type": "integer",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": [],
+              "parse_from": null,
+              "serialize_to": null
+            },
+            {
+              "name": "Version",
+              "display_name": "Version Number",
+              "offset_bits": null,
+              "size_bits": "integer or null",
+              "type": "integer",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": [],
+              "parse_from": null,
+              "serialize_to": null
+            },
+            {
+              "name": "Protocol Type",
+              "display_name": "Protocol Type",
+              "offset_bits": null,
+              "size_bits": "integer or null",
+              "type": "integer",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": [],
+              "parse_from": null,
+              "serialize_to": null
+            },
+            {
+              "name": "Checksum",
+              "display_name": "Checksum",
+              "offset_bits": null,
+              "size_bits": "integer or null",
+              "type": "integer",
+              "optional": "boolean",
+              "presence_condition": null,
+              "constraints": [],
+              "parse_from": null,
+              "serialize_to": null
+            },
+            {
+              "name": "Reserved1",
+              "display_name": "Reserved1",
+              "offset_bits": null,
+              "size_bits": "integer or null",
+              "type": "integer",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": [],
+              "parse_from": null,
+              "serialize_to": null
+            }
+          ]
+        },
+        {
+          "name": "GRE Header",
+          "header_size_bytes": 4,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "C",
+              "display_name": "Checksum Present",
+              "offset_bits": "integer or null",
+              "size_bits": "integer or null",
+              "type": "boolean",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": [],
+              "parse_from": null,
+              "serialize_to": null
+            },
+            {
+              "name": "Reserved0",
+              "display_name": "Reserved0 (bits 1-12)",
+              "offset_bits": null,
+              "size_bits": "integer or null",
+              "type": "integer",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": [],
+              "parse_from": null,
+              "serialize_to": null
+            },
+            {
+              "name": "Version",
+              "display_name": "Version Number",
+              "offset_bits": null,
+              "size_bits": "integer or null",
+              "type": "integer",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": [],
+              "parse_from": null,
+              "serialize_to": null
+            },
+            {
+              "name": "Protocol Type",
+              "display_name": "Protocol Type",
+              "offset_bits": null,
+              "size_bits": "integer or null",
+              "type": "integer",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": [],
+              "parse_from": null,
+              "serialize_to": null
+            },
+            {
+              "name": "Checksum",
+              "display_name": "Checksum",
+              "offset_bits": null,
+              "size_bits": "integer or null",
+              "type": "integer",
+              "optional": "boolean",
+              "presence_condition": null,
+              "constraints": [],
+              "parse_from": null,
+              "serialize_to": null
+            },
+            {
+              "name": "Reserved1",
+              "display_name": "Reserved1",
+              "offset_bits": null,
+              "size_bits": "integer or null",
+              "type": "integer",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": [],
+              "parse_from": null,
+              "serialize_to": null
+            }
+          ]
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "IPv4 Payload",
+      "display_name": "Payload IPv4",
+      "length": null,
+      "type": "string",
+      "constraints": []
+    }
+  ],
+  "parsing_context": [],
+  "helper_functions": [],
+  "transform_functions": []
+}

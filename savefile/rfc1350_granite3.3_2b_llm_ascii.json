@@ -1,0 +1,158 @@
+{
+  "protocol": "TFTP",
+  "rfc": "1350",
+  "packet": [
+    {
+      "name": "TFTP Request",
+      "pdus": [
+        "TFTP"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "TFTP Request",
+          "header_size_bytes": "8",
+          "byte_order": "big",
+          "fields": [
+            {
+              "name": "command",
+              "display_name": "Command",
+              "offset_bits": "7:0",
+              "size_bits": "1",
+              "type": "enumerated",
+              "optional": "false",
+              "presence_condition": "command == 0x01",
+              "constraints": [
+                "command must be 0x01 for a data request"
+              ],
+              "parse_from": "bit_string_type",
+              "serialize_to": "bit_string_type"
+            },
+            {
+              "name": "length",
+              "display_name": "Length",
+              "offset_bits": "4:0",
+              "size_bits": "16",
+              "type": "integer",
+              "optional": "false",
+              "presence_condition": "length == 0",
+              "constraints": [
+                "length must be > 0 for data request"
+              ],
+              "parse_from": "bit_string_type",
+              "serialize_to": "bit_string_type"
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": "15:8",
+              "size_bits": "16",
+              "type": "integer",
+              "optional": "false",
+              "presence_condition": "checksum == 0x0000",
+              "constraints": [
+                "checksum must be 0x0000 for data request"
+              ],
+              "parse_from": "bit_string_type",
+              "serialize_to": "bit_string_type"
+            }
+          ]
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "TFTP Response",
+      "pdus": [
+        "TFTP"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "TFTP Response",
+          "header_size_bytes": "8",
+          "byte_order": "big",
+          "fields": [
+            {
+              "name": "command",
+              "display_name": "Command",
+              "offset_bits": "7:0",
+              "size_bits": "1",
+              "type": "enumerated",
+              "optional": "false",
+              "presence_condition": "command == 0x02",
+              "constraints": [
+                "command must be 0x02 for data response"
+              ],
+              "parse_from": "bit_string_type",
+              "serialize_to": "bit_string_type"
+            },
+            {
+              "name": "length",
+              "display_name": "Length",
+              "offset_bits": "4:0",
+              "size_bits": "16",
+              "type": "integer",
+              "optional": "false",
+              "presence_condition": "length == 0",
+              "constraints": [
+                "length must be > 0 for data response"
+              ],
+              "parse_from": "bit_string_type",
+              "serialize_to": "bit_string_type"
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": "15:8",
+              "size_bits": "16",
+              "type": "integer",
+              "optional": "false",
+              "presence_condition": "checksum == 0x0000",
+              "constraints": [
+                "checksum must be 0x0000 for data response"
+              ],
+              "parse_from": "bit_string_type",
+              "serialize_to": "bit_string_type"
+            },
+            {
+              "name": "data_offset",
+              "display_name": "Data Offset",
+              "offset_bits": "7:0",
+              "size_bits": "4",
+              "type": "integer",
+              "optional": "false",
+              "presence_condition": "data_offset == 0",
+              "constraints": [
+                "data_offset must be > 0 for data response"
+              ],
+              "parse_from": "bit_string_type",
+              "serialize_to": "bit_string_type"
+            },
+            {
+              "name": "data",
+              "display_name": "Data",
+              "offset_bits": "3:0",
+              "size_bits": "length - 4",
+              "type": "bit_string_type",
+              "optional": "false",
+              "presence_condition": "data_offset <= length",
+              "constraints": [],
+              "parse_from": "bit_string_type",
+              "serialize_to": "bit_string_type"
+            }
+          ]
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

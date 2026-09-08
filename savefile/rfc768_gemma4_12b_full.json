@@ -3,7 +3,7 @@
   "rfc": "RFC 768",
   "packet": [
     {
-      "name": "udp_packet",
+      "name": "UDP_Packet",
       "pdus": [
         "User Datagram Header"
       ],
@@ -11,7 +11,7 @@
       "enumerated_types": [],
       "structure_types": [
         {
-          "name": "user_datagram_header",
+          "name": "User Datagram Header",
           "header_size_bytes": 8,
           "byte_order": null,
           "fields": [
@@ -20,10 +20,9 @@
               "display_name": "Source Port",
               "offset_bits": 0,
               "size_bits": 16,
-              "type": null,
-              "optional": true,
+              "type": "bit_string",
+              "optional": false,
               "presence_condition": null,
-              "description": "The port of the sending process.",
               "constraints": []
             },
             {
@@ -31,10 +30,9 @@
               "display_name": "Destination Port",
               "offset_bits": 16,
               "size_bits": 16,
-              "type": null,
+              "type": "bit_string",
               "optional": false,
               "presence_condition": null,
-              "description": "The port to which a response should be addressed.",
               "constraints": []
             },
             {
@@ -42,13 +40,22 @@
               "display_name": "Length",
               "offset_bits": 32,
               "size_bits": 16,
-              "type": null,
+              "type": "bit_string",
               "optional": false,
               "presence_condition": null,
-              "description": "The length in octets of this user datagram including this header and the data.",
               "constraints": [
                 "length >= 8"
               ]
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": 48,
+              "size_bits": 16,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
             }
           ],
           "constraints": [],
@@ -56,13 +63,7 @@
           "serialize_to": null
         }
       ],
-      "array_types": [
-        {
-          "name": "udp_data",
-          "element_type": "byte",
-          "length": "length - 8"
-        }
-      ],
+      "array_types": [],
       "parsing_context": [],
       "helper_functions": [],
       "transform_functions": []

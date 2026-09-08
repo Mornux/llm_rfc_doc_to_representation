@@ -1,0 +1,95 @@
+{
+  "protocol": "Generic Routing Encapsulation",
+  "rfc": "2784",
+  "packet": [
+    {
+      "name": "GRE_Header_Diagram",
+      "pdus": [
+        "payload_packet"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "gre_header_structure",
+          "header_size_bytes": null,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "checksum_present_bit_0",
+              "display_name": "C",
+              "offset_bits": 0,
+              "size_bits": 1,
+              "type": null,
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "reserved_0_fields_reserved_zero",
+              "display_name": "Reserved0       | Ver (Remaining bits of first 32-bit word)",
+              "offset_bits": 1,
+              "size_bits": 12,
+              "type": null,
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "version_field_ver",
+              "display_name": "Ver | Protocol Type (Part of first row)",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": null,
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "protocol_type_field_protocol",
+              "display_name": "Protocol Type (Lower 32 bits)",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": null,
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": 32,
+              "size_bits": 16,
+              "type": null,
+              "optional": true,
+              "presence_condition": "checksum_present_bit_0 == 1",
+              "constraints": [
+                "checksum is the IP one's complement checksum of all 16-bit words in the GRE header and payload packet",
+                "checksum value is treated as zero when computing the checksum"
+              ]
+            },
+            {
+              "name": "reserved1",
+              "display_name": "Reserved1",
+              "offset_bits": 48,
+              "size_bits": 16,
+              "type": null,
+              "optional": true,
+              "presence_condition": "checksum_present_bit_0 == 1",
+              "constraints": [
+                "value == 0 when present"
+              ]
+            }
+          ],
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

@@ -1,0 +1,370 @@
+{
+  "protocol": "TFTP",
+  "rfc": "1350",
+  "packet": [
+    {
+      "name": "RRQ/WRQ Packet (Request)",
+      "pdus": [
+        "RRQ",
+        "WRQ"
+      ],
+      "bit_string_types": [
+        {
+          "name": "Opcode",
+          "size_bits": 2
+        },
+        {
+          "name": "Filename",
+          "size_bits": "n"
+        },
+        {
+          "name": "Mode",
+          "size_bits": 1
+        }
+      ],
+      "enumerated_types": [
+        {
+          "name": "Opcode",
+          "variants": [
+            {
+              "name": "RRQ",
+              "type": "1",
+              "condition": null
+            },
+            {
+              "name": "WRQ",
+              "type": "2",
+              "condition": null
+            }
+          ]
+        },
+        {
+          "name": "Mode",
+          "variants": [
+            {
+              "name": "netascii",
+              "type": "netascii",
+              "condition": null
+            },
+            {
+              "name": "octet",
+              "type": "octet",
+              "condition": null
+            },
+            {
+              "name": "mail",
+              "type": "mail",
+              "condition": null
+            }
+          ]
+        }
+      ],
+      "structure_types": [
+        {
+          "name": "RRQ/WRQ Packet Structure",
+          "header_size_bytes": 4,
+          "byte_order": "network",
+          "fields": [
+            {
+              "name": "opcode",
+              "display_name": "Opcode",
+              "offset_bits": 0,
+              "size_bits": 2,
+              "type": "unsigned short",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "opcode in {1, 2}"
+              ]
+            },
+            {
+              "name": "filename",
+              "display_name": "Filename",
+              "offset_bits": 2,
+              "size_bits": "n",
+              "type": "string",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "mode",
+              "display_name": "Mode",
+              "offset_bits": "2 + n",
+              "size_bits": 1,
+              "type": "string",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "mode in {netascii, octet, mail}"
+              ]
+            }
+          ],
+          "constraints": [
+            "if opcode == 1, filename is filename, mode is netascii",
+            "if opcode == 2, filename is filename, mode is netascii"
+          ]
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [
+        {
+          "name": "TFTP Packet Type",
+          "type": "enum"
+        }
+      ],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "DATA Packet",
+      "pdus": [
+        "DATA"
+      ],
+      "bit_string_types": [
+        {
+          "name": "Opcode",
+          "size_bits": 2
+        },
+        {
+          "name": "Block #",
+          "size_bits": 2
+        },
+        {
+          "name": "Data",
+          "size_bits": "512"
+        }
+      ],
+      "enumerated_types": [
+        {
+          "name": "Opcode",
+          "variants": [
+            {
+              "name": "DATA",
+              "type": "3",
+              "condition": null
+            }
+          ]
+        }
+      ],
+      "structure_types": [
+        {
+          "name": "DATA Packet Structure",
+          "header_size_bytes": 4,
+          "byte_order": "network",
+          "fields": [
+            {
+              "name": "opcode",
+              "display_name": "Opcode",
+              "offset_bits": 0,
+              "size_bits": 2,
+              "type": "unsigned short",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "opcode == 3"
+              ]
+            },
+            {
+              "name": "block_number",
+              "display_name": "Block #",
+              "offset_bits": 2,
+              "size_bits": 2,
+              "type": "unsigned short",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "block_number >= 1"
+              ]
+            },
+            {
+              "name": "data",
+              "display_name": "Data",
+              "offset_bits": "4",
+              "size_bits": "512",
+              "type": "octet string",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "0 <= length <= 512"
+              ]
+            }
+          ],
+          "constraints": [
+            "block_number >= 1",
+            "0 <= length <= 512"
+          ]
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [
+        {
+          "name": "TFTP Packet Type",
+          "type": "enum"
+        }
+      ],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "ACK Packet",
+      "pdus": [
+        "ACK"
+      ],
+      "bit_string_types": [
+        {
+          "name": "Opcode",
+          "size_bits": 2
+        },
+        {
+          "name": "Block #",
+          "size_bits": 2
+        }
+      ],
+      "enumerated_types": [
+        {
+          "name": "Opcode",
+          "variants": [
+            {
+              "name": "ACK",
+              "type": "4",
+              "condition": null
+            }
+          ]
+        }
+      ],
+      "structure_types": [
+        {
+          "name": "ACK Packet Structure",
+          "header_size_bytes": 4,
+          "byte_order": "network",
+          "fields": [
+            {
+              "name": "opcode",
+              "display_name": "Opcode",
+              "offset_bits": 0,
+              "size_bits": 2,
+              "type": "unsigned short",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "opcode == 4"
+              ]
+            },
+            {
+              "name": "block_number",
+              "display_name": "Block #",
+              "offset_bits": "2",
+              "size_bits": "2",
+              "type": "unsigned short",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "block_number >= 0"
+              ]
+            }
+          ],
+          "constraints": [
+            "block_number >= 0"
+          ]
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [
+        {
+          "name": "TFTP Packet Type",
+          "type": "enum"
+        }
+      ],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "ERROR Packet",
+      "pdus": [
+        "ERROR"
+      ],
+      "bit_string_types": [
+        {
+          "name": "Opcode",
+          "size_bits": 2
+        },
+        {
+          "name": "ErrorCode",
+          "size_bits": "n"
+        },
+        {
+          "name": "ErrMsg",
+          "size_bits": "n"
+        }
+      ],
+      "enumerated_types": [
+        {
+          "name": "Opcode",
+          "variants": [
+            {
+              "name": "ERROR",
+              "type": "5",
+              "condition": null
+            }
+          ]
+        }
+      ],
+      "structure_types": [
+        {
+          "name": "ERROR Packet Structure",
+          "header_size_bytes": 4,
+          "byte_order": "network",
+          "fields": [
+            {
+              "name": "opcode",
+              "display_name": "Opcode",
+              "offset_bits": 0,
+              "size_bits": 2,
+              "type": "unsigned short",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "opcode == 5"
+              ]
+            },
+            {
+              "name": "error_code",
+              "display_name": "ErrorCode",
+              "offset_bits": "2",
+              "size_bits": "n",
+              "type": "unsigned int",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "error_code in {0, 1, 2, 3, 4, 5, 6, 7}"
+              ]
+            },
+            {
+              "name": "err_msg",
+              "display_name": "ErrMsg",
+              "offset_bits": "2 + n",
+              "size_bits": "n",
+              "type": "string",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            }
+          ],
+          "constraints": [
+            "error_code in {0, 1, 2, 3, 4, 5, 6, 7}"
+          ]
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [
+        {
+          "name": "TFTP Packet Type",
+          "type": "enum"
+        }
+      ],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "protocol": "IPv6",
+  "rfc": "RFC 8200",
+  "packet": [
+    {
+      "name": "ipv6_packet",
+      "pdus": [
+        "ipv6_header",
+        "hop_by_hop_options_header",
+        "routing_header",
+        "fragment_header",
+        "destination_options_header",
+        "upper_layer_header"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "ipv6_header",
+          "header_size_bytes": 40,
+          "byte_order": "big_endian",
+          "fields": [
+            {
+              "name": "version",
+              "display_name": "Version",
+              "offset_bits": 0,
+              "size_bits": 4,
+              "type": "bit_string_type",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "value == 6"
+              ]
+            }
+          ],
+          "presence_condition": null,
+          "constraints": [
+            "payload_length_unit_octets_count = length_of_payload_in_octets"
+          ]
+        },
+        "parse_from"
+      ]
+    }
+  ]
+}

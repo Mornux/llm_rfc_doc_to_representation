@@ -1,0 +1,95 @@
+{
+  "protocol": "Generic Routing Encapsulation",
+  "rfc": "RFC 2784",
+  "packet": [
+    {
+      "name": "gre_header_diagram",
+      "pdus": [
+        "gre_header"
+      ],
+      "bit_string_types": [
+        {
+          "name": "reserved0",
+          "size_bits": 5
+        },
+        {
+          "name": "checksum_reserved",
+          "size_bits": 32
+        },
+        {
+          "name": "protocol_type_value",
+          "size_bits": 16
+        }
+      ],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "gre_header",
+          "header_size_bytes": null,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "c",
+              "display_name": "C",
+              "offset_bits": 0,
+              "size_bits": 1,
+              "type": null,
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "reserved0",
+              "display_name": "Reserved0",
+              "offset_bits": 1,
+              "size_bits": 12,
+              "type": null,
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "ver",
+              "display_name": "Ver",
+              "offset_bits": 13,
+              "size_bits": 3,
+              "type": null,
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "protocol_type",
+              "display_name": "Protocol Type",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": "protocol_type_value",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "if the payload is IPv4, value == 0x800"
+              ]
+            },
+            {
+              "name": "checksum_reserved",
+              "display_name": "Checksum (optional) | Reserved1 (Optional)",
+              "offset_bits": 32,
+              "size_bits": 32,
+              "type": null,
+              "optional": true,
+              "presence_condition": "c == 1",
+              "constraints": []
+            }
+          ],
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

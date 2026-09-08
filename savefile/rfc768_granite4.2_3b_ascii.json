@@ -1,0 +1,1 @@
+"{\n  \"protocol\": \"udp\",\n  \"rfc\": \"The packet diagram is from RFC section describing UDP header format. We have candidate diagrams for UDP? The input includes RFC document with candidate number=1 lines describing User Datagram Header Format (UDP). So protocol is udp. rfc: we need to provide the rfc identifier; likely \"    \t \t \t \t \t \t \t \t \t \t \t \t \t \t \t"

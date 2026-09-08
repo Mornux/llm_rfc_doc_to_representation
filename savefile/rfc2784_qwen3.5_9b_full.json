@@ -1,0 +1,137 @@
+{
+  "protocol": "GRE",
+  "rfc": "RFC2784",
+  "packet": [
+    {
+      "name": "Gre_Packet",
+      "pdus": [
+        "gre"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "delivery_header",
+          "header_size_bytes": null,
+          "byte_order": null,
+          "fields": [],
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        },
+        {
+          "name": "gre_header",
+          "header_size_bytes": 20,
+          "byte_order": "network",
+          "fields": [
+            {
+              "name": "checksum_present",
+              "display_name": "Checksum Present",
+              "offset_bits": 0,
+              "size_bits": 1,
+              "type": "boolean",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "reserved_0_low",
+              "display_name": "Reserved (low bits)",
+              "offset_bits": 1,
+              "size_bits": 5,
+              "type": "bits",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": [
+                "bits 6-12 are reserved for future use"
+              ]
+            },
+            {
+              "name": "reserved_0_high",
+              "display_name": "Reserved (high bits)",
+              "offset_bits": 6,
+              "size_bits": 7,
+              "type": "bits",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": [
+                "these bits MUST be sent as zero and MUST be ignored on receipt"
+              ]
+            },
+            {
+              "name": "version",
+              "display_name": "Version Number",
+              "offset_bits": 13,
+              "size_bits": 3,
+              "type": "integer",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": [
+                "version == 0"
+              ]
+            },
+            {
+              "name": "protocol_type",
+              "display_name": "Protocol Type",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": "integer",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": 32,
+              "size_bits": 16,
+              "type": "integer",
+              "optional": true,
+              "presence_condition": "checksum_present == 1",
+              "constraints": []
+            },
+            {
+              "name": "reserved_1",
+              "display_name": "Reserved1",
+              "offset_bits": 48,
+              "size_bits": 16,
+              "type": "bits",
+              "optional": true,
+              "presence_condition": "checksum_present == 1",
+              "constraints": [
+                "transmitted as zero"
+              ]
+            }
+          ],
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        },
+        {
+          "name": "payload",
+          "header_size_bytes": null,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "payload_packet",
+              "display_name": "Payload packet",
+              "offset_bits": 48,
+              "size_bits": "null",
+              "type": "structure",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            }
+          ],
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

@@ -1,0 +1,372 @@
+{
+  "protocol": "TCP",
+  "rfc": "9293",
+  "packet": [
+    {
+      "name": "TCP Header",
+      "pdus": [
+        "TCP Segment"
+      ],
+      "bit_string_types": [
+        {
+          "name": "Source Port",
+          "size_bits": 16
+        },
+        {
+          "name": "Destination Port",
+          "size_bits": 16
+        },
+        {
+          "name": "Sequence Number",
+          "size_bits": 32
+        },
+        {
+          "name": "Acknowledgment Number",
+          "size_bits": 32
+        },
+        {
+          "name": "Data Offset",
+          "size_bits": 4
+        },
+        {
+          "name": "Reserved",
+          "size_bits": 4
+        },
+        {
+          "name": "CWR",
+          "size_bits": 1
+        },
+        {
+          "name": "ECE",
+          "size_bits": 1
+        },
+        {
+          "name": "URG",
+          "size_bits": 1
+        },
+        {
+          "name": "ACK",
+          "size_bits": 1
+        },
+        {
+          "name": "PSH",
+          "size_bits": 1
+        },
+        {
+          "name": "RST",
+          "size_bits": 1
+        },
+        {
+          "name": "SYN",
+          "size_bits": 1
+        },
+        {
+          "name": "FIN",
+          "size_bits": 1
+        }
+      ],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "TCP Header",
+          "header_size_bytes": "20 + (DOffset - 5) / 4",
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "source_port",
+              "display_name": "Source Port",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": "ushort",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "destination_port",
+              "display_name": "Destination Port",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": "ushort",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "sequence_number",
+              "display_name": "Sequence Number",
+              "offset_bits": 0,
+              "size_bits": 32,
+              "type": "uint32",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "acknowledgment_number",
+              "display_name": "Acknowledgment Number",
+              "offset_bits": 32,
+              "size_bits": 32,
+              "type": "uint32",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "data_offset",
+              "display_name": "Data Offset",
+              "offset_bits": 64,
+              "size_bits": 4,
+              "type": "uint",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "reserved",
+              "display_name": "Reserved",
+              "offset_bits": 68,
+              "size_bits": 4,
+              "type": "reserved",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "cwr",
+              "display_name": "CWR",
+              "offset_bits": 72,
+              "size_bits": 1,
+              "type": "flag",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "ece",
+              "display_name": "ECE",
+              "offset_bits": 73,
+              "size_bits": 1,
+              "type": "flag",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "urg",
+              "display_name": "URG",
+              "offset_bits": 74,
+              "size_bits": 1,
+              "type": "flag",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "ack",
+              "display_name": "ACK",
+              "offset_bits": 75,
+              "size_bits": 1,
+              "type": "flag",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "psh",
+              "display_name": "PSH",
+              "offset_bits": 76,
+              "size_bits": 1,
+              "type": "flag",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "rst",
+              "display_name": "RST",
+              "offset_bits": 77,
+              "size_bits": 1,
+              "type": "flag",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "syn",
+              "display_name": "SYN",
+              "offset_bits": 78,
+              "size_bits": 1,
+              "type": "flag",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "fin",
+              "display_name": "FIN",
+              "offset_bits": 79,
+              "size_bits": 1,
+              "type": "flag",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "window",
+              "display_name": "Window",
+              "offset_bits": 80,
+              "size_bits": 16,
+              "type": "ushort",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": 96,
+              "size_bits": 16,
+              "type": "ushort",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "urgent_pointer",
+              "display_name": "Urgent Pointer",
+              "offset_bits": 112,
+              "size_bits": 16,
+              "type": "ushort",
+              "optional": true,
+              "presence_condition": "urg == 1",
+              "constraints": []
+            },
+            {
+              "name": "options",
+              "display_name": "Options",
+              "offset_bits": 128,
+              "size_bits": "var",
+              "type": "option_list",
+              "optional": true,
+              "presence_condition": "data_offset > 5",
+              "constraints": []
+            },
+            {
+              "name": "data",
+              "display_name": "Data",
+              "offset_bits": 128,
+              "size_bits": "var",
+              "type": "data",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            }
+          ],
+          "constraints": [
+            "window is unsigned",
+            "checksum is 16-bit ones' complement of the ones' complement sum of all 16-bit words in the header and text."
+          ],
+          "parse_from": "figure_1",
+          "serialize_to": "figure_1"
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "TCP Option",
+      "pdus": [],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "End of Option List Option",
+          "header_size_bytes": 2,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "kind",
+              "display_name": "Kind",
+              "offset_bits": 0,
+              "size_bits": 8,
+              "type": "uint8",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            }
+          ],
+          "constraints": [],
+          "parse_from": "table_1",
+          "serialize_to": "table_1"
+        },
+        {
+          "name": "No-Operation Option",
+          "header_size_bytes": 2,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "kind",
+              "display_name": "Kind",
+              "offset_bits": 0,
+              "size_bits": 8,
+              "type": "uint8",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            }
+          ],
+          "constraints": [],
+          "parse_from": "table_1",
+          "serialize_to": "table_1"
+        },
+        {
+          "name": "Maximum Segment Size Option",
+          "header_size_bytes": 4,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "kind",
+              "display_name": "Kind",
+              "offset_bits": 0,
+              "size_bits": 8,
+              "type": "uint8",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "length",
+              "display_name": "Length",
+              "offset_bits": 8,
+              "size_bits": 8,
+              "type": "uint8",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "mss",
+              "display_name": "Maximum Segment Size (MSS)",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": "ushort",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            }
+          ],
+          "constraints": [],
+          "parse_from": "table_1",
+          "serialize_to": "table_1"
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

@@ -1,0 +1,138 @@
+{
+  "protocol": "TCP",
+  "rfc": "RFC 9293 packet-diagram candidates were located locally.",
+  "packet": [
+    {
+      "name": "tcp_segment",
+      "pdus": [
+        "tcp_segment"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "tcp_header",
+          "header_size_bytes": 24,
+          "byte_order": "little",
+          "fields": [
+            {
+              "name": "source_port",
+              "display_name": "Source Port",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": null,
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "dest_port",
+              "display_name": "Destination Port",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": null,
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "sequence_number",
+              "display_name": "Sequence Number",
+              "offset_bits": 32,
+              "size_bits": 32,
+              "type": null,
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "acknowledgment_number",
+              "display_name": "Acknowledgment Number",
+              "offset_bits": 40,
+              "size_bits": 32,
+              "type": null,
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "data_offset",
+              "display_name": "Data Offset",
+              "offset_bits": 48,
+              "size_bits": 8,
+              "type": null,
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "check_sum",
+              "display_name": "Checksum",
+              "offset_bits": 56,
+              "size_bits": 16,
+              "type": null,
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "urgent_pointer",
+              "display_name": "Urgent Pointer",
+              "offset_bits": 64,
+              "size_bits": 8,
+              "type": null,
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "window_size",
+              "display_name": "Window Size",
+              "offset_bits": 72,
+              "size_bits": 16,
+              "type": null,
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "flags",
+              "display_name": "TCP Flags (reserved bits for TCP options)",
+              "offset_bits": 80,
+              "size_bits": 8,
+              "type": null,
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "options",
+              "display_name": "TCP Options (as described in RFC)",
+              "offset_bits": 88,
+              "size_bits": null,
+              "type": null,
+              "optional": false,
+              "presence_condition": "kind == 2 || kind == 1",
+              "constraints": []
+            }
+          ],
+          "constraints": [
+            "data_offset <= total_length"
+          ],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [
+        {
+          "name": "option_list",
+          "element_type": "tcp_option",
+          "length": "variable"
+        }
+      ],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

@@ -1,0 +1,95 @@
+{
+  "protocol": "Generic Routing Encapsulation (GRE)",
+  "rfc": "RFC 2784",
+  "packet": [
+    {
+      "name": "GRE Header",
+      "pdus": [
+        "GRE_Header"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "gre_header",
+          "header_size_bytes": 14,
+          "byte_order": "little-endian",
+          "fields": [
+            {
+              "name": "version_or_reserved0",
+              "display_name": "Version/Reserved0 Field",
+              "offset_bits": 0,
+              "size_bits": 8,
+              "type": "integer",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "version == 0"
+              ]
+            },
+            {
+              "name": "checksum_present_bit",
+              "display_name": "Checksum Present Bit",
+              "offset_bits": 8,
+              "size_bits": 1,
+              "type": "integer",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "checksum_present_bit == 0 OR 1"
+              ]
+            },
+            {
+              "name": "protocol_type",
+              "display_name": "Protocol Type Field",
+              "offset_bits": 9,
+              "size_bits": 16,
+              "type": "integer",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "protocol_type in [0..65535]"
+              ]
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum Field",
+              "offset_bits": 25,
+              "size_bits": 16,
+              "type": "integer",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "checksum present iff checksum_present_bit == 1"
+              ]
+            },
+            {
+              "name": "reserved1",
+              "display_name": "Reserved1 Field",
+              "offset_bits": 41,
+              "size_bits": 16,
+              "type": "integer",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "reserved1 == 0 OR checksum present? (when checksum present it's zero anyway)"
+              ]
+            }
+          ],
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [
+        {
+          "name": "packet",
+          "type": "string"
+        }
+      ],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

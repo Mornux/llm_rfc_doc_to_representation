@@ -1,40 +1,49 @@
-model_name                    method              anls                average_precision   average_recall      average_f1          
-deepseek-v4-flash_cloud       ascii               0.56                0.71                0.84                0.77                
-deepseek-v4-flash_cloud       full                0.53                0.68                0.88                0.76                
-deepseek-v4-flash_cloud       llm_ascii           0.58                0.72                0.82                0.77                
-gemma4_12b                    ascii               0.39                0.41                0.24                0.30                
-gemma4_12b                    full                0.20                0.73                0.22                0.34                
-gemma4_12b                    llm_ascii           0.11                0.59                0.08                0.14                
-gemma4_31b                    llm_ascii           0.44                0.67                0.53                0.59                
-gemma4_31b-cloud              ascii               0.45                0.73                0.55                0.63                
-gemma4_31b-cloud              full                0.48                0.78                0.60                0.68                
-gemma4_e2b                    ascii               0.30                0.58                0.28                0.38                
-gemma4_e2b                    full                0.31                0.49                0.23                0.31                
-gemma4_e2b                    llm_ascii           0.36                0.49                0.31                0.38                
-gemma4_e4b                    ascii               0.40                0.47                0.36                0.41                
-gemma4_e4b                    full                0.26                0.00                0.00                0.00                
-gemma4_e4b                    llm_ascii           0.47                0.54                0.41                0.47                
-gpt-oss_120b-cloud            ascii               0.46                0.61                0.47                0.53                
-gpt-oss_120b-cloud            full                0.49                0.71                0.59                0.64                
-gpt-oss_120b-cloud            llm_ascii           0.46                0.60                0.48                0.53                
-gpt-oss_20b                   ascii               0.00                0.00                0.00                0.00                
-gpt-oss_20b                   full                0.16                0.00                0.00                0.00                
-gpt-oss_20b-cloud             ascii               0.29                0.60                0.26                0.36                
-gpt-oss_20b-cloud             full                0.27                0.62                0.26                0.36                
-gpt-oss_20b-cloud             llm_ascii           0.52                0.69                0.56                0.62                
-granite3.3_2b                 ascii               0.29                0.25                0.12                0.16                
-granite3.3_2b                 full                0.36                0.37                0.23                0.28                
-granite3.3_2b                 llm_ascii           0.24                0.23                0.10                0.14                
-granite3.3_8b                 ascii               0.23                0.65                0.23                0.34                
-granite3.3_8b                 full                0.22                0.62                0.21                0.32                
-granite3.3_8b                 llm_ascii           0.24                0.64                0.22                0.33                
-qwen3.5_0.8b                  ascii               0.36                0.05                0.07                0.06                
-qwen3.5_0.8b                  full                0.00                0.00                0.00                0.00                
-qwen3.5_2b                    ascii               0.22                0.18                0.07                0.11                
-qwen3.5_2b                    full                0.37                0.29                0.19                0.23                
-qwen3.5_4b                    ascii               0.28                0.40                0.17                0.23                
-qwen3.5_4b                    full                0.31                0.59                0.24                0.34                
-qwen3.5_4b                    llm_ascii           0.23                0.60                0.21                0.31                
-qwen3.5_9b                    ascii               0.33                0.77                0.27                0.40                
-qwen3.5_9b                    full                0.00                0.00                0.00                0.00                
-qwen3.5_9b                    llm_ascii           0.46                0.30                0.28                0.29                
+model_name                    method              anls                attribute_accuracy  average_precision   average_recall      average_f1          
+deepseek-v4-flash_cloud       ascii               0.56                0.49                0.66                0.55                0.57                
+deepseek-v4-flash_cloud       full                0.29                0.33                0.29                0.32                0.30                
+deepseek-v4-flash_cloud       llm_ascii           0.57                0.71                0.40                0.56                0.45                
+gemma4_12b                    ascii               0.39                0.50                0.61                0.30                0.38                
+gemma4_12b                    full                0.41                0.79                0.64                0.32                0.42                
+gemma4_12b                    llm_ascii           0.44                0.62                0.30                0.13                0.18                
+gemma4_26b                    ascii               0.55                0.80                0.67                0.46                0.52                
+gemma4_26b                    full                0.49                0.47                0.54                0.38                0.45                
+gemma4_26b                    llm_ascii           0.60                0.69                0.44                0.40                0.41                
+gemma4_31b                    full                0.90                0.95                0.91                0.89                0.90                
+gemma4_31b-cloud              ascii               0.50                0.43                0.61                0.37                0.44                
+gemma4_31b-cloud              full                0.46                0.27                0.27                0.21                0.24                
+gemma4_e2b                    ascii               0.39                0.38                0.32                0.19                0.23                
+gemma4_e2b                    full                0.45                0.36                0.35                0.22                0.27                
+gemma4_e2b                    llm_ascii           0.23                0.20                0.27                0.12                0.16                
+gemma4_e4b                    ascii               0.36                0.29                0.48                0.21                0.27                
+gemma4_e4b                    full                0.59                0.43                0.35                0.31                0.32                
+gemma4_e4b                    llm_ascii           0.51                0.30                0.29                0.19                0.23                
+granite3.3_2b                 ascii               0.33                0.10                0.18                0.11                0.13                
+granite3.3_2b                 full                0.39                0.24                0.16                0.16                0.15                
+granite3.3_2b                 llm_ascii           0.39                0.19                0.15                0.09                0.11                
+granite3.3_8b                 ascii               0.36                0.31                0.54                0.22                0.30                
+granite3.3_8b                 full                0.48                0.51                0.59                0.33                0.41                
+granite3.3_8b                 llm_ascii           0.46                0.52                0.62                0.32                0.42                
+granite4.2_30b                ascii               0.46                0.61                0.60                0.33                0.41                
+granite4.2_30b                full                0.65                0.80                0.41                0.33                0.36                
+granite4.2_30b                llm_ascii           0.44                0.72                0.61                0.29                0.34                
+granite4.2_3b                 ascii               0.25                0.10                0.23                0.11                0.13                
+granite4.2_3b                 full                0.47                0.46                0.52                0.28                0.37                
+granite4.2_3b                 llm_ascii           0.12                0.00                0.00                0.00                0.00                
+granite4.2_8b                 ascii               0.51                0.35                0.51                0.34                0.39                
+granite4.2_8b                 full                0.44                0.62                0.50                0.26                0.34                
+granite4.2_8b                 llm_ascii           0.06                0.00                0.05                0.00                0.01                
+qwen3.5_0.8b                  ascii               0.25                0.08                0.10                0.03                0.04                
+qwen3.5_0.8b                  full                0.08                0.00                0.17                0.00                0.00                
+qwen3.5_0.8b                  llm_ascii           0.05                0.00                0.00                0.00                0.00                
+qwen3.5_27b                   ascii               0.49                0.77                0.48                0.33                0.37                
+qwen3.5_27b                   full                0.54                0.76                0.32                0.18                0.21                
+qwen3.5_27b                   llm_ascii           0.49                0.68                0.79                0.46                0.51                
+qwen3.5_2b                    ascii               0.25                0.05                0.15                0.02                0.04                
+qwen3.5_2b                    full                0.24                0.13                0.26                0.04                0.05                
+qwen3.5_2b                    llm_ascii           0.35                0.12                0.32                0.12                0.17                
+qwen3.5_4b                    ascii               0.20                0.10                0.38                0.08                0.11                
+qwen3.5_4b                    full                0.35                0.43                0.72                0.25                0.30                
+qwen3.5_4b                    llm_ascii           0.16                0.26                0.60                0.09                0.14                
+qwen3.5_9b                    ascii               0.46                0.37                0.29                0.17                0.20                
+qwen3.5_9b                    full                0.50                0.65                0.33                0.21                0.24                
+qwen3.5_9b                    llm_ascii           0.43                0.45                0.32                0.15                0.20                

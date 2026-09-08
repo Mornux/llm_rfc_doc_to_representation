@@ -1,0 +1,136 @@
+{
+  "protocol": "IPv6",
+  "rfc": "RFC 8200",
+  "packet": [
+    {
+      "name": "ipv6_base_header",
+      "pdus": [
+        "IPv6 header"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "ipv6_header_structure",
+          "header_size_bytes": 40,
+          "byte_order": "big-endian",
+          "fields": [
+            {
+              "name": "version",
+              "display_name": "Version",
+              "offset_bits": 0,
+              "size_bits": 4,
+              "type": "integer",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "value==6"
+              ]
+            },
+            {
+              "name": "traffic_class",
+              "display_name": "Traffic Class",
+              "offset_bits": 4,
+              "size_bits": 8,
+              "type": "integer",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "flow_label",
+              "display_name": "Flow Label",
+              "offset_bits": 12,
+              "size_bits": 20,
+              "type": "integer",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "payload_length",
+              "display_name": "Payload Length",
+              "offset_bits": 32,
+              "size_bits": 16,
+              "type": "integer",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "payload_length>=0"
+              ]
+            },
+            {
+              "name": "next_header",
+              "display_name": "Next Header",
+              "offset_bits": 48,
+              "size_bits": 8,
+              "type": "integer",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "hop_limit",
+              "display_name": "Hop Limit",
+              "offset_bits": 56,
+              "size_bits": 8,
+              "type": "integer",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "0<hop_limit<=255"
+              ]
+            },
+            {
+              "name": "source_address",
+              "display_name": "Source Address",
+              "offset_bits": 64,
+              "size_bits": 128,
+              "type": "address",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "destination_address",
+              "display_name": "Destination Address",
+              "offset_bits": 192,
+              "size_bits": 128,
+              "type": "address",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            }
+          ],
+          "constraints": []
+        },
+        "ipv6_extension_headers_structure",
+        {
+          "header_size_bytes": null,
+          "byte_order": "big-endian",
+          "fields": [],
+          "constraints": []
+        }
+      ],
+      "array_types": [
+        {
+          "name": "extension_headers",
+          "element_type": "header_variant",
+          "length": null
+        }
+      ],
+      "parsing_context": [
+        {
+          "name": "next_header_value",
+          "type": "integer"
+        }
+      ],
+      "helper_functions": [
+        {
+          "name": "calculate_payload_length"
+        }
+      ],
+      "transform_functions": []
+    }
+  ]
+}

@@ -1,0 +1,234 @@
+{
+  "protocol": "TCP",
+  "rfc": "RFC 9293",
+  "packet": [
+    {
+      "name": "tcp_segment",
+      "pdus": [
+        "tcp_header"
+      ],
+      "bit_string_types": [
+        {
+          "name": "source_port_value",
+          "size_bits": 16
+        }
+      ],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "tcp_header",
+          "header_size_bytes": null,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "source_port",
+              "display_name": "Source Port",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": "source_port_value",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "destination_port",
+              "display_name": "Destination Port",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "sequence_number",
+              "display_name": "Sequence Number",
+              "offset_bits": 32,
+              "size_bits": 32,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "acknowledgment_number",
+              "display_name": "Acknowledgment Number",
+              "offset_bits": 64,
+              "size_bits": 32,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "data_offset",
+              "display_name": "Data Offset",
+              "offset_bits": 96,
+              "size_bits": 4,
+              "type": null,
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "value is the number of 32-bit words in the TCP header"
+              ]
+            },
+            {
+              "name": "reserved",
+              "display_name": "Reserved",
+              "offset_bits": 100,
+              "size_bits": 4,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "cwr",
+              "display_name": "CWR",
+              "offset_bits": 104,
+              "size_bits": 1,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "ece",
+              "display_name": "ECE",
+              "offset_bits": 105,
+              "size_bits": 1,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "urg",
+              "display_name": "URG",
+              "offset_bits": 106,
+              "size_bits": 1,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "ack",
+              "display_name": "ACK",
+              "offset_bits": 107,
+              "size_bits": 1,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "psh",
+              "display_name": "PSH",
+              "offset_bits": 108,
+              "size_bits": 1,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "rst",
+              "display_name": "RST",
+              "offset_bits": 109,
+              "size_bits": 1,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "syn",
+              "display_name": "SYN",
+              "offset_bits": 110,
+              "size_bits": 1,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "fin",
+              "display_name": "FIN",
+              "offset_bits": 111,
+              "size_bits": 1,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": 112,
+              "size_bits": 16,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "urgent_pointer",
+              "display_name": "Urgent Pointer",
+              "offset_bits": 128,
+              "size_bits": 16,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "options",
+              "display_name": "Options",
+              "offset_bits": 144,
+              "size_bits": null,
+              "type": "tcp_options_bytes",
+              "optional": true,
+              "presence_condition": "data_offset > 5",
+              "constraints": []
+            }
+          ],
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "end_of_option_list_option",
+      "pdus": [
+        "end_of_option_list_option"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "end_of_option_list_option",
+          "fields": [
+            {
+              "name": "kind",
+              "display_name": "Kind",
+              "offset_bits": 0,
+              "size_bits": 8,
+              "type": null,
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "value == 0"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

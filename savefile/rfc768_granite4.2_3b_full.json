@@ -1,0 +1,91 @@
+{
+  "protocol": "User Datagram Protocol",
+  "rfc": "RFC 768",
+  "packet": [
+    {
+      "name": "udp_header",
+      "pdus": [
+        "udp"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "udp_header",
+          "header_size_bytes": 3,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "source_port",
+              "display_name": "Source Port",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": null,
+              "optional": true,
+              "presence_condition": null,
+              "constraints": [
+                "source_port >= 0"
+              ]
+            },
+            {
+              "name": "destination_port",
+              "display_name": "Destination Port",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": null,
+              "optional": true,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "length",
+              "display_name": "Length (in octets)",
+              "offset_bits": 32,
+              "size_bits": 16,
+              "type": null,
+              "optional": true,
+              "presence_condition": null,
+              "constraints": [
+                "length >= 8"
+              ]
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": 48,
+              "size_bits": 16,
+              "type": null,
+              "optional": true,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "data",
+              "display_name": "Data octets ...",
+              "offset_bits": 64,
+              "size_bits": null,
+              "type": "bit_string",
+              "optional": true,
+              "presence_condition": null,
+              "constraints": []
+            }
+          ],
+          "constraints": [
+            "length >= 8"
+          ],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [
+        {
+          "name": "checksum_pseudo_header",
+          "type": "string"
+        }
+      ],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

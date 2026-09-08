@@ -1,0 +1,72 @@
+{
+  "protocol": "UDP",
+  "rfc": "RFC 1350",
+  "packet": [
+    {
+      "name": "Internet User Datagram Header",
+      "pdus": [
+        "Internet User Datagram Header"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "Internet User Datagram Header",
+          "header_size_bytes": 8,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "source_port",
+              "display_name": "Source Port",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": "unsigned_integer",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "destination_port",
+              "display_name": "Destination Port",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": "unsigned_integer",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "length",
+              "display_name": "Length",
+              "offset_bits": 32,
+              "size_bits": 16,
+              "type": "unsigned_integer",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": 48,
+              "size_bits": 16,
+              "type": "unsigned_integer",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            }
+          ],
+          "constraints": [
+            []
+          ],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

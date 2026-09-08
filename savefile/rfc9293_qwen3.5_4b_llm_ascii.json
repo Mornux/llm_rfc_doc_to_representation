@@ -1,0 +1,17 @@
+{
+  "protocol": "TCP",
+  "rfc": "RFC 9293",
+  "packet": [
+    {
+      "name": "tcp_segment",
+      "pdus": [],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

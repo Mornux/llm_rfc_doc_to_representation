@@ -1,0 +1,19 @@
+{
+  "protocol": "Transmission Control Protocol (TCP)",
+  "rfc": "9293",
+  "packet": [
+    {
+      "name": "TCP Header",
+      "pdus": [
+        "0"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

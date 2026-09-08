@@ -1,0 +1,144 @@
+{
+  "protocol": "TCP/IP",
+  "rfc": "RFC 9293",
+  "packet": [
+    {
+      "name": "IP Header",
+      "pdus": [],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "IP",
+          "header_size_bytes": 20,
+          "byte_order": null,
+          "fields": [],
+          "constraints": [],
+          "parse_from": "None",
+          "serialize_to": "None"
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [
+        "IP"
+      ],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "TCP Segment",
+      "pdus": [],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "TCP",
+          "header_size_bytes": 24,
+          "byte_order": null,
+          "fields": [],
+          "constraints": [],
+          "parse_from": "None",
+          "serialize_to": "None"
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [
+        "TCP"
+      ],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "IP Header PDU",
+      "pdus": [],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "IP",
+          "header_size_bytes": 20,
+          "byte_order": null,
+          "fields": [],
+          "constraints": [],
+          "parse_from": "None",
+          "serialize_to": "None"
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [
+        "IP"
+      ],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "TCP PDU",
+      "pdus": [],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "TCP",
+          "header_size_bytes": 24,
+          "byte_order": null,
+          "fields": [],
+          "constraints": [],
+          "parse_from": "None",
+          "serialize_to": "None"
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [
+        "TCP"
+      ],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "Pseudo Header",
+      "pdus": [],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "TCP Pseudo Header",
+          "header_size_bytes": 96,
+          "byte_order": null,
+          "fields": [],
+          "constraints": [],
+          "parse_from": "None",
+          "serialize_to": "None"
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [
+        "TCP"
+      ],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "Segment Header",
+      "pdus": [],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "TCP Segment",
+          "header_size_bytes": 20,
+          "byte_order": null,
+          "fields": [],
+          "constraints": [],
+          "parse_from": "None",
+          "serialize_to": "None"
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [
+        "TCP"
+      ],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

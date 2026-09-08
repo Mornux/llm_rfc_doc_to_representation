@@ -1,32 +1,28 @@
 {
-  "protocol": "TCP",
+  "protocol": "IP",
   "rfc": "768",
   "packet": [
     {
-      "name": "User Datagram Header Format",
+      "name": "User Datagram Header",
       "pdus": [
-        "User Datagram"
+        "UDP"
       ],
       "bit_string_types": [
         {
           "name": "Source Port",
-          "size_bits": 16,
-          "description": "Port of the sending process, or zero if not used."
+          "size_bits": 16
         },
         {
           "name": "Destination Port",
-          "size_bits": 16,
-          "description": "Port to which a reply should be addressed."
+          "size_bits": 16
         },
         {
           "name": "Length",
-          "size_bits": 16,
-          "description": "Total length of the segment (minimum value is 8)."
+          "size_bits": 16
         },
         {
           "name": "Checksum",
-          "size_bits": 16,
-          "description": "One's complement sum checksum."
+          "size_bits": 16
         }
       ],
       "enumerated_types": [
@@ -36,61 +32,67 @@
             {
               "name": "IP",
               "type": "IP",
-              "condition": null
+              "condition": "true"
             }
           ]
         }
       ],
       "structure_types": [
         {
-          "name": "TCP Header",
-          "header_size_bytes": 20,
+          "name": "UDP Pseudo Header/Checksum Area",
+          "header_size_bytes": 8,
           "byte_order": "network",
           "fields": [
             {
-              "name": "source_port",
-              "display_name": "Source Port",
+              "name": "source_address",
+              "display_name": "Source Address",
               "offset_bits": 0,
-              "size_bits": 16,
-              "type": "uint16",
-              "optional": true,
-              "presence_condition": "true",
-              "description": "Port of the sending process. May be assumed to be the port to which a reply should be addressed. If not used, a value of zero is inserted.",
-              "constraints": []
-            },
-            {
-              "name": "destination_port",
-              "display_name": "Destination Port",
-              "offset_bits": 16,
-              "size_bits": 16,
-              "type": "uint16",
-              "optional": true,
-              "presence_condition": "true",
-              "description": "Port to which a reply should be addressed.",
-              "constraints": []
-            },
-            {
-              "name": "length",
-              "display_name": "Length",
-              "offset_bits": 32,
-              "size_bits": 16,
-              "type": "uint16",
+              "size_bits": 32,
+              "type": "IPv4 Address",
               "optional": false,
               "presence_condition": "true",
-              "description": "Total length of the segment.",
+              "constraints": []
+            },
+            {
+              "name": "destination_address",
+              "display_name": "Destination Address",
+              "offset_bits": 32,
+              "size_bits": 32,
+              "type": "IPv4 Address",
+              "optional": false,
+              "presence_condition": "true",
+              "constraints": []
+            },
+            {
+              "name": "zero",
+              "display_name": "Zero",
+              "offset_bits": 64,
+              "size_bits": 8,
+              "type": "Raw Bytes",
+              "optional": true,
+              "presence_condition": "true",
               "constraints": [
-                "value >= 8"
+                "value == 0"
               ]
             },
             {
-              "name": "checksum",
-              "display_name": "Checksum",
-              "offset_bits": 48,
-              "size_bits": 16,
-              "type": "uint16",
+              "name": "protocol",
+              "display_name": "Protocol",
+              "offset_bits": 72,
+              "size_bits": 8,
+              "type": "Protocol Number",
               "optional": false,
               "presence_condition": "true",
-              "description": "One's complement sum checksum. Calculated over pseudo header information and data.",
+              "constraints": []
+            },
+            {
+              "name": "udp_length",
+              "display_name": "UDP Length",
+              "offset_bits": 80,
+              "size_bits": 16,
+              "type": "Length",
+              "optional": false,
+              "presence_condition": "true",
               "constraints": []
             }
           ],
@@ -101,10 +103,33 @@
           "serialize_to": null
         }
       ],
-      "array_types": [],
-      "parsing_context": [],
-      "helper_functions": [],
-      "transform_functions": []
+      "array_types": [
+        {
+          "name": "data",
+          "element_type": "octet",
+          "length": "length - 8"
+        }
+      ],
+      "parsing_context": [
+        {
+          "name": "Pseudo Header",
+          "type": "IP Header, UDP Header, Data"
+        }
+      ],
+      "helper_functions": [
+        {
+          "name": "checksum_calculation",
+          "from": "source_address, destination_address, protocol, udp_length, data",
+          "to": "checksum"
+        }
+      ],
+      "transform_functions": [
+        {
+          "name": "checksum_generation",
+          "from": "source_address, destination_address, protocol, udp_length, data",
+          "to": "checksum"
+        }
+      ]
     }
   ]
 }

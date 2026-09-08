@@ -1,9 +1,9 @@
 {
-  "protocol": "User Datagram Protocol",
-  "rfc": "768",
+  "protocol": "UDP",
+  "rfc": "RFC 768",
   "packet": [
     {
-      "name": "UDP",
+      "name": "UDP Packet",
       "pdus": [
         "User Datagram Header"
       ],
@@ -20,10 +20,9 @@
               "display_name": "Source Port",
               "offset_bits": 0,
               "size_bits": 16,
-              "type": "bit_string",
-              "optional": true,
+              "type": "bit_string_type",
+              "optional": false,
               "presence_condition": null,
-              "description": "Optional field, when meaningful, it indicates the port of the sending process. If not used, a value of zero is inserted.",
               "constraints": []
             },
             {
@@ -31,10 +30,9 @@
               "display_name": "Destination Port",
               "offset_bits": 16,
               "size_bits": 16,
-              "type": "bit_string",
+              "type": "bit_string_type",
               "optional": false,
               "presence_condition": null,
-              "description": "The port of the destination process.",
               "constraints": []
             },
             {
@@ -42,13 +40,32 @@
               "display_name": "Length",
               "offset_bits": 32,
               "size_bits": 16,
-              "type": "bit_string",
+              "type": "bit_string_type",
               "optional": false,
               "presence_condition": null,
-              "description": "The length of the header and the data. Minimum value is 8.",
               "constraints": [
                 "length >= 8"
               ]
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": 48,
+              "size_bits": 16,
+              "type": "bit_string_type",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "data",
+              "display_name": "Data",
+              "offset_bits": 64,
+              "size_bits": null,
+              "type": "array_type",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
             }
           ],
           "constraints": [
@@ -56,61 +73,18 @@
           ],
           "parse_from": null,
           "serialize_to": null
-        },
-        {
-          "name": "UDP_pseudo_header",
-          "header_size_bytes": 0,
-          "byte_order": null,
-          "fields": [
-            {
-              "name": "source_address",
-              "display_name": "Source Address",
-              "offset_bits": 0,
-              "size_bits": 32,
-              "type": "bit_string",
-              "optional": false,
-              "presence_condition": null,
-              "description": "Source address from IP header.",
-              "constraints": []
-            },
-            {
-              "name": "destination_address",
-              "display_name": "Destination Address",
-              "offset_bits": 32,
-              "size_bits": 32,
-              "type": "bit_string",
-              "optional": false,
-              "presence_condition": null,
-              "description": "Destination address from IP header.",
-              "constraints": [
-                "112 bits_off_the_start_of_this_structure_is_not_a_standard_constraint_format_but_thought_you_needed_it_based_on_how_the_prompt_instructions_were_written_so_im_stickin_to_the_rules_the_rules_say_you_should_only_generate_constraints_that_are_explicitly_stated_in_the_rfc_or_can_be_deterministically_expressed_from_an_rfc_requirement_the_rfc_says_the_pseudo_header_contains_the_source_address_the_destination_address_the_protocol_and_the_udp_length_so_the_fields_are_there_the_sum_of_the_bits_is_determined_by_the_sequence_of_fields_not_by_a_calculation_from_the_start_of_the_structure_actually_i_will_just_leave_it_as_blank_array_to_be_safe_since_the_rfc_is_not_clear_about_the_bit_offsets_within_this_header_relative_to_the_start_of_thethought_process_stopped_here_just_to_be_sure_of_the_logic_because_the_prompt_instructions_were__hard_to_follow_i_will_just_provide_a_clean_schema_adhering_to_the_rules_13_and_14_of_the_instructions_no_constraints_were_explicitly_stated_for_the_fields_of_the_pseudo_header_in_the_text_provided_actually_let_me_rewrite_that_thought_proccess_actually_the_rules_4_5_6_7_and_8_don_t_allow_me_to_guess_inference_is_prohibited_inference_is_forbidden_i_will_just_stick_to_the_rules_and_not_guess_even_the_constraint_logic_]"
-              ],
-              "parse_from": null,
-              "serialize_to": null
-            },
-            {
-              "name": "checksum",
-              "header_size_bytes": 0,
-              "byte_order": null,
-              "fields": [
-                {
-                  "name": "checksum_value",
-                  "display_name": "Checksum",
-                  "offset_bits": 0,
-                  "size_bits": 16,
-                  "type": "bit_string",
-                  "optional": false,
-                  "presence_condition": null,
-                  "description": "The 16-bit one's complement of the one's complement sum of a pseudo header of information from the IP header, the UDP header, and the data.",
-                  "constraints": []
-                }
-              ],
-              "parse_from": null,
-              "serialize_to": null
-            }
-          ]
         }
-      ]
+      ],
+      "array_types": [
+        {
+          "name": "Data Octets",
+          "element_type": "bit_string_type",
+          "length": null
+        }
+      ],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
     }
   ]
 }

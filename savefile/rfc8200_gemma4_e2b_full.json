@@ -1,0 +1,169 @@
+{
+  "protocol": "IPv6",
+  "rfc": "8200",
+  "packet": [
+    {
+      "name": "IPv6 Header",
+      "pdus": [
+        "IPv6 Header"
+      ],
+      "bit_string_types": [
+        {
+          "name": "Version",
+          "size_bits": 4
+        },
+        {
+          "name": "Traffic Class",
+          "size_bits": 8
+        },
+        {
+          "name": "Flow Label",
+          "size_bits": 20
+        },
+        {
+          "name": "Payload Length",
+          "size_bits": 16
+        },
+        {
+          "name": "Next Header",
+          "size_bits": 8
+        },
+        {
+          "name": "Hop Limit",
+          "size_bits": 8
+        },
+        {
+          "name": "Source Address",
+          "size_bits": 128
+        },
+        {
+          "name": "Destination Address",
+          "size_bits": 128
+        }
+      ],
+      "enumerated_types": [
+        {
+          "name": "Next Header",
+          "variants": [
+            {
+              "name": "IPv6 Header",
+              "type": "IPv6 Header"
+            }
+          ]
+        }
+      ],
+      "structure_types": [
+        {
+          "name": "IPv6 Header",
+          "header_size_bytes": 40,
+          "byte_order": "Network Byte Order",
+          "fields": [
+            {
+              "name": "version",
+              "display_name": "Version",
+              "offset_bits": 0,
+              "size_bits": 4,
+              "type": "uint32",
+              "optional": false,
+              "presence_condition": "true",
+              "constraints": []
+            },
+            {
+              "name": "traffic_class",
+              "display_name": "Traffic Class",
+              "offset_bits": 4,
+              "size_bits": 8,
+              "type": "uint8",
+              "optional": false,
+              "presence_condition": "true",
+              "constraints": []
+            },
+            {
+              "name": "flow_label",
+              "display_name": "Flow Label",
+              "offset_bits": 12,
+              "size_bits": 20,
+              "type": "uint32",
+              "optional": false,
+              "presence_condition": "true",
+              "constraints": []
+            },
+            {
+              "name": "payload_length",
+              "display_name": "Payload Length",
+              "offset_bits": 32,
+              "size_bits": 16,
+              "type": "uint16",
+              "optional": false,
+              "presence_condition": "true",
+              "constraints": [
+                "value >= 0"
+              ]
+            },
+            {
+              "name": "next_header",
+              "display_name": "Next Header",
+              "offset_bits": 48,
+              "size_bits": 8,
+              "type": "uint8",
+              "optional": false,
+              "presence_condition": "true",
+              "constraints": []
+            },
+            {
+              "name": "hop_limit",
+              "display_name": "Hop Limit",
+              "offset_bits": 56,
+              "size_bits": 8,
+              "type": "uint8",
+              "optional": false,
+              "presence_condition": "true",
+              "constraints": []
+            },
+            {
+              "name": "source_address",
+              "display_name": "Source Address",
+              "offset_bits": 64,
+              "size_bits": 128,
+              "type": "string",
+              "optional": false,
+              "presence_condition": "true",
+              "constraints": []
+            },
+            {
+              "name": "destination_address",
+              "display_name": "Destination Address",
+              "offset_bits": 192,
+              "size_bits": 128,
+              "type": "string",
+              "optional": false,
+              "presence_condition": "true",
+              "constraints": []
+            }
+          ],
+          "constraints": []
+        }
+      ],
+      "array_types": [
+        {
+          "name": "Extension Headers",
+          "element_type": "Extension Header",
+          "length": "variable"
+        }
+      ],
+      "parsing_context": [
+        {
+          "name": "IANA-PN",
+          "type": "Protocol Numbers"
+        }
+      ],
+      "helper_functions": [
+        {
+          "name": "calculate_payload_length",
+          "description": "Payload Length field specifies the length of the IPv6 payload, including any extension headers."
+        }
+      ],
+      "transform_functions": []
+    }
+  ]
+}

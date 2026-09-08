@@ -1,0 +1,138 @@
+{
+  "name": "IPv6 Fragment Header",
+  "pdus": [
+    "IP header",
+    "Fragment header",
+    "Routing header",
+    "Hop-by-Hop Options header"
+  ],
+  "bit_string_types": [
+    {
+      "name": "version",
+      "size_bits": 4,
+      "value": 0,
+      "type": "integer"
+    }
+  ],
+  "enumerated_types": [
+    {
+      "name": "Next Header",
+      "variants": {
+        "0": "IPv6 header",
+        "1": "IP header",
+        "2": "UDP header",
+        "3": "ICMP v6 header",
+        "4": "Routing header",
+        "5": "Fragment header",
+        "6": "Authentication header",
+        "7": "Encapsulating Security Payload header",
+        "8": "Destination Options header",
+        "9": "Upper-layer header"
+      },
+      "type": "string"
+    }
+  ],
+  "structure_types": [
+    {
+      "name": "IPv6 header",
+      "header_size_bytes": 24,
+      "byte_order": null,
+      "fields": []
+    },
+    {
+      "name": "Fragment header",
+      "header_size_bytes": 44,
+      "byte_order": null,
+      "fields": []
+    },
+    {
+      "name": "Routing header",
+      "header_size_bytes": 130,
+      "byte_order": null,
+      "fields": []
+    },
+    {
+      "name": "Hop-by-Hop Options header",
+      "header_size_bytes": 8,
+      "byte_order": null,
+      "fields": [
+        {
+          "name": "Next Header",
+          "display_name": "Next Header Selector",
+          "offset_bits": 8,
+          "size_bits": 8,
+          "type": "string",
+          "optional": true,
+          "presence_condition": "0",
+          "constraints": []
+        }
+      ]
+    },
+    {
+      "name": "Fragmentable Part header",
+      "header_size_bytes": 20,
+      "byte_order": null,
+      "fields": [
+        {
+          "name": "Next Header Selector",
+          "display_name": "Next Header Selector",
+          "offset_bits": 8,
+          "size_bits": 8,
+          "type": "string",
+          "optional": true,
+          "presence_condition": "No Next Header"
+        },
+        {
+          "name": "Fragment Offset",
+          "display_name": "Fragment Offset",
+          "offset_bits": 13,
+          "size_bits": 13,
+          "type": "integer",
+          "optional": false
+        },
+        {
+          "name": "M Flag",
+          "display_name": "M Flag",
+          "offset_bits": 2,
+          "size_bits": 2,
+          "type": "string",
+          "optional": false
+        }
+      ]
+    }
+  ],
+  "array_types": [
+    {
+      "name": "Option Type",
+      "element_type": "integer",
+      "length": null
+    },
+    {
+      "name": "Opt Data Len",
+      "element_type": "integer",
+      "length": null
+    },
+    {
+      "name": "Option Data",
+      "element_type": "bytes",
+      "length": 0
+    }
+  ],
+  "parsing_context": [
+    {
+      "name": "IPv6 Header",
+      "type": "network packet header"
+    },
+    {
+      "name": "Fragment Header",
+      "type": "fragment processing unit"
+    }
+  ],
+  "helper_functions": [],
+  "transform_functions": [
+    {
+      "from": "Network Packet Representation",
+      "to": "IP Fragment Format"
+    }
+  ]
+}

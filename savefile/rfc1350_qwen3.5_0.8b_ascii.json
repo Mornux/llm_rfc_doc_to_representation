@@ -1,0 +1,21 @@
+{
+  "protocol": "TCP",
+  "rfc": "RFC 1350 packet-diagram candidates were located locally.",
+  "packet": [
+    {
+      "name": "Internet User Datagram Header",
+      "pdus": [
+        "Internet User Datagram Header"
+      ],
+      "bit_string_types": [
+        {
+          "name": "Source Port",
+          "size_bits": "3",
+          ",": "1"
+        },
+        "name of "
+      ],
+      "name of ": ", "
+    }
+  ]
+}

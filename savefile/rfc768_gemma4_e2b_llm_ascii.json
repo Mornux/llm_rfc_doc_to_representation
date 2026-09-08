@@ -1,140 +1,107 @@
 {
   "protocol": "TCP",
-  "rfc": "unknown",
+  "rfc": "N/A",
   "packet": [
     {
-      "name": "user_datagram_header",
+      "name": "User Datagram Header",
       "pdus": [
-        "User Datagram Header"
+        "TCP Segment"
       ],
       "bit_string_types": [
         {
-          "name": "source_port",
-          "size_bits": 16,
-          "description": "Source Port"
+          "name": "Source Port",
+          "size_bits": 16
         },
         {
-          "name": "destination_port",
-          "size_bits": 16,
-          "description": "Destination Port"
+          "name": "Destination Port",
+          "size_bits": 16
         },
         {
-          "name": "length",
-          "size_bits": 16,
-          "description": "Length"
+          "name": "Length",
+          "size_bits": 16
         },
         {
-          "name": "checksum",
-          "size_bits": 16,
-          "description": "Checksum"
-        },
-        {
-          "name": "data",
-          "size_bits": "length - 32",
-          "description": "Data octets"
+          "name": "Checksum",
+          "size_bits": 16
         }
       ],
       "enumerated_types": [
         {
-          "name": "checksum_value",
+          "name": "Protocol",
           "variants": [
             {
-              "name": "all_ones",
-              "type": "16-bit",
-              "condition": "computed_checksum == 0"
-            },
-            {
-              "name": "all_zeros",
-              "type": "16-bit",
-              "condition": "no_checksum_generated"
+              "name": "TCP",
+              "type": "TCP",
+              "condition": "protocol == 6"
             }
           ]
         }
       ],
       "structure_types": [
         {
-          "name": "user_datagram_header",
-          "header_size_bytes": 20,
-          "byte_order": "big_endian",
+          "name": "User Datagram Header Format",
+          "header_size_bytes": 8,
+          "byte_order": "network",
           "fields": [
             {
               "name": "source_port",
               "display_name": "Source Port",
               "offset_bits": 0,
               "size_bits": 16,
-              "type": "unsigned_int",
+              "type": "uint16",
               "optional": true,
               "presence_condition": "meaningful",
-              "description": "Port of the sending process. May be assumed to be the port to which a reply should be addressed in the absence of any other information. If not used, a value of zero is inserted.",
-              "constraints": [
-                "0 <= value <= 65535"
-              ]
+              "constraints": []
             },
             {
               "name": "destination_port",
               "display_name": "Destination Port",
               "offset_bits": 16,
               "size_bits": 16,
-              "type": "unsigned_int",
+              "type": "uint16",
               "optional": true,
               "presence_condition": "meaningful",
-              "description": "Port of the receiving process.",
-              "constraints": [
-                "0 <= value <= 65535"
-              ]
+              "constraints": []
             },
             {
               "name": "length",
               "display_name": "Length",
               "offset_bits": 32,
               "size_bits": 16,
-              "type": "unsigned_int",
+              "type": "uint16",
               "optional": false,
-              "presence_condition": null,
-              "description": "Total length of the UDP segment (implied by context, based on diagram alignment).",
-              "constraints": [
-                "length >= 0"
-              ]
+              "presence_condition": "true",
+              "constraints": []
             },
             {
               "name": "checksum",
               "display_name": "Checksum",
               "offset_bits": 48,
               "size_bits": 16,
-              "type": "unsigned_int",
+              "type": "uint16",
               "optional": false,
-              "presence_condition": null,
-              "description": "One's complement sum of a pseudo header of information from the IP header, the UDP header, and the data, padded with zero octets at the end (if necessary) to make a multiple of two octets).",
-              "constraints": [
-                "0 <= value <= 65535"
-              ]
+              "presence_condition": "true",
+              "constraints": []
             }
           ],
           "constraints": [
-            "source_port_is_optional_and_zero_if_not_used"
+            "Source Port may be assumed to be the port to which a reply should be addressed in the absence of any other information.",
+            "Checksum is the 16-bit one's complement of the one's complement sum of a pseudo header of information from the IP header, the UDP header, and the data, padded with zero octets at the end (if necessary) to make a multiple of two octets.)"
           ],
-          "parse_from": null,
           "serialize_to": null
         }
       ],
-      "array_types": [
-        {
-          "name": "data",
-          "element_type": "octet",
-          "length": "length - 32"
-        }
-      ],
+      "array_types": [],
       "parsing_context": [
         {
-          "name": "checksum_calculation",
-          "type": "calculation",
-          "description": "Checksum is the 16-bit one's complement of the one's complement sum of a pseudo header of information from the IP header, the UDP header, and the data, padded with zero octets at the end (if necessary) to make a multiple of two octets)."
+          "name": "TCP Context",
+          "type": "TCP"
         }
       ],
       "helper_functions": [
         {
-          "name": "checksum_computation",
-          "description": "Calculates the checksum, involving a pseudo header of information from IP header, UDP header, and data."
+          "name": "calculate_checksum",
+          "description": "Checksum is the 16-bit one's complement of the one's complement sum of a pseudo header of information from the IP header, the UDP header, and the data, padded with zero octets at the end (if necessary) to make a multiple of two octets."
         }
       ],
       "transform_functions": []

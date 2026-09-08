@@ -1,0 +1,164 @@
+{
+  "protocol": "RFC 8200",
+  "rfc": "8200",
+  "packet": [
+    {
+      "name": "IPv6 Header",
+      "pdus": [
+        "IPv6"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "IPv6 Header",
+          "header_size_bytes": "40",
+          "byte_order": "little-endian",
+          "fields": [
+            {
+              "name": "Version",
+              "display_name": "Version",
+              "offset_bits": "4",
+              "size_bits": "4",
+              "type": "4-bit unsigned integer",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "Version == 4"
+              ],
+              "parse_from": "RFC 8200, line 303",
+              "serialize_to": "RFC 8200, line 325"
+            },
+            {
+              "name": "Traffic Class",
+              "display_name": "Traffic Class",
+              "offset_bits": "16",
+              "size_bits": "16",
+              "type": "16-bit unsigned integer",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "0 <= Traffic Class <= 63"
+              ],
+              "parse_from": "RFC 8200, line 303",
+              "serialize_to": "RFC 8200, line 325"
+            },
+            {
+              "name": "Flow Label",
+              "display_name": "Flow Label",
+              "offset_bits": "20",
+              "size_bits": "20",
+              "type": "20-bit unsigned integer",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [],
+              "parse_from": "RFC 8200, line 303",
+              "serialize_to": "RFC 8200, line 325"
+            },
+            {
+              "name": "Payload Length",
+              "display_name": "Payload Length",
+              "offset_bits": "16",
+              "size_bits": "16",
+              "type": "16-bit unsigned integer",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "Payload Length <= 65535"
+              ],
+              "parse_from": "RFC 8200, line 303",
+              "serialize_to": "RFC 8200, line 325"
+            },
+            {
+              "name": "Next Header",
+              "display_name": "Next Header",
+              "offset_bits": "16",
+              "size_bits": "16",
+              "type": "16-bit unsigned integer",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "RFC 8200, Section 4.1"
+              ],
+              "parse_from": "RFC 8200, line 303",
+              "serialize_to": "RFC 8200, line 325"
+            }
+          ]
+        },
+        {
+          "name": "Extension Headers",
+          "header_size_bytes": null,
+          "byte_order": "little-endian",
+          "fields": []
+        },
+        {
+          "name": "Routing Header",
+          "header_size_bytes": null,
+          "byte_order": "little-endian",
+          "fields": []
+        },
+        {
+          "name": "Fragment Header",
+          "header_size_bytes": null,
+          "byte_order": "little-endian",
+          "fields": []
+        },
+        {
+          "name": "Destination Options Header",
+          "header_size_bytes": null,
+          "byte_order": "little-endian",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "name": "IP Options",
+      "pdus": [
+        "IP Options"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "IP Options",
+          "header_size_bytes": "40",
+          "byte_order": "little-endian",
+          "fields": [
+            {
+              "name": "Next Header",
+              "display_name": "Next Header",
+              "offset_bits": "20",
+              "size_bits": "8",
+              "type": "8-bit unsigned integer",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "RFC 8200, Section 4.6"
+              ],
+              "parse_from": "RFC 8200, line 1267",
+              "serialize_to": "RFC 8200, line 1272"
+            },
+            {
+              "name": "Hdr Ext Len",
+              "display_name": "Hdr Ext Len",
+              "offset_bits": "16",
+              "size_bits": "8",
+              "type": "8-bit unsigned integer",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "RFC 8200, Section 4.6"
+              ],
+              "parse_from": "RFC 8200, line 1267",
+              "serialize_to": "RFC 8200, line 1272"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "array_types": [],
+  "parsing_context": [],
+  "helper_functions": [],
+  "transform_functions": []
+}

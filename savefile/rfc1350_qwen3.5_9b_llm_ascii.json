@@ -1,0 +1,121 @@
+{
+  "protocol": "TFTP",
+  "rfc": "Figure 3-1 from RFC describing TFTP packet structure",
+  "packet": [
+    {
+      "name": "ip_datagram_tftp_packet",
+      "pdus": [
+        "IP Header",
+        "Datagram (UDP) Header",
+        "TFTP Header",
+        "Remainder"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "tftp_packet_structure",
+          "header_size_bytes": null,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "local_medium_header",
+              "display_name": "Local Medium Header",
+              "offset_bits": null,
+              "size_bits": null,
+              "type": "header",
+              "optional": true,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "internet_header",
+              "display_name": "Internet Header",
+              "offset_bits": 128,
+              "size_bits": null,
+              "type": "header",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "datagram_header",
+              "display_name": "Datagram Header",
+              "offset_bits": 216,
+              "size_bits": null,
+              "type": "header",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "tftp_header",
+              "display_name": "TFTP Header",
+              "offset_bits": 276,
+              "size_bits": null,
+              "type": "header",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "remainder",
+              "display_name": "Remainder",
+              "offset_bits": null,
+              "size_bits": "length - tftp_header_size",
+              "type": "data",
+              "optional": true,
+              "presence_condition": null,
+              "constraints": []
+            }
+          ],
+          "constraints": [
+            "source_port_and_destination_port_in_datagram_header_are_used_by_tftp",
+            "transfer_identifiers_tids_used_by_tftp_are_passed_to_datagram_layer_to_be_used_as_ports_therefore_must_be_between_0_and_65535"
+          ],
+          "parse_from": null,
+          "serialize_to": null
+        },
+        {
+          "name": "tftp_header",
+          "header_size_bytes": 2,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "opcode_field",
+              "display_name": "Opcode Field",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": "enum",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            }
+          ],
+          "constraints": [
+            "opcode_field_indicates_protocol_behavior"
+          ],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [
+        {
+          "name": "transfer_identifiers",
+          "type": "integer"
+        },
+        {
+          "name": "source_port",
+          "type": "integer"
+        },
+        {
+          "name": "destination_port",
+          "type": "integer"
+        }
+      ],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

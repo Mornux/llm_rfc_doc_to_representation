@@ -1,0 +1,305 @@
+{
+  "protocol": "TFTP",
+  "rfc": "1350",
+  "packet": [
+    {
+      "name": "RRQ/WRQ_packet",
+      "pdus": [
+        "RRQ",
+        "WRQ"
+      ],
+      "bit_string_types": [
+        {
+          "name": "zero_byte",
+          "size_bits": 8
+        }
+      ],
+      "enumerated_types": [
+        {
+          "name": "request_opcode",
+          "variants": [
+            {
+              "name": "rrq",
+              "type": "opcode_value",
+              "condition": "value == 1"
+            },
+            {
+              "name": "wrq",
+              "type": "opcode_value",
+              "condition": "value == 2"
+            }
+          ]
+        }
+      ],
+      "structure_types": [
+        {
+          "name": "rrq_wrq_structure",
+          "header_size_bytes": null,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "opcode",
+              "display_name": "Opcode",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": "request_opcode",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "filename",
+              "display_name": "Filename",
+              "offset_bits": 16,
+              "size_bits": null,
+              "type": "bit_string_type",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "length >= 0"
+              ]
+            },
+            {
+              "name": "filename_terminator",
+              "display_name": "Filename Terminator",
+              "offset_bits": null,
+              "size_bits": 8,
+              "type": "zero_byte",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "value == 0"
+              ]
+            },
+            {
+              "name": "mode",
+              "display_name": "Mode",
+              "offset_bits": null,
+              "size_bits": null,
+              "type": "bit_string_type",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "the RFC-defined modes are netascii, octet, and mail, with any combination of upper and lower case",
+                "additional modes may be defined by pairs of cooperating hosts"
+              ]
+            },
+            {
+              "name": "mode_terminator",
+              "display_name": "Mode Terminator",
+              "offset_bits": null,
+              "size_bits": 8,
+              "type": "bit_string_type",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "value == 0"
+              ]
+            }
+          ],
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "DATA_packet",
+      "pdus": [
+        "DATA"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "data_structure",
+          "header_size_bytes": null,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "opcode",
+              "display_name": "Opcode",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": "bit_string_type",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "value == 3"
+              ]
+            },
+            {
+              "name": "block_number",
+              "display_name": "Block #",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": "bit_string_type",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "value >= 1"
+              ]
+            },
+            {
+              "name": "data",
+              "display_name": "Data",
+              "offset_bits": 32,
+              "size_bits": null,
+              "type": "bit_string_type",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "length >= 0 and length <= 512"
+              ]
+            }
+          ],
+          "constraints": [
+            "if data length is 512 bytes, the block is not the last block of data",
+            "if data length is between 0 and 511 bytes, it signals the end of the transfer"
+          ],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [
+        {
+          "name": "data_field",
+          "element_type": "bit_string_type",
+          "length": "variable"
+        }
+      ],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "ACK_packet",
+      "pdus": [
+        "ACK"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "ack_structure",
+          "header_size_bytes": null,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "opcode",
+              "display_name": "Opcode",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": "bit_string_type",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "value == 4"
+              ]
+            },
+            {
+              "name": "block_number",
+              "display_name": "Block #",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": "bit_string_type",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "the block number echoes the block number of the DATA packet being acknowledged",
+                "the block number is 0 when acknowledging a WRQ"
+              ]
+            }
+          ],
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "ERROR_packet",
+      "pdus": [
+        "ERROR"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "error_structure",
+          "header_size_bytes": null,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "opcode",
+              "display_name": "Opcode",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": "bit_string_type",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "value == 5"
+              ]
+            },
+            {
+              "name": "error_code",
+              "display_name": "Error Code",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": "bit_string_type",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "error_message",
+              "display_name": "Error Message",
+              "offset_bits": 32,
+              "size_bits": null,
+              "type": "bit_string_type",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "length >= 0"
+              ]
+            },
+            {
+              "name": "error_message_terminator",
+              "display_name": "Error Message Terminator",
+              "offset_bits": null,
+              "size_bits": 8,
+              "type": "bit_string_type",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "value == 0"
+              ]
+            }
+          ],
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [
+        {
+          "name": "error_message_field",
+          "element_type": "bit_string_type",
+          "length": "variable"
+        }
+      ],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

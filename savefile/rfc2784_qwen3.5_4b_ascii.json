@@ -1,0 +1,75 @@
+{
+  "protocol": "GRE",
+  "rfc": "RFC 2784",
+  "packet": [
+    {
+      "name": "gre_header",
+      "pdus": [],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "gre_header",
+          "header_size_bytes": null,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "version",
+              "display_name": null,
+              "offset_bits": 12,
+              "size_bits": 4,
+              "type": "enumerated",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "protocol_type",
+              "display_name": null,
+              "offset_bits": 8,
+              "size_bits": 16,
+              "type": "enumerated",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum (optional)",
+              "offset_bits": 24,
+              "size_bits": 16,
+              "type": "bit_string",
+              "optional": true,
+              "presence_condition": "c == 1"
+            }
+          ],
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        },
+        {
+          "name": "reserved1",
+          "display_name": "Reserved1 (Optional)",
+          "header_size_bytes": null,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "reserved1",
+              "display_name": "Reserved1 (Optional)",
+              "offset_bits": 32,
+              "size_bits": 16,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            }
+          ],
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ]
+    },
+    "array_types\": [ ], "
+  ]
+}

@@ -1,0 +1,92 @@
+{
+  "protocol": "TFTP",
+  "rfc": "1350",
+  "packet": [
+    {
+      "name": "RRQ Packet",
+      "pdus": [
+        "Data (DATA)"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [],
+      "array_types": [],
+      "parsing_context": null,
+      "helper_functions": null,
+      "transform_functions": []
+    },
+    {
+      "name": "WRQ Packet",
+      "pdus": [
+        "Data (DATA)"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [],
+      "array_types": [],
+      "parsing_context": null,
+      "helper_functions": null,
+      "transform_functions": []
+    },
+    {
+      "name": "ACK Packet",
+      "pdus": [
+        "Data (DATA)",
+        "ERROR"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [],
+      "array_types": [],
+      "parsing_context": null,
+      "helper_functions": null,
+      "transform_functions": []
+    },
+    {
+      "name": "ERROR Packet",
+      "pdus": [
+        "Data (DATA)"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "ErrorCode",
+          "display_name": "Error Code",
+          "offset_bits": null,
+          "size_bits": 1,
+          "type": "string or null",
+          "optional": null,
+          "presence_condition": null,
+          "constraints": []
+        },
+        {
+          "name": "ErrMsg",
+          "display_name": "Error Message",
+          "offset_bits": null,
+          "size_bits": 1,
+          "type": "string or null",
+          "optional": true,
+          "presence_condition": null,
+          "constraints": []
+        }
+      ],
+      "constraints": [
+        "opcode == 5"
+      ],
+      "parse_from": null,
+      "serialize_to": null
+    },
+    {
+      "name": "DATA Packet",
+      "pdus": [],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [],
+      "array_types": [],
+      "parsing_context": null,
+      "helper_functions": null,
+      "transform_functions": []
+    }
+  ]
+}

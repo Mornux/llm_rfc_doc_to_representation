@@ -1,0 +1,424 @@
+{
+  "protocol": "TFTP",
+  "rfc": "RFC 1350",
+  "packet": [
+    {
+      "name": "tftp_packets",
+      "pdus": [
+        "DATA",
+        "ERROR"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [
+        {
+          "name": "opcode",
+          "variants": [
+            {
+              "name": "read_request",
+              "type": "struct",
+              "condition": "opcode == 1"
+            },
+            {
+              "name": "write_request",
+              "type": "struct",
+              "condition": "opcode == 2"
+            },
+            {
+              "name": "data",
+              "type": "struct",
+              "condition": "opcode == 3"
+            },
+            {
+              "name": "acknowledgment",
+              "type": "struct",
+              "condition": "opcode == 4"
+            },
+            {
+              "name": "error",
+              "type": "struct",
+              "condition": "opcode == 5"
+            }
+          ]
+        }
+      ],
+      "structure_types": [
+        {
+          "name": "tftp_packet_header",
+          "header_size_bytes": null,
+          "byte_order": null,
+          "fields": [],
+          "constraints": [
+            "length >= 8"
+          ],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [
+        {
+          "name": "netascii_terminated_strings",
+          "element_type": "netascii",
+          "length": "expression: sequence ending in zero byte"
+        }
+      ],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "read_request_write_request",
+      "pdus": [
+        "RRQ"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [
+        {
+          "name": "mode_string",
+          "variants": [
+            {
+              "name": "netascii",
+              "type": "string",
+              "condition": null
+            },
+            {
+              "name": "octet",
+              "type": "string",
+              "condition": null
+            },
+            {
+              "name": "mail",
+              "type": "string",
+              "condition": null
+            }
+          ]
+        }
+      ],
+      "structure_types": [
+        {
+          "name": "rrq_wrq_packet",
+          "header_size_bytes": 8,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "opcode",
+              "display_name": "Opcode",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": "enumerated_type",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "filename",
+              "display_name": "Filename",
+              "offset_bits": 16,
+              "size_bits": null,
+              "type": "string",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": [
+                "terminated by zero byte"
+              ]
+            },
+            {
+              "name": "filename_padding",
+              "display_name": "Filename Padding",
+              "offset_bits": 16,
+              "size_bits": null,
+              "type": "netascii_terminated_string",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": [
+                "value: 0"
+              ]
+            },
+            {
+              "name": "mode",
+              "display_name": "Mode",
+              "offset_bits": 576,
+              "size_bits": null,
+              "type": "string",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": [
+                "terminated by zero byte"
+              ]
+            },
+            {
+              "name": "mode_padding",
+              "display_name": "Mode Padding",
+              "offset_bits": 576,
+              "size_bits": null,
+              "type": "netascii_terminated_string",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": [
+                "value: 0"
+              ]
+            }
+          ],
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [
+        {
+          "name": "filename",
+          "element_type": "netascii_char",
+          "length": "expression: length of netascii string ending in zero byte"
+        },
+        {
+          "name": "mode",
+          "element_type": "netascii_char",
+          "length": "expression: length of mode string ending in zero byte"
+        }
+      ],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "data_packet",
+      "pdus": [
+        "DATA"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [
+        {
+          "name": "data_block_status",
+          "variants": [
+            {
+              "name": "intermediate_block",
+              "type": "block_size_condition",
+              "condition": "size == 512"
+            },
+            {
+              "name": "last_block",
+              "type": "block_size_condition",
+              "condition": "size <= 511"
+            }
+          ]
+        }
+      ],
+      "structure_types": [
+        {
+          "name": "data_packet",
+          "header_size_bytes": null,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "opcode",
+              "display_name": "Opcode",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": "enumerated_type",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "block_number",
+              "display_name": "Block Number",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": "integer",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "data",
+              "display_name": "Data",
+              "offset_bits": 336,
+              "size_bits": "expression: packet_length - 328",
+              "type": "variable_length_data",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": [
+                "0 <= size <= 512"
+              ]
+            }
+          ],
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "acknowledgment_packet",
+      "pdus": [
+        "ACK"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [
+        {
+          "name": "ack_block_type",
+          "variants": [
+            {
+              "name": "acknowledge_data_block",
+              "type": "data_acknowledgment",
+              "condition": "opcode == 4"
+            },
+            {
+              "name": "acknowledge_write_request",
+              "type": "write_request_acknowledgment",
+              "condition": "block_number == 0"
+            }
+          ]
+        }
+      ],
+      "structure_types": [
+        {
+          "name": "ack_packet",
+          "header_size_bytes": null,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "opcode",
+              "display_name": "Opcode",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": "enumerated_type",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "block_number",
+              "display_name": "Block Number",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": "integer",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            }
+          ],
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "error_packet",
+      "pdus": [
+        "ERROR"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [
+        {
+          "name": "error_code_values",
+          "variants": [
+            {
+              "name": "file_not_found",
+              "type": "integer",
+              "condition": "value == 1"
+            },
+            {
+              "name": "access_violation",
+              "type": "integer",
+              "condition": "value == 2"
+            },
+            {
+              "name": "disk_full",
+              "type": "integer",
+              "condition": "value == 3"
+            },
+            {
+              "name": "illegal_tftp_operation",
+              "type": "integer",
+              "condition": "value == 4"
+            },
+            {
+              "name": "unknown_transfer_id",
+              "type": "integer",
+              "condition": "value == 5"
+            },
+            {
+              "name": "file_already_exists",
+              "type": "integer",
+              "condition": "value == 6"
+            },
+            {
+              "name": "no_such_user",
+              "type": "integer",
+              "condition": "value == 7"
+            }
+          ]
+        }
+      ],
+      "structure_types": [
+        {
+          "name": "error_packet",
+          "header_size_bytes": null,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "opcode",
+              "display_name": "Opcode",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": "enumerated_type",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "error_code",
+              "display_name": "Error Code",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": "integer",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "error_message",
+              "display_name": "Error Message",
+              "offset_bits": 320,
+              "size_bits": null,
+              "type": "string",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": [
+                "netascii string terminated by zero byte"
+              ]
+            },
+            {
+              "name": "error_padding",
+              "display_name": "Error Padding",
+              "offset_bits": 320,
+              "size_bits": null,
+              "type": "string",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": [
+                "value: 0"
+              ]
+            }
+          ],
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

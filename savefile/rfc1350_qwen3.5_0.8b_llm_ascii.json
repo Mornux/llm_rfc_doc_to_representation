@@ -1,0 +1,5 @@
+{
+  "thinking process": "I need to analyze the input RFC document and convert it into a structured Network Packet Representation as specified in the prompt. I notice the user provided an empty RFC_DOCUMENT placeholder, but looking at the content before the tag, there is no actual RFC document text provided. I need to acknowledge this and follow the schema constraints strictly. The response must be valid JSON with no Markdown or other elements.",
+  "analysis": "The input appears to be an incomplete template without actual content to parse. I must structure my output based on the schema which specifies required keys like 'protocol', 'rfc', 'packet'. However, since the RFC document is empty, I cannot generate specific packet structures. My response will contain only a JSON object with appropriate placeholder values that represent the empty state.",
+  "response": "\"{\\\"protocol\\\": \"N/A\", \\\"rfc\\\": \"N/A\", \"packet\": []}\""
+}

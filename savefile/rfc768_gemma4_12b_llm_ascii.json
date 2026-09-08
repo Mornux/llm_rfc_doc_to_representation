@@ -1,29 +1,58 @@
 {
-  "protocol": "User Datagram Header Format",
-  "rfc": "UDP (implied)",
+  "protocol": "UDP",
+  "rfc": "RFC 768",
   "packet": [
     {
-      "name": "UDP",
+      "name": "User Datagram Header Format",
       "pdus": [
-        "User Datagram Header Format"
+        "UDP_Header"
       ],
       "bit_string_types": [],
       "enumerated_types": [],
       "structure_types": [
         {
-          "name": "User Datagram Header Format",
+          "name": "UDP_Header",
           "header_size_bytes": 8,
-          "byte_order": "big-endian",
+          "byte_order": "big_endian",
           "fields": [
             {
               "name": "source_port",
               "display_name": "Source Port",
               "offset_bits": 16,
               "size_bits": 16,
-              "type": "bit_string_type",
+              "type": "bit_string",
               "optional": true,
               "presence_condition": null,
-              "description": "The port of the sending process.",
+              "constraints": []
+            },
+            {
+              "name": "destination_port",
+              "display_name": "Destination Port",
+              "offset_bits": 32,
+              "size_bits": 16,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "length",
+              "display_name": "Length",
+              "offset_bits": 48,
+              "size_bits": 16,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": 64,
+              "size_bits": 16,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
               "constraints": []
             }
           ],

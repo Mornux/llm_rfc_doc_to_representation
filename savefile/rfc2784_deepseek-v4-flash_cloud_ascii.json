@@ -1,0 +1,115 @@
+{
+  "protocol": "Generic Routing Encapsulation (GRE)",
+  "rfc": "RFC 2784",
+  "packet": [
+    {
+      "name": "gre_header",
+      "pdus": [
+        "gre_header"
+      ],
+      "bit_string_types": [
+        {
+          "name": "c",
+          "size_bits": 1
+        },
+        {
+          "name": "reserved0",
+          "size_bits": null
+        },
+        {
+          "name": "ver",
+          "size_bits": null
+        },
+        {
+          "name": "protocol_type",
+          "size_bits": 16
+        },
+        {
+          "name": "checksum",
+          "size_bits": 16
+        },
+        {
+          "name": "reserved1",
+          "size_bits": 16
+        }
+      ],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "gre_header",
+          "header_size_bytes": null,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "c",
+              "display_name": "C",
+              "offset_bits": 0,
+              "size_bits": 1,
+              "type": "c",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "reserved0",
+              "display_name": "Reserved0",
+              "offset_bits": 1,
+              "size_bits": null,
+              "type": "reserved0",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "ver",
+              "display_name": "Ver",
+              "offset_bits": null,
+              "size_bits": null,
+              "type": "ver",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "protocol_type",
+              "display_name": "Protocol Type",
+              "offset_bits": null,
+              "size_bits": 16,
+              "type": "protocol_type",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum (optional)",
+              "offset_bits": 32,
+              "size_bits": 16,
+              "type": "checksum",
+              "optional": true,
+              "presence_condition": "c == 1",
+              "constraints": []
+            },
+            {
+              "name": "reserved1",
+              "display_name": "Reserved1 (Optional)",
+              "offset_bits": 48,
+              "size_bits": 16,
+              "type": "reserved1",
+              "optional": true,
+              "presence_condition": "c == 1",
+              "constraints": []
+            }
+          ],
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

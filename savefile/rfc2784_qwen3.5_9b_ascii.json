@@ -1,0 +1,91 @@
+{
+  "protocol": "GRE",
+  "rfc": "RFC 2784",
+  "packet": [
+    {
+      "name": "payload_packet",
+      "pdus": [
+        "GRE"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "gre_header",
+          "header_size_bytes": null,
+          "bytes": 40,
+          "fields": [
+            {
+              "name": "reserved_0",
+              "display_name": "",
+              "offset_bits": 0,
+              "size_bits": 5,
+              "type": "bit_string",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "ver",
+              "display_name": "Version",
+              "offset_bits": 12,
+              "size_bits": 4,
+              "type": "enumerated",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": [
+                "version == 0"
+              ]
+            },
+            {
+              "name": "reserved_1",
+              "display_name": "",
+              "offset_bits": 16,
+              "size_bits": 5,
+              "type": "bit_string",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "checksum_present",
+              "display_name": "Checksum Present",
+              "offset_bits": 23,
+              "size_bits": 1,
+              "type": "bit_string",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": [
+                "optional"
+              ]
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": 24,
+              "size_bits": 16,
+              "type": "integer",
+              "optional": true,
+              "presence_condition": "x == 1",
+              "constraints": []
+            },
+            {
+              "name": "reserved_2",
+              "display_name": "",
+              "offset_bits": 40,
+              "size_bits": 10,
+              "type": "bit_string",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            }
+          ]
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

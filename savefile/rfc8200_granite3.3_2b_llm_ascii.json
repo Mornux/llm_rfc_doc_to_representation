@@ -1,0 +1,109 @@
+{
+  "protocol": "Internet Protocol",
+  "rfc": "RFC 8200",
+  "packet": [
+    {
+      "name": "IPv6 Header",
+      "pdus": [],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "IPv6 Header",
+          "header_size_bytes": "40",
+          "byte_order": "big",
+          "fields": [
+            {
+              "name": "version",
+              "display_name": "Version",
+              "offset_bits": "0-4",
+              "size_bits": "4",
+              "type": "Bit String Type",
+              "optional": "false",
+              "presence_condition": "version == 4",
+              "constraints": [
+                "version == 4"
+              ],
+              "parse_from": "header",
+              "serialize_to": "header"
+            },
+            {
+              "name": "Traffic Class",
+              "display_name": "Traffic Class",
+              "offset_bits": "8-12",
+              "size_bits": "4",
+              "type": "Bit String Type",
+              "optional": "false",
+              "presence_condition": "traffic_class != 0",
+              "constraints": [
+                "traffic_class"
+              ],
+              "parse_from": "header",
+              "serialize_to": "header"
+            },
+            {
+              "name": "Flow Label",
+              "display_name": "Flow Label",
+              "offset_bits": "16-29",
+              "size_bits": "20",
+              "type": "Bit String Type",
+              "optional": "false",
+              "presence_condition": "flow_label != 0",
+              "constraints": [
+                "flow_label"
+              ],
+              "parse_from": "header",
+              "serialize_to": "header"
+            },
+            {
+              "name": "Payload Length",
+              "display_name": "Payload Length",
+              "offset_bits": "30-39",
+              "size_bits": "16",
+              "type": "Bit String Type",
+              "optional": "true",
+              "presence_condition": "payload_length > 0",
+              "constraints": [
+                "payload_length <= (1<<16)-1"
+              ],
+              "parse_from": "header",
+              "serialize_to": "header"
+            },
+            {
+              "name": "Next Header",
+              "display_name": "Next Header",
+              "offset_bits": "40-43",
+              "size_bits": "4",
+              "type": "Bit String Type",
+              "optional": "true",
+              "presence_condition": "next_header != 0",
+              "constraints": [
+                "next_header"
+              ],
+              "parse_from": "header",
+              "serialize_to": "header"
+            },
+            {
+              "name": "Hops",
+              "display_name": "Hops",
+              "offset_bits": "44-47",
+              "size_bits": "4",
+              "type": "Bit String Type",
+              "optional": "false",
+              "presence_condition": "hops != 0",
+              "constraints": [
+                "hops"
+              ],
+              "parse_from": "header",
+              "serialize_to": "header"
+            }
+          ]
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

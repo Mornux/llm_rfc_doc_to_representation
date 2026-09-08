@@ -1,0 +1,110 @@
+{
+  "protocol": "gre",
+  "rfc": "2784",
+  "packet": [
+    {
+      "name": "gre_header",
+      "pdus": [
+        "GRE Header"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "gre_header",
+          "header_size_bytes": 6,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "c_flag",
+              "display_name": "Checksum Present Flag (C)",
+              "offset_bits": 0,
+              "size_bits": 1,
+              "type": "boolean or bit string",
+              "optional": "null",
+              "presence_condition": "null",
+              "constraints": [
+                "\"c_flag == 1\"",
+                "\"c_flag != 0\""
+              ]
+            },
+            {
+              "name": "reserved0_field",
+              "display_name": "Reserved0",
+              "offset_bits": 1,
+              "size_bits": 5,
+              "type": null,
+              "optional": "false",
+              "presence_condition": "null",
+              "constraints": [
+                "\"c_flag == 0\""
+              ]
+            },
+            {
+              "name": "version",
+              "display_name": "Version",
+              "offset_bits": 6,
+              "size_bits": 2,
+              "type": "integer or enum",
+              "optional": "false",
+              "presence_condition": "null",
+              "constraints": [
+                "\"none\""
+              ]
+            },
+            {
+              "name": "protocol_type",
+              "display_name": "Protocol Type",
+              "offset_bits": 8,
+              "size_bits": 8,
+              "type": "integer or enum",
+              "optional": "false",
+              "presence_condition": "null",
+              "constraints": []
+            },
+            {
+              "name": "checksum_present",
+              "display_name": "Checksum Present (C) Flag (included as C field)",
+              "offset_bits": 0,
+              "size_bits": 1,
+              "type": null,
+              "optional": "false",
+              "presence_condition": "null",
+              "constraints": []
+            },
+            {
+              "name": "checksum_if_present",
+              "display_name": "Checksum Value (Optional)",
+              "offset_bits": 9,
+              "size_bits": 16,
+              "type": "integer or bit string",
+              "optional": "true",
+              "presence_condition": "\"checksum_present == true\"",
+              "constraints": []
+            },
+            {
+              "name": "reserved1_field",
+              "display_name": "Reserved1",
+              "offset_bits": 25,
+              "size_bits": 3,
+              "type": null,
+              "optional": "false",
+              "presence_condition": "null",
+              "constraints": [
+                "\"checksum_present == false\""
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "parsing_context": [
+    {
+      "name": "gre_packet_header_parser",
+      "type": "string"
+    }
+  ],
+  "helper_functions": [],
+  "transform_functions": []
+}

@@ -1,0 +1,115 @@
+{
+  "protocol": "Internet User Datagram",
+  "rfc": "RFC 1350",
+  "packet": [
+    {
+      "name": "TFTP Response Packet",
+      "pdus": [
+        "Packet with illegal operation, unknown transfer ID, file exists, no such user"
+      ],
+      "bit_string_types": [
+        {
+          "name": "Source Port",
+          "size_bits": null
+        },
+        {
+          "name": "Destination Port",
+          "size_bits": null
+        },
+        {
+          "name": "Length",
+          "size_bits": null
+        },
+        {
+          "name": "Checksum",
+          "size_bits": null
+        }
+      ],
+      "enumerated_types": [
+        {
+          "name": "Packet Type",
+          "variants": [
+            {
+              "name": "Illegal TFTP operation.",
+              "type": "status error",
+              "condition": null
+            },
+            {
+              "name": "Unknown transfer ID.",
+              "type": "error condition",
+              "condition": null
+            },
+            {
+              "name": "File already exists.",
+              "type": "file system error",
+              "condition": null
+            },
+            {
+              "name": "No such user.",
+              "type": "authentication error",
+              "condition": null
+            }
+          ]
+        }
+      ],
+      "structure_types": [
+        {
+          "name": "Internet User Datagram Header",
+          "header_size_bytes": 8,
+          "byte_order": "big endian",
+          "fields": [
+            {
+              "name": "source_port",
+              "display_name": "Source Port",
+              "offset_bits": 20,
+              "size_bits": null,
+              "type": "unsigned short",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "destination_port",
+              "display_name": "Destination Port",
+              "offset_bits": 102,
+              "size_bits": null,
+              "type": "unsigned short",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "length",
+              "display_name": "Length",
+              "offset_bits": 156,
+              "size_bits": null,
+              "type": "unsigned short",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": 204,
+              "size_bits": null,
+              "type": "unknown",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            }
+          ],
+          "constraints": [
+            "length >= 16"
+          ],
+          "parse_from": "Internet User Datagram Header",
+          "serialize_to": "TFTP Packet Format"
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

@@ -1,29 +1,26 @@
 {
-  "protocol": "User Datagram Protocol",
+  "protocol": "UDP",
   "rfc": "RFC 768",
   "packet": [
     {
-      "name": "UDP",
-      "pdus": [
-        "0-15: Source Port (optional), Destination Port, Length (16 bits), Checksum (16 bits), Data"
-      ],
+      "name": "User Datagram Protocol Header and PDU",
+      "pdus": [],
       "bit_string_types": [],
       "enumerated_types": [],
       "structure_types": [
         {
-          "name": "UDP_Header",
+          "name": "udp_header",
           "header_size_bytes": 8,
-          "byte_order": "big-endian",
+          "byte_order": null,
           "fields": [
             {
               "name": "source_port",
               "display_name": "Source Port",
               "offset_bits": 0,
               "size_bits": 16,
-              "type": "unsigned int",
+              "type": "bit_string",
               "optional": true,
               "presence_condition": null,
-              "description": "Optional field indicating the port of the sending process.",
               "constraints": []
             },
             {
@@ -31,10 +28,9 @@
               "display_name": "Destination Port",
               "offset_bits": 16,
               "size_bits": 16,
-              "type": "unsigned int",
+              "type": "bit_string",
               "optional": false,
               "presence_condition": null,
-              "description": "The port of the receiving process.",
               "constraints": []
             },
             {
@@ -42,10 +38,9 @@
               "display_name": "Length",
               "offset_bits": 32,
               "size_bits": 16,
-              "type": "unsigned int",
+              "type": "bit_string",
               "optional": false,
               "presence_condition": null,
-              "description": "The length in octets of this user datagram including header and data. Minimum value is eight.",
               "constraints": [
                 "length >= 8"
               ]
@@ -55,35 +50,56 @@
               "display_name": "Checksum",
               "offset_bits": 48,
               "size_bits": 16,
-              "type": "unsigned int",
+              "type": "bit_string",
               "optional": false,
               "presence_condition": null,
-              "description": "The 16-bit one's complement of the one's complement sum of pseudo header, UDP header, and data.",
-              "constraints": []
+              "constraints": [
+                "checksum == 0 implies no checksum was transmitted"
+              ]
             }
           ],
           "constraints": [],
-          "parse_from": "internet datagram",
-          "serialize_to": "User Datagram"
+          "parse_from": null,
+          "serialize_to": null
+        },
+        {
+          "name": "udp_data",
+          "header_size_bytes": 8,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "data_octets",
+              "display_name": "Data Octets",
+              "offset_bits": 64,
+              "size_bits": null,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "data_octets length + header length == total length"
+              ]
+            }
+          ],
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
         }
       ],
       "array_types": [],
       "parsing_context": [
         {
-          "name": "IP_header",
-          "type": "Internet Header",
-          "description": "Used to extract source address, destination address, protocol field, and UDP length from the internet datagram."
+          "name": "ip_header",
+          "type": "external_state"
         }
       ],
-      "helper_functions": [],
-      "transform_functions": [
+      "helper_functions": [
         {
-          "name": "checksum_calculation",
-          "from": "source_address, destination_address, protocol, UDP length, UDP header, data",
-          "to": "16-bit one's complement checksum",
-          "description": "Computes the checksum using one's complement sum of pseudo-header and data padded to multiple of two octets."
+          "name": "compute_checksum",
+          "from": "pseudo_header_data",
+          "to": "one_complement_sum"
         }
-      ]
+      ],
+      "transform_functions": []
     }
   ]
 }

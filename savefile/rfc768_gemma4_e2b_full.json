@@ -3,36 +3,43 @@
   "rfc": "RFC 768",
   "packet": [
     {
-      "name": "User Datagram Header",
+      "name": "udp_header",
       "pdus": [
-        "UDP Header"
+        "User Datagram Header"
       ],
       "bit_string_types": [
         {
-          "name": "Source Port",
-          "size_bits": 8,
-          "description": "Source Port"
+          "name": "source_port",
+          "size_bits": 8
         },
         {
-          "name": "Destination Port",
-          "size_bits": 8,
-          "description": "Destination Port"
+          "name": "destination_port",
+          "size_bits": 8
         },
         {
-          "name": "Length",
-          "size_bits": 16,
-          "description": "Length"
+          "name": "length",
+          "size_bits": 16
         },
         {
-          "name": "Checksum",
-          "size_bits": 16,
-          "description": "Checksum"
+          "name": "checksum",
+          "size_bits": 16
         }
       ],
-      "enumerated_types": [],
+      "enumerated_types": [
+        {
+          "name": "protocol_number",
+          "variants": [
+            {
+              "name": "IP_PROTOCOL_NUMBER",
+              "type": "17",
+              "condition": "used in the Internet Protocol"
+            }
+          ]
+        }
+      ],
       "structure_types": [
         {
-          "name": "UDP Header",
+          "name": "udp_header",
           "header_size_bytes": 8,
           "byte_order": "network",
           "fields": [
@@ -41,38 +48,31 @@
               "display_name": "Source Port",
               "offset_bits": 0,
               "size_bits": 8,
-              "type": "unsigned_int",
+              "type": "unsigned short",
               "optional": true,
-              "presence_condition": "true",
-              "description": "Port of the sending process, may be assumed to be the port to which a reply should be addressed. If not used, a value of zero is inserted.",
-              "constraints": [
-                "value >= 0"
-              ]
+              "presence_condition": "meaningful",
+              "constraints": []
             },
             {
               "name": "destination_port",
               "display_name": "Destination Port",
               "offset_bits": 8,
               "size_bits": 8,
-              "type": "unsigned_int",
-              "optional": true,
-              "presence_condition": "true",
-              "description": "Port within the context of a particular internet destination address.",
-              "constraints": [
-                "value >= 0"
-              ]
+              "type": "unsigned short",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
             },
             {
               "name": "length",
               "display_name": "Length",
               "offset_bits": 16,
               "size_bits": 16,
-              "type": "unsigned_int",
+              "type": "uint16",
               "optional": false,
-              "presence_condition": "true",
-              "description": "Length in octets of this user datagram including this header and the data. Minimum value is eight.",
+              "presence_condition": null,
               "constraints": [
-                "value >= 8"
+                "length >= 8"
               ]
             },
             {
@@ -80,19 +80,23 @@
               "display_name": "Checksum",
               "offset_bits": 32,
               "size_bits": 16,
-              "type": "unsigned_int",
+              "type": "uint16",
               "optional": false,
-              "presence_condition": "true",
-              "description": "One's complement sum of a pseudo header from IP header, UDP header, and data, padded with zero octets at the end (if necessary) to make a multiple of two octets).",
-              "constraints": [
-                "value == (sum of pseudo header, UDP header, and data) complement"
-              ]
+              "presence_condition": null,
+              "constraints": []
             }
-          ]
-        },
-        "constraints_summary_per_structure_type: [], "
-      ]
-    },
-    "array_types_summary_per_structure_type: [], "
+          ],
+          "constraints": [
+            "length >= 8"
+          ],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
   ]
 }

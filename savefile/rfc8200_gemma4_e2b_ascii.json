@@ -1,0 +1,103 @@
+{
+  "protocol": "IPv6",
+  "rfc": "RFC 8200",
+  "packet": [
+    {
+      "name": "IPv6 Header",
+      "pdus": [
+        "IPv6 Header"
+      ],
+      "bit_string_types": [
+        {
+          "name": "Version",
+          "size_bits": 4
+        },
+        {
+          "name": "Traffic Class",
+          "size_bits": 8
+        },
+        {
+          "name": "Flow Label",
+          "size_bits": 20
+        },
+        {
+          "name": "Payload Length",
+          "size_bits": 16
+        }
+      ],
+      "enumerated_types": [
+        {
+          "name": "Version",
+          "variants": [
+            {
+              "name": "4",
+              "type": "4-bit Internet Protocol version number"
+            }
+          ]
+        }
+      ],
+      "structure_types": [
+        {
+          "name": "IPv6 Header",
+          "header_size_bytes": 40,
+          "byte_order": "Big Endian",
+          "fields": [
+            {
+              "name": "version",
+              "display_name": "Version",
+              "offset_bits": 0,
+              "size_bits": 4,
+              "type": "uint32_le",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "version == 4"
+              ]
+            },
+            {
+              "name": "traffic_class",
+              "display_name": "Traffic Class",
+              "offset_bits": 4,
+              "size_bits": 8,
+              "type": "uint64_le",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "flow_label",
+              "display_name": "Flow Label",
+              "offset_bits": 12,
+              "size_bits": 20,
+              "type": "uint64_le",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "payload_length",
+              "display_name": "Payload Length",
+              "offset_bits": 32,
+              "size_bits": 16,
+              "type": "uint32_le",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "payload_length >= 0"
+              ]
+            }
+          ],
+          "constraints": [
+            "version == 4"
+          ],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

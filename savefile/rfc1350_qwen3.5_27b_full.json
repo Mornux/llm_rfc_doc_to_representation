@@ -1,0 +1,152 @@
+{
+  "protocol": "TFTP",
+  "rfc": "RFC 1350",
+  "packet": [
+    {
+      "name": "RRQ/WRQ packet",
+      "pdus": [
+        "Read request (RRQ)",
+        "Write request (WRQ)"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [
+        {
+          "name": "opcode_rrq_wrq",
+          "variants": [
+            {
+              "name": "rrq_read_request",
+              "type": "value == 1"
+            },
+            {
+              "name": "wrq_write_request",
+              "type": "value == 2"
+            }
+          ]
+        }
+      ],
+      "structure_types": [
+        {
+          "name": "request_packet_structure",
+          "header_size_bytes": null,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "opcode",
+              "display_name": "Opcode",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": "request_opcode"
+            },
+            {
+              "name": "filename",
+              "display_name": "Filename",
+              "offset_bits": 16,
+              "size_bits": null,
+              "type": "netascii_string_terminated_by_zero",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "filename is a sequence of bytes in netascii"
+              ]
+            },
+            {
+              "name": "mode",
+              "display_name": "Mode",
+              "offset_bits": null,
+              "size_bits": null,
+              "type": "netascii_string_terminated_by_zero"
+            }
+          ],
+          "constraints": []
+        },
+        "array_types: [{ name: file_mode_options, element_type string length variable },],parsing_context: [], helper_functions:[], transform_functions:[]}}]})'s constraints should be empty per rules if no explicit. Need to fix field offsets since filename and mode are terminated by zero bytes but offset bits depend on previous field lengths which is null here. This matches rule 8. Let's refine structure_types fields properly with types defined in bit_string_types or enumerated_types where possible. RFC describes Filename as sequence of netascii terminated by zero byte, Mode similarly. These aren't raw fixed sizes so offsets must remain null for filename and mode since they are variable length strings separated by a single zero byte between them which is part of the string definition actually figure 5-1 shows: Opcode (2 bytes), Filename (string+0), Mode (string+0). So offset_bits for filename starts at bit 16, but size_bits null. For mode it's after filename+null terminator so truly dependent and unknown without parsing content -> null is correct per rule 8/9.`]})'s constraints should be empty if none stated explicitly beyond implicit types which we don't invent rules say only generate explicit or deterministic from requirements like "
+      ]
+    },
+    {
+      "name": "",
+      "pdus: [], bit_string_types:[{": "filename"
+    },
+    {
+      "": "mode"
+    },
+    {
+      "name": "error_packet",
+      "pdus": [
+        "error_packet"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "error_packet",
+          "header_size_bytes": 4,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "opcode",
+              "display_name": "Opcode",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": null,
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "value == 5"
+              ]
+            },
+            {
+              "name": "error_code",
+              "display_name": "ErrorCode",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": null,
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            }
+          ],
+          "constraints": []
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "data_packet",
+      "pdus": [
+        "data_packet"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "data_packet",
+          "header_size_bytes": 4,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "opcode",
+              "display_name": "Opcode",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": null,
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "value == 3"
+              ]
+            }
+          ],
+          "constraints": []
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ],
+  "] })}`}]}]})'s constraints array inside fields must be empty [] if none. Also check rule 15 says each distinct ASCII diagram is separate entry. RFC has Figure 5-1 (RRQ/WRQ), Figure 5-2 (DATA), Figure 5-3 (ACK), Figure 5-4 (ERROR). These are four diagrams thus four entries in packet array.`}])'s JSON must be valid so I will construct it carefully with proper field names and null values where needed. Also rule 18 about parsing context - RFC mentions TID's passed to UDP as ports but that is transport layer not part of TFTP packet itself, no external state required to parse the bit stream according to diagrams provided except perhaps block numbers for logic validation which isn't a structural dependency on prior packets in terms of field layout (though ACK echo depends on DATA content semantically). Rule 17 says different fields same width can be diff types. I will define ": "filename"
+}

@@ -1,0 +1,7 @@
+{
+  "key": {
+    "protocol": "Transmission Control Protocol (TCP)",
+    "rfc": "9293"
+  },
+  "analysis": "This is a network protocol specification analysis task. I need to extract and convert the RFC document into a structured Network Packet Representation as specified in the requirements. The document describes the TCP protocol, including its header format, sequence numbers, state transitions, and various options. I need to create packet entries based on the documented structure using snake_case field names, null values where information is not available, and ensure no Markdown or other non-JSON elements are included."
+}

@@ -1,0 +1,176 @@
+{
+  "protocol": "TFTP Revision 2",
+  "rfc": "RFC 1350",
+  "packet": [
+    {
+      "name": "tftp",
+      "pdus": [
+        "TFTP Protocol"
+      ],
+      "bit_string_types": [
+        {
+          "name": "transfer_id",
+          "size_bits": "8"
+        }
+      ],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "TFTP Header",
+          "header_size_bytes": "2",
+          "byte_order": "little-endian",
+          "fields": [
+            {
+              "name": "opcode",
+              "display_name": "Opcode",
+              "offset_bits": "0-1",
+              "size_bits": "2",
+              "type": "uint8_t",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [],
+              "parse_from": "packet[1]",
+              "serialize_to": "packet[1]"
+            },
+            {
+              "name": "filename",
+              "display_name": "Filename",
+              "offset_bits": "2-10",
+              "size_bits": "variable",
+              "type": "byte[]",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [],
+              "parse_from": "packet[1]",
+              "serialize_to": "packet[1]"
+            },
+            {
+              "name": "mode",
+              "display_name": "Mode",
+              "offset_bits": "10-11",
+              "size_bits": "2",
+              "type": "uint8_t",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [],
+              "parse_from": "packet[1]",
+              "serialize_to": "packet[1]"
+            }
+          ]
+        },
+        {
+          "name": "data",
+          "display_name": "Data",
+          "header_size_bytes": "n",
+          "byte_order": "little-endian",
+          "fields": [
+            {
+              "name": "block_number",
+              "display_name": "Block Number",
+              "offset_bits": "0-7",
+              "size_bits": "8",
+              "type": "uint8_t",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [],
+              "parse_from": "packet[1]",
+              "serialize_to": "packet[1]"
+            },
+            {
+              "name": "data",
+              "display_name": "Data",
+              "offset_bits": "8-63",
+              "size_bits": "variable",
+              "type": "byte[]",
+              "optional": false,
+              "presence_condition": "data_packet_size >= 512",
+              "constraints": [],
+              "parse_from": "packet[1]",
+              "serialize_to": "packet[1]"
+            }
+          ]
+        },
+        {
+          "name": "ack",
+          "display_name": "Ack",
+          "header_size_bytes": "2",
+          "byte_order": "little-endian",
+          "fields": [
+            {
+              "name": "opcode",
+              "display_name": "Opcode",
+              "offset_bits": "0-1",
+              "size_bits": "2",
+              "type": "uint8_t",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [],
+              "parse_from": "packet[1]",
+              "serialize_to": "packet[1]"
+            },
+            {
+              "name": "block_number",
+              "display_name": "Block Number",
+              "offset_bits": "2-9",
+              "size_bits": "8",
+              "type": "uint8_t",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [],
+              "parse_from": "packet[1]",
+              "serialize_to": "packet[1]"
+            }
+          ]
+        },
+        {
+          "name": "error",
+          "display_name": "Error",
+          "header_size_bytes": "2",
+          "byte_order": "little-endian",
+          "fields": [
+            {
+              "name": "opcode",
+              "display_name": "Opcode",
+              "offset_bits": "0-1",
+              "size_bits": "2",
+              "type": "uint8_t",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [],
+              "parse_from": "packet[1]",
+              "serialize_to": "packet[1]"
+            },
+            {
+              "name": "error_code",
+              "display_name": "Error Code",
+              "offset_bits": "2-4",
+              "size_bits": "2",
+              "type": "uint8_t",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [],
+              "parse_from": "packet[1]",
+              "serialize_to": "packet[1]"
+            },
+            {
+              "name": "err_msg",
+              "display_name": "Error Message",
+              "offset_bits": "4-10",
+              "size_bits": "7",
+              "type": "char[]",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [],
+              "parse_from": "packet[1]",
+              "serialize_to": "packet[1]"
+            }
+          ]
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

@@ -1,0 +1,135 @@
+{
+  "protocol": "TFTP",
+  "rfc": "RFC 1350",
+  "packet": [
+    {
+      "name": "TFTP_Packets",
+      "pdus": [
+        "RRQ",
+        "WRQ",
+        "DATA",
+        "ACK",
+        "ERROR"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [
+        {
+          "name": "TFTP_Opcode",
+          "variants": [
+            {
+              "name": "RRQ",
+              "type": "bit_string",
+              "condition": null
+            },
+            {
+              "name": "WRQ",
+              "type": "bit_string",
+              "condition": null
+            },
+            {
+              "name": "DATA",
+              "type": "bit_string",
+              "condition": null
+            },
+            {
+              "name": "ACK",
+              "type": "bit_string",
+              "condition": null
+            },
+            {
+              "name": "ERROR",
+              "type": "bit_string",
+              "condition": null
+            }
+          ]
+        }
+      ],
+      "structure_types": [
+        {
+          "name": "RRQ",
+          "header_size_bytes": 2,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "opcode",
+              "display_name": "Opcode",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": "enumerated_type",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "filename",
+              "display_name": "Filename",
+              "offset_bits": 16,
+              "size_bits": null,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "terminated by zero"
+              ]
+            },
+            {
+              "name": "mode",
+              "display_name": "Mode",
+              "offset_bits": null,
+              "size_bits": null,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            }
+          ]
+        }
+      ],
+      "constraints": [],
+      "parse_from": null,
+      "serialize_to": null
+    },
+    {
+      "name": "WRQ",
+      "header_size_bytes": 2,
+      "byte_order": null,
+      "fields": [
+        {
+          "name": "opcode",
+          "display_name": "Opcode",
+          "offset_bits": 0,
+          "size_bits": 16,
+          "type": "enumerated_type",
+          "optional": false,
+          "presence_condition": null,
+          "constraints": []
+        },
+        {
+          "name": "filename",
+          "display_name": "Filename",
+          "offset_bits": 16,
+          "size_bits": null,
+          "type": "bit_string",
+          "optional": false,
+          "presence_condition": null,
+          "constraints": [
+            "terminated by zero"
+          ]
+        },
+        {
+          "name": "mode",
+          "display_name": "Mode",
+          "offset_bits": null,
+          "size_bits": null,
+          "type": "bit_string",
+          "optional": false,
+          "presence_condition": null,
+          "constraints": []
+        }
+      ]
+    }
+  ],
+  "constraints": [],
+  "parse_from": null,
+  "serialize_to": null
+}

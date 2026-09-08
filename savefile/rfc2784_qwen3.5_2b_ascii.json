@@ -1,0 +1,100 @@
+{
+  "protocol": "GRE",
+  "rfc": "RFC 2784",
+  "packet": [],
+  "bit_string_types": [],
+  "enumerated_types": [
+    {
+      "name": "Checksum Present",
+      "variants": []
+    }
+  ],
+  "structure_types": [
+    {
+      "name": "GRE Header",
+      "header_size_bytes": null,
+      "byte_order": null,
+      "fields": [
+        {
+          "name": "Reserved1",
+          "display_name": "Reserved1 (Optional)",
+          "offset_bits": null,
+          "size_bits": null,
+          "type": "boolean or null",
+          "optional": true,
+          "presence_condition": "if the Checksum Present bit is set to one",
+          "constraints": []
+        }
+      ],
+      "constraints": []
+    },
+    {
+      "name": "GRE Header Payload Packet",
+      "header_size_bytes": null,
+      "byte_order": null,
+      "fields": [
+        {
+          "name": "Payload packet",
+          "display_name": "Payload packet",
+          "offset_bits": null,
+          "size_bits": null,
+          "type": "string or null",
+          "optional": false,
+          "presence_condition": null,
+          "constraints": []
+        }
+      ],
+      "constraints": []
+    },
+    {
+      "name": "GRE Header Checksum",
+      "header_size_bytes": null,
+      "byte_order": null,
+      "fields": [
+        {
+          "name": "Checksum",
+          "display_name": "Checksum (optional)",
+          "offset_bits": null,
+          "size_bits": null,
+          "type": "string or null",
+          "optional": true,
+          "presence_condition": "if the Checksum Present bit is set to one",
+          "constraints": []
+        }
+      ],
+      "constraints": []
+    },
+    {
+      "name": "GRE Header Reserved1",
+      "header_size_bytes": null,
+      "byte_order": null,
+      "fields": [
+        {
+          "name": "Reserved1 (Optional)",
+          "display_name": "Reserved1 (Optional)",
+          "offset_bits": null,
+          "size_bits": null,
+          "type": "string or null",
+          "optional": true,
+          "presence_condition": null,
+          "constraints": []
+        }
+      ],
+      "constraints": []
+    },
+    {
+      "name": "GRE Header Ver",
+      "display_name": "Ver",
+      "offset_bits": null,
+      "size_bits": null,
+      "type": "integer or null",
+      "optional": false,
+      "presence_condition": null,
+      "constraints": []
+    }
+  ],
+  "array_types": [],
+  "parsing_context": [],
+  "helper_functions": [],
+  "transform_functions": []
+}

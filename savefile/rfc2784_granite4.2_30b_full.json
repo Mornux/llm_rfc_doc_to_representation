@@ -1,0 +1,107 @@
+{
+  "protocol": "generic routing encapsulation",
+  "rfc": "2784",
+  "packet": [
+    {
+      "name": "gre_header",
+      "pdus": [
+        "gre_header"
+      ],
+      "bit_string_types": [
+        {
+          "name": "checksum_value",
+          "size_bits": 16
+        },
+        {
+          "name": "reserved1_bits",
+          "size_bits": 16
+        },
+        {
+          "name": "version_number_bits",
+          "size_bits": 3
+        },
+        {
+          "name": "protocol_type_value",
+          "size_bits": 16
+        }
+      ],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "gre_header",
+          "header_size_bytes": null,
+          "byte_order": "network byte order (big-endian)",
+          "fields": [
+            {
+              "name": "c_bit_and_reserved0",
+              "display_name": "Checksum Present and Reserved0 Field",
+              "offset_bits": 0,
+              "size_bits": 32,
+              "type": "bit_string",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": [
+                "MUST discard packet if bits 1-5 are non-zero unless RFC1701 implementation"
+              ]
+            },
+            {
+              "name": "version_number",
+              "display_name": "Version Number",
+              "offset_bits": 13,
+              "size_bits": 3,
+              "type": "version_number_bits",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "value == 0"
+              ]
+            },
+            {
+              "name": "protocol_type",
+              "display_name": "Protocol Type",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": "ethernet_type",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "if the payload is IPv4, value == 0x800"
+              ]
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": 32,
+              "size_bits": 16,
+              "type": "checksum_value",
+              "optional": true,
+              "presence_condition": "c_bit_and_reserved0.bit0 == 1",
+              "constraints": [
+                "checksum computed over GRE header and payload with checksum field zero"
+              ]
+            },
+            {
+              "name": "reserved1",
+              "display_name": "Reserved1",
+              "offset_bits": 48,
+              "size_bits": 16,
+              "type": "bit_string",
+              "optional": true,
+              "presence_condition": "c_bit_and_reserved0.bit0 == 1",
+              "constraints": [
+                "value == 0 when present"
+              ]
+            }
+          ],
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

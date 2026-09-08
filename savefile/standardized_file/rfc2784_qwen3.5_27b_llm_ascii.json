@@ -1,0 +1,1 @@
+{"protocol": "generic routing encapsulation", "rfc": "rfc 2784", "packet": [{"name": "gre header", "structure types": [{"name": "gre header", "fields": [{"name": "checksum present", "offset bits": 0, "size bits": 1, "type": "checksum present bit"}]}], "bit string types": [{"name": "checksum present bit", "size bits": 1}]}]}

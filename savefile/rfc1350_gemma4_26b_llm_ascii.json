@@ -1,0 +1,237 @@
+{
+  "protocol": "tftp",
+  "rfc": "RFC 1350",
+  "packet": [
+    {
+      "name": "tftp_packet_formats",
+      "pdus": [
+        "rrq_wrq",
+        "data",
+        "ack",
+        "error"
+      ],
+      "bit_string_types": [
+        {
+          "name": "opcode_value",
+          "size_bits": 16
+        }
+      ],
+      "enumerated_types": [
+        {
+          "name": "opcode",
+          "variants": [
+            {
+              "name": "rrq",
+              "type": "uint16",
+              "condition": null
+            },
+            {
+              "name": "wrq",
+              "type": "uint16",
+              "condition": null
+            },
+            {
+              "name": "data",
+              "type": "uint16",
+              "condition": null
+            },
+            {
+              "name": "ack",
+              "type": "uint16",
+              "condition": null
+            },
+            {
+              "name": "error",
+              "type": "uint16",
+              "condition": null
+            }
+          ]
+        }
+      ],
+      "structure_types": [
+        {
+          "name": "rrq_wrq_packet",
+          "header_size_bytes": null,
+          "byte_order": "network",
+          "fields": [
+            {
+              "name": "opcode",
+              "display_name": "Opcode",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": "opcode",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "filename",
+              "display_name": "Filename",
+              "offset_bits": 16,
+              "size_bits": null,
+              "type": "string",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "filename is a sequence of bytes in netascii"
+              ]
+            },
+            {
+              "name": "filename_terminator",
+              "display_name": "Filename Terminator",
+              "offset_bits": null,
+              "size_bits": 8,
+              "type": null,
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "value == 0"
+              ]
+            },
+            {
+              "name": "mode",
+              "display_name": "Mode",
+              "offset_bits": null,
+              "size_bits": null,
+              "type": "string",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            }
+          ],
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        },
+        {
+          "name": "data_packet",
+          "header_size_bytes": null,
+          "byte_order": "network",
+          "fields": [
+            {
+              "name": "opcode",
+              "display_name": "Opcode",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": "opcode_value",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "block_number",
+              "display_name": "Block Number",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": "uint16",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "data",
+              "display_name": "Data",
+              "offset_bits": 32,
+              "size_bits": null,
+              "type": "bytes",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "data_length <= 512"
+              ]
+            }
+          ],
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        },
+        {
+          "name": "ack_packet",
+          "header_size_bytes": null,
+          "byte_order": "network",
+          "fields": [
+            {
+              "name": "opcode",
+              "display_name": "Opcode",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": "opcode",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "block_number",
+              "display_name": "Block Number",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": "uint16",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            }
+          ],
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        },
+        {
+          "name": "error_packet",
+          "header_size_bytes": null,
+          "byte_order": "network",
+          "fields": [
+            {
+              "name": "opcode",
+              "display_name": "Opcode",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": "opcode",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "error_code",
+              "display_name": "Error Code",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": "uint16",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "error_msg",
+              "display_name": "Error Message",
+              "offset_bits": 32,
+              "size_bits": null,
+              "type": "string",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "error_message_terminator",
+              "display_name": "Error Message Terminator",
+              "offset_bits": null,
+              "size_bits": 8,
+              "type": null,
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "value == 0"
+              ]
+            }
+          ],
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

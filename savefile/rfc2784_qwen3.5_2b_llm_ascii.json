@@ -1,0 +1,43 @@
+{
+  "protocol": "GRE",
+  "rfc": "<RFC_DOCUMENT>",
+  "packet": [
+    {
+      "name": "Delivery Header",
+      "pdus": [],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "Delivery Header",
+          "header_size_bytes": null,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "delivery_protocol_number",
+              "display_name": "Delivery Protocol Number",
+              "offset_bits": "0",
+              "size_bits": "0",
+              "type": "none",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            }
+          ],
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [
+        {
+          "name": "delivery_protocol_number",
+          "type": "none"
+        }
+      ],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

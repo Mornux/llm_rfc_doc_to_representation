@@ -1,0 +1,644 @@
+{
+  "protocol": "network packet specification analysis",
+  "rfc": "",
+  "packet": [
+    {
+      "name": "source_ip_address",
+      "pdus": [
+        "tcp, udp, icmp, ip, arp, ethertype"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [
+        {
+          "name": "protocol_id",
+          "variants": [
+            {
+              "name": "icmpv4",
+              "type": "string",
+              "condition": null
+            },
+            {
+              "name": "icmpv6",
+              "type": "string",
+              "condition": null
+            },
+            {
+              "name": "ip",
+              "type": "string",
+              "condition": null
+            }
+          ]
+        }
+      ],
+      "structure_types": [
+        {
+          "name": "ipv4_packet_header",
+          "header_size_bytes": 20,
+          "byte_order": "big-endian",
+          "fields": [
+            {
+              "name": "version",
+              "display_name": "Version",
+              "offset_bits": 0,
+              "size_bits": 4,
+              "type": "integer",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "value == 1"
+              ]
+            },
+            {
+              "name": "header_length",
+              "display_name": "Header Length",
+              "offset_bits": 4,
+              "size_bits": 2,
+              "type": "integer",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "value >= 8"
+              ]
+            },
+            {
+              "name": "identification",
+              "display_name": "Identification",
+              "offset_bits": 6,
+              "size_bits": 20,
+              "type": "integer",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "value <= 65535"
+              ]
+            },
+            {
+              "name": "flags",
+              "display_name": "Flags",
+              "offset_bits": 26,
+              "size_bits": 8,
+              "type": "integer",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "value < 16"
+              ]
+            },
+            {
+              "name": "reserved",
+              "display_name": "Reserved",
+              "offset_bits": 34,
+              "size_bits": 0,
+              "type": "integer",
+              "optional": true,
+              "presence_condition": null,
+              "constraints": [
+                "value == 0"
+              ]
+            },
+            {
+              "name": "length",
+              "display_name": "Length",
+              "offset_bits": 34,
+              "size_bits": 16,
+              "type": "integer",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "value >= 0"
+              ]
+            },
+            {
+              "name": "identification_checksum",
+              "display_name": "Identification Checksum",
+              "offset_bits": 50,
+              "size_bits": 16,
+              "type": "integer",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "value == (length + identification) * ((identification ^ length) >> 8)"
+              ]
+            },
+            {
+              "name": "fragments_checksum",
+              "display_name": "Fragments Checksum",
+              "offset_bits": 66,
+              "size_bits": 16,
+              "type": "integer",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "value == (length + identification) * ((identification ^ length) >> 8)"
+              ]
+            },
+            {
+              "name": "ttl",
+              "display_name": "Time To Live",
+              "offset_bits": 82,
+              "size_bits": 8,
+              "type": "integer",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "value > 0"
+              ]
+            },
+            {
+              "name": "protocol",
+              "display_name": "Protocol ID",
+              "offset_bits": 90,
+              "size_bits": 8,
+              "type": "integer",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "value == 6"
+              ]
+            },
+            {
+              "name": "header_checksum",
+              "display_name": "Header Checksum",
+              "offset_bits": 98,
+              "size_bits": 16,
+              "type": "integer",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "value == (version + header_length + identification) * ((identification ^ version) >> 2)"
+              ]
+            },
+            {
+              "name": "options_length",
+              "display_name": "Options Length",
+              "offset_bits": 114,
+              "size_bits": 8,
+              "type": "integer",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "value >= 0"
+              ]
+            },
+            {
+              "name": "checksum_checksum",
+              "display_name": "Checksum Checksum",
+              "offset_bits": 122,
+              "size_bits": 32,
+              "type": "integer",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "value == header_checksum"
+              ]
+            },
+            {
+              "name": "destination_address_length",
+              "display_name": "Destination Address Length",
+              "offset_bits": 154,
+              "size_bits": 8,
+              "type": "integer",
+              "optional": true,
+              "presence_condition": null,
+              "constraints": [
+                "value >= 0"
+              ]
+            },
+            {
+              "name": "source_address_length",
+              "display_name": "Source Address Length",
+              "offset_bits": 162,
+              "size_bits": 8,
+              "type": "integer",
+              "optional": true,
+              "presence_condition": null,
+              "constraints": [
+                "value >= 0"
+              ]
+            },
+            {
+              "name": "destination_port",
+              "display_name": "Destination Port",
+              "offset_bits": 170,
+              "size_bits": 16,
+              "type": "integer",
+              "optional": true,
+              "presence_condition": null,
+              "constraints": [
+                "value > 0"
+              ]
+            },
+            {
+              "name": "source_port",
+              "display_name": "Source Port",
+              "offset_bits": 186,
+              "size_bits": 16,
+              "type": "integer",
+              "optional": true,
+              "presence_condition": null,
+              "constraints": [
+                "value > 0"
+              ]
+            },
+            {
+              "name": "window",
+              "display_name": "Window Size",
+              "offset_bits": 202,
+              "size_bits": 16,
+              "type": "integer",
+              "optional": true,
+              "presence_condition": null,
+              "constraints": [
+                "value >= 1"
+              ]
+            },
+            {
+              "name": "checksum",
+              "display_name": "Check Sum",
+              "offset_bits": 218,
+              "size_bits": 16,
+              "type": "integer",
+              "optional": true,
+              "presence_condition": null,
+              "constraints": [
+                "value == (version + header_length + identification + ttl + protocol + options_length) * ((identification ^ version) >> 2)"
+              ]
+            },
+            {
+              "name": "acknowledgment",
+              "display_name": "Acknowledgment Number",
+              "offset_bits": 234,
+              "size_bits": 16,
+              "type": "integer",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "value >= 0"
+              ]
+            },
+            {
+              "name": "data_offset_length",
+              "display_name": "Data Offset Length",
+              "offset_bits": 250,
+              "size_bits": 8,
+              "type": "integer",
+              "optional": true,
+              "presence_condition": null,
+              "constraints": [
+                "value >= 6"
+              ]
+            },
+            {
+              "name": "more",
+              "display_name": "More Flags",
+              "offset_bits": 258,
+              "size_bits": 16,
+              "type": "integer",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "value == 0"
+              ]
+            },
+            {
+              "name": "flags",
+              "display_name": "Flags",
+              "offset_bits": 274,
+              "size_bits": 8,
+              "type": "integer",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "value < 16"
+              ]
+            }
+          ],
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        },
+        {
+          "name": "source_ip_address",
+          "pdus": [
+            "tcp, udp, icmp, ip, arp, ethertype"
+          ],
+          "bit_string_types": [],
+          "enumerated_types": [
+            {
+              "name": "protocol_id",
+              "variants": [
+                {
+                  "name": "icmpv4",
+                  "type": "string",
+                  "condition": null
+                },
+                {
+                  "name": "icmpv6",
+                  "type": "string",
+                  "condition": null
+                },
+                {
+                  "name": "ip",
+                  "type": "string",
+                  "condition": null
+                }
+              ]
+            }
+          ],
+          "structure_types": [
+            {
+              "name": "ipv4_packet_header",
+              "header_size_bytes": 20,
+              "byte_order": "big-endian",
+              "fields": [
+                {
+                  "name": "version",
+                  "display_name": "Version",
+                  "offset_bits": 0,
+                  "size_bits": 4,
+                  "type": "integer",
+                  "optional": false,
+                  "presence_condition": null,
+                  "constraints": [
+                    "value == 1"
+                  ]
+                },
+                {
+                  "name": "header_length",
+                  "display_name": "Header Length",
+                  "offset_bits": 4,
+                  "size_bits": 2,
+                  "type": "integer",
+                  "optional": false,
+                  "presence_condition": null,
+                  "constraints": [
+                    "value >= 8"
+                  ]
+                },
+                {
+                  "name": "identification",
+                  "display_name": "Identification",
+                  "offset_bits": 6,
+                  "size_bits": 20,
+                  "type": "integer",
+                  "optional": false,
+                  "presence_condition": null,
+                  "constraints": [
+                    "value <= 65535"
+                  ]
+                },
+                {
+                  "name": "flags",
+                  "display_name": "Flags",
+                  "offset_bits": 26,
+                  "size_bits": 8,
+                  "type": "integer",
+                  "optional": false,
+                  "presence_condition": null,
+                  "constraints": [
+                    "value < 16"
+                  ]
+                },
+                {
+                  "name": "reserved",
+                  "display_name": "Reserved",
+                  "offset_bits": 34,
+                  "size_bits": 0,
+                  "type": "integer",
+                  "optional": true,
+                  "presence_condition": null,
+                  "constraints": [
+                    "value == 0"
+                  ]
+                },
+                {
+                  "name": "length",
+                  "display_name": "Length",
+                  "offset_bits": 34,
+                  "size_bits": 16,
+                  "type": "integer",
+                  "optional": false,
+                  "presence_condition": null,
+                  "constraints": [
+                    "value >= 0"
+                  ]
+                },
+                {
+                  "name": "identification_checksum",
+                  "display_name": "Identification Checksum",
+                  "offset_bits": 50,
+                  "size_bits": 16,
+                  "type": "integer",
+                  "optional": false,
+                  "presence_condition": null,
+                  "constraints": [
+                    "value == (length + identification) * ((identification ^ length) >> 8)"
+                  ]
+                },
+                {
+                  "name": "fragments_checksum",
+                  "display_name": "Fragments Checksum",
+                  "offset_bits": 66,
+                  "size_bits": 16,
+                  "type": "integer",
+                  "optional": false,
+                  "presence_condition": null,
+                  "constraints": [
+                    "value == (length + identification) * ((identification ^ length) >> 8)"
+                  ]
+                },
+                {
+                  "name": "ttl",
+                  "display_name": "Time To Live",
+                  "offset_bits": 82,
+                  "size_bits": 8,
+                  "type": "integer",
+                  "optional": false,
+                  "presence_condition": null,
+                  "constraints": [
+                    "value > 0"
+                  ]
+                },
+                {
+                  "name": "protocol",
+                  "display_name": "Protocol ID",
+                  "offset_bits": 90,
+                  "size_bits": 8,
+                  "type": "integer",
+                  "optional": false,
+                  "presence_condition": null,
+                  "constraints": [
+                    "value == 6"
+                  ]
+                },
+                {
+                  "name": "header_checksum",
+                  "display_name": "Header Checksum",
+                  "offset_bits": 98,
+                  "size_bits": 16,
+                  "type": "integer",
+                  "optional": false,
+                  "presence_condition": null,
+                  "constraints": [
+                    "value == (version + header_length + identification) * ((identification ^ version) >> 2)"
+                  ]
+                },
+                {
+                  "name": "options_length",
+                  "display_name": "Options Length",
+                  "offset_bits": 114,
+                  "size_bits": 8,
+                  "type": "integer",
+                  "optional": false,
+                  "presence_condition": null,
+                  "constraints": [
+                    "value >= 0"
+                  ]
+                },
+                {
+                  "name": "checksum_checksum",
+                  "display_name": "Checksum Checksum",
+                  "offset_bits": 122,
+                  "size_bits": 32,
+                  "type": "integer",
+                  "optional": false,
+                  "presence_condition": null,
+                  "constraints": [
+                    "value == header_checksum"
+                  ]
+                },
+                {
+                  "name": "destination_address_length",
+                  "display_name": "Destination Address Length",
+                  "offset_bits": 154,
+                  "size_bits": 8,
+                  "type": "integer",
+                  "optional": true,
+                  "presence_condition": null,
+                  "constraints": [
+                    "value >= 0"
+                  ]
+                },
+                {
+                  "name": "source_address_length",
+                  "display_name": "Source Address Length",
+                  "offset_bits": 162,
+                  "size_bits": 8,
+                  "type": "integer",
+                  "optional": true,
+                  "presence_condition": null,
+                  "constraints": [
+                    "value >= 0"
+                  ]
+                },
+                {
+                  "name": "destination_port",
+                  "display_name": "Destination Port",
+                  "offset_bits": 170,
+                  "size_bits": 16,
+                  "type": "integer",
+                  "optional": true,
+                  "presence_condition": null,
+                  "constraints": [
+                    "value > 0"
+                  ]
+                },
+                {
+                  "name": "source_port",
+                  "display_name": "Source Port",
+                  "offset_bits": 186,
+                  "size_bits": 16,
+                  "type": "integer",
+                  "optional": true,
+                  "presence_condition": null,
+                  "constraints": [
+                    "value > 0"
+                  ]
+                },
+                {
+                  "name": "window",
+                  "display_name": "Window Size",
+                  "offset_bits": 202,
+                  "size_bits": 16,
+                  "type": "integer",
+                  "optional": true,
+                  "presence_condition": null,
+                  "constraints": [
+                    "value >= 1"
+                  ]
+                },
+                {
+                  "name": "checksum",
+                  "display_name": "Check Sum",
+                  "offset_bits": 218,
+                  "size_bits": 16,
+                  "type": "integer",
+                  "optional": true,
+                  "presence_condition": null,
+                  "constraints": [
+                    "value == (version + header_length + identification + ttl + protocol + options_length) * ((identification ^ version) >> 2)"
+                  ]
+                },
+                {
+                  "name": "acknowledgment",
+                  "display_name": "Acknowledgment Number",
+                  "offset_bits": 234,
+                  "size_bits": 16,
+                  "type": "integer",
+                  "optional": false,
+                  "presence_condition": null,
+                  "constraints": [
+                    "value >= 0"
+                  ]
+                },
+                {
+                  "name": "data_offset_length",
+                  "display_name": "Data Offset Length",
+                  "offset_bits": 250,
+                  "size_bits": 8,
+                  "type": "integer",
+                  "optional": true,
+                  "presence_condition": null,
+                  "constraints": [
+                    "value >= 6"
+                  ]
+                },
+                {
+                  "name": "more",
+                  "display_name": "More Flags",
+                  "offset_bits": 258,
+                  "size_bits": 16,
+                  "type": "integer",
+                  "optional": false,
+                  "presence_condition": null,
+                  "constraints": [
+                    "value == 0"
+                  ]
+                },
+                {
+                  "name": "flags",
+                  "display_name": "Flags",
+                  "offset_bits": 274,
+                  "size_bits": 8,
+                  "type": "integer",
+                  "optional": false,
+                  "presence_condition": null,
+                  "constraints": [
+                    "value < 16"
+                  ]
+                }
+              ],
+              "constraints": [],
+              "parse_from": null,
+              "serialize_to": null
+            }
+          ],
+          "array_types": [],
+          "parsing_context": [],
+          "helper_functions": [],
+          "transform_functions": []
+        }
+      ]
+    }
+  ]
+}

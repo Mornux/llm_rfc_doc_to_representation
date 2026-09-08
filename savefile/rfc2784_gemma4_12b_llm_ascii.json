@@ -1,0 +1,93 @@
+{
+  "protocol": "GRE",
+  "rfc": "RFC 2784",
+  "packet": [
+    {
+      "name": "GRE Encapsulated Packet",
+      "pdus": [
+        "GRE Header",
+        "Payload packet"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ],
+  "structure_types": [
+    {
+      "name": "GRE Header",
+      "header_size_bytes": 8,
+      "byte_order": "big-endian",
+      "fields": [
+        {
+          "name": "checksum_present",
+          "display_name": "Checksum Present",
+          "offset_bits": 0,
+          "size_bits": 1,
+          "type": "bit_string_type",
+          "optional": false,
+          "presence_condition": null,
+          "constraints": []
+        },
+        {
+          "name": "reserved0",
+          "display_name": "Reserved0",
+          "offset_bits": 1,
+          "size_bits": 7,
+          "type": "bit_string_type",
+          "optional": false,
+          "presence_condition": null,
+          "constraints": []
+        },
+        {
+          "name": "version",
+          "display_name": "Version",
+          "offset_bits": 8,
+          "size_bits": 8,
+          "type": "bit_string_type",
+          "optional": false,
+          "presence_condition": null,
+          "constraints": []
+        },
+        {
+          "name": "protocol_type",
+          "display_name": "Protocol Type",
+          "offset_bits": 16,
+          "size_bits": 14,
+          "type": "bit_string_type",
+          "optional": false,
+          "presence_condition": null,
+          "constraints": []
+        },
+        {
+          "name": "checksum",
+          "display_name": "Checksum (optional)",
+          "offset_bits": 32,
+          "size_bits": 32,
+          "type": "structure_type",
+          "optional": true,
+          "presence__condition": "checksum_present == 1",
+          "constraints": []
+        },
+        {
+          "name": "reserved1",
+          "display_name": "Reserved1 (Optional)",
+          "offset_bits": 64,
+          "size_bits": 32,
+          "type": "structure_type",
+          "optional": true,
+          "presence_condition": "reserved1_condition_not_specified",
+          "constraints": []
+        }
+      ]
+    }
+  ],
+  "array_types": [],
+  "parsing_context": [],
+  "helper_functions": [],
+  "transform_functions": []
+}

@@ -3,17 +3,17 @@
   "rfc": "RFC 768",
   "packet": [
     {
-      "name": "udp_header_diagram_1",
+      "name": "user_datagram_header_format",
       "pdus": [
-        "datagram"
+        "User Datagram Header"
       ],
       "bit_string_types": [],
       "enumerated_types": [],
       "structure_types": [
         {
-          "name": "udp_pdu",
+          "name": "udp_header_structure",
           "header_size_bytes": 8,
-          "byte_order": "network",
+          "byte_order": "none",
           "fields": [
             {
               "name": "source_port",
@@ -21,9 +21,8 @@
               "offset_bits": 0,
               "size_bits": 16,
               "type": "port",
-              "optional": true,
+              "optional": null,
               "presence_condition": null,
-              "description": "indicates the port of the sending process, and may be assumed to be the port to which a reply should be addressed in the absence of any other information. If not used, a value of zero is inserted.",
               "constraints": []
             },
             {
@@ -34,7 +33,6 @@
               "type": "port",
               "optional": null,
               "presence_condition": null,
-              "description": "",
               "constraints": []
             },
             {
@@ -43,9 +41,8 @@
               "offset_bits": 32,
               "size_bits": 16,
               "type": "length",
-              "optional": false,
+              "optional": null,
               "presence_condition": null,
-              "description": "the length of the user datagram header and the data. (This means the minimum value of the length is eight.)",
               "constraints": []
             },
             {
@@ -54,9 +51,68 @@
               "offset_bits": 48,
               "size_bits": 16,
               "type": "checksum",
-              "optional": false,
+              "optional": true,
               "presence_condition": null,
-              "description": "the 16-bit one's complement of the one's complement sum of a pseudo header of information from the IP header, the UDP header, and the data, padded with zero octets at the end (if necessary) to make a multiple of two octets.",
+              "constraints": []
+            }
+          ],
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        },
+        {
+          "name": "pseudo_header_structure",
+          "header_size_bytes": 20,
+          "byte_order": "none",
+          "fields": [
+            {
+              "name": "source_address",
+              "display_name": "Source Address",
+              "offset_bits": 0,
+              "size_bits": 32,
+              "type": "ip_address",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "destination_address",
+              "display_name": "Destination Address",
+              "offset_bits": 32,
+              "size_bits": 32,
+              "type": "ip_address",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "zero",
+              "display_name": "Reserved/Zero",
+              "offset_bits": 64,
+              "size_bits": 8,
+              "type": "reserved",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "protocol",
+              "display_name": "Protocol",
+              "offset_bits": 72,
+              "size_bits": 8,
+              "type": "protocol_number",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "udp_length",
+              "display_name": "UDP Length",
+              "offset_bits": 80,
+              "size_bits": 16,
+              "type": "length",
+              "optional": null,
+              "presence_condition": null,
               "constraints": []
             }
           ],
@@ -66,13 +122,13 @@
         }
       ],
       "array_types": [],
-      "parsing_context": [],
-      "helper_functions": [
+      "parsing_context": [
         {
-          "name": "pseudo_header_checksum",
-          "description": "the 16-bit one's complement of the one's complement sum of a pseudo header of information from the IP header, the UDP header, and the data, padded with zero octets at the end (if necessary) to make a multiple of two octets."
+          "name": "ip_protocol",
+          "type": "dependency"
         }
       ],
+      "helper_functions": [],
       "transform_functions": []
     }
   ]

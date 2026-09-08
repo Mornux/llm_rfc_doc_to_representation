@@ -1,0 +1,417 @@
+{
+  "protocol": "IPv6",
+  "rfc": "8200",
+  "packet": [
+    {
+      "name": "IPv6 Packet",
+      "pdus": [
+        "IPv6 header",
+        "Extension Headers (optional)",
+        "Upper-Layer Header"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [
+        {
+          "name": "Next Header Type",
+          "variants": [
+            {
+              "name": "IPv6 Version",
+              "type": "Number",
+              "condition": "6"
+            },
+            {
+              "name": "Traffic Class",
+              "type": "Flow Label Type",
+              "condition": "null"
+            },
+            {
+              "name": "Flow Label",
+              "type": "null",
+              "condition": "null"
+            },
+            {
+              "name": "Payload Length",
+              "type": "null",
+              "condition": "null"
+            },
+            {
+              "name": "Next Header",
+              "type": "null",
+              "condition": "null"
+            },
+            {
+              "name": "Hop Limit",
+              "type": "null",
+              "condition": "null"
+            }
+          ]
+        }
+      ],
+      "structure_types": [
+        {
+          "name": "ipv6_header",
+          "header_size_bytes": 40,
+          "byte_order": "network",
+          "fields": [
+            {
+              "name": "version",
+              "display_name": "Version",
+              "offset_bits": 0,
+              "size_bits": 4,
+              "type": "integer",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "6"
+              ]
+            },
+            {
+              "name": "traffic_class",
+              "display_name": "Traffic Class",
+              "offset_bits": 4,
+              "size_bits": 8,
+              "type": "null",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "flow_label",
+              "display_name": "Flow Label",
+              "offset_bits": 12,
+              "size_bits": 20,
+              "type": "null",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "payload_length",
+              "display_name": "Payload Length",
+              "offset_bits": 32,
+              "size_bits": 16,
+              "type": "unsigned integer",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "Length of the IPv6 payload, i.e., the rest of the packet following this IPv6 header, in octets."
+              ]
+            },
+            {
+              "name": "next_header",
+              "display_name": "Next Header",
+              "offset_bits": 48,
+              "size_bits": 8,
+              "type": "selector",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "Identifies the type of header immediately following the IPv6 header."
+              ]
+            },
+            {
+              "name": "hop_limit",
+              "display_name": "Hop Limit",
+              "offset_bits": 56,
+              "size_bits": 8,
+              "type": "unsigned integer",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "source_address",
+              "display_name": "Source Address",
+              "offset_bits": 64,
+              "size_bits": 128,
+              "type": "ipv6_address",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "destination_address",
+              "display_name": "Destination Address",
+              "offset_bits": 192,
+              "size_bits": 128,
+              "type": "ipv6_address",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            }
+          ],
+          "constraints": [
+            "Length of payload_length must be consistent with the total packet size."
+          ],
+          "parse_from": null,
+          "serialize_to": null
+        },
+        {
+          "name": "hop_by_hop_options_header",
+          "header_size_bytes": "multiple of 8",
+          "byte_order": "network",
+          "fields": [
+            {
+              "name": "next_header",
+              "display_name": "Next Header",
+              "offset_bits": 0,
+              "size_bits": 8,
+              "type": "selector",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "hdr_ext_len",
+              "display_name": "Header Extension Length",
+              "offset_bits": 8,
+              "size_bits": 8,
+              "type": "unsigned integer",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "Length of the Hop-by-Hop Options header in 8-octet units, not including the first 8 octets."
+              ]
+            },
+            {
+              "name": "options",
+              "display_name": "Options",
+              "offset_bits": 16,
+              "size_bits": "variable",
+              "type": "variable_length_data",
+              "optional": true,
+              "presence_condition": null,
+              "constraints": [
+                "Variable-length field, of length such that the complete Hop-by-Hop Options header is an integer multiple of 8 octets long."
+              ]
+            }
+          ],
+          "constraints": [
+            "Must immediately follow the IPv6 header. Presence is indicated by next_header == 0."
+          ],
+          "parse_from": null,
+          "serialize_to": null
+        },
+        {
+          "name": "routing_header",
+          "header_size_bytes": "multiple of 8",
+          "byte_order": "network",
+          "fields": [
+            {
+              "name": "next_header",
+              "display_name": "Next Header",
+              "offset_bits": 0,
+              "size_bits": 8,
+              "type": "selector",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "hdr_ext_len",
+              "display_name": "Header Extension Length",
+              "offset_bits": 8,
+              "size_bits": 8,
+              "type": "unsigned integer",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "Length of the Routing header in 8-octet units, not including the first 8 octets."
+              ]
+            },
+            {
+              "name": "routing_type",
+              "display_name": "Routing Type",
+              "offset_bits": 16,
+              "size_bits": 8,
+              "type": "integer",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "segments_left",
+              "display_name": "Segments Left",
+              "offset_bits": 24,
+              "size_bits": 8,
+              "type": "unsigned integer",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "type_specific_data",
+              "display_name": "Type-specific data",
+              "offset_bits": 32,
+              "size_bits": "variable",
+              "type": "variable_length_data",
+              "optional": true,
+              "presence_condition": null,
+              "constraints": [
+                "Variable-length field, of format determined by the Routing Type, and of length such that the complete Routing header is an integer multiple of 8 octets long."
+              ]
+            }
+          ],
+          "constraints": [
+            "Must be identified by next_header = 43."
+          ],
+          "parse_from": null,
+          "serialize_to": null
+        },
+        {
+          "name": "fragment_header",
+          "header_size_bytes": 12,
+          "byte_order": "network",
+          "fields": [
+            {
+              "name": "next_header",
+              "display_name": "Next Header",
+              "offset_bits": 0,
+              "size_bits": 8,
+              "type": "selector",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "reserved",
+              "display_name": "Reserved",
+              "offset_bits": 8,
+              "size_bits": 8,
+              "type": "reserved",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "Initialized to zero for transmission; ignored on reception."
+              ]
+            },
+            {
+              "name": "fragment_offset",
+              "display_name": "Fragment Offset",
+              "offset_bits": 16,
+              "size_bits": 13,
+              "type": "unsigned integer",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "The offset, in 8-octet units, of the data following this header, relative to the start of the Fragmentable Part of the original packet."
+              ]
+            },
+            {
+              "name": "reserved_flags",
+              "display_name": "Reserved Flags",
+              "offset_bits": 29,
+              "size_bits": 2,
+              "type": "reserved",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "Initialized to zero for transmission; ignored on reception."
+              ]
+            },
+            {
+              "name": "m_flag",
+              "display_name": "M Flag",
+              "offset_bits": 31,
+              "size_bits": 1,
+              "type": "boolean",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "1 = more fragments; 0 = last fragment."
+              ]
+            },
+            {
+              "name": "identification",
+              "display_name": "Identification",
+              "offset_bits": 32,
+              "size_bits": 32,
+              "type": "unsigned integer",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            }
+          ],
+          "constraints": [
+            "Must be identified by next_header = 44."
+          ],
+          "parse_from": null,
+          "serialize_to": null
+        },
+        {
+          "name": "destination_options_header",
+          "header_size_bytes": "multiple of 8",
+          "byte_order": "network",
+          "fields": [
+            {
+              "name": "next_header",
+              "display_name": "Next Header",
+              "offset_bits": 0,
+              "size_bits": 8,
+              "type": "selector",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "hdr_ext_len",
+              "display_name": "Header Extension Length",
+              "offset_bits": 8,
+              "size_bits": 8,
+              "type": "unsigned integer",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "Length of the Destination Options header in 8-octet units, not including the first 8 octets."
+              ]
+            },
+            {
+              "name": "options",
+              "display_name": "Options",
+              "offset_bits": 16,
+              "size_bits": "variable",
+              "type": "variable_length_data",
+              "optional": true,
+              "presence_condition": null,
+              "constraints": [
+                "Variable-length field, of length such that the complete Destination Options header is an integer multiple of 8 octets long."
+              ]
+            }
+          ],
+          "constraints": [
+            "Must be identified by next_header = 60."
+          ],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [
+        {
+          "name": "optional_options",
+          "element_type": "option_data",
+          "length": "variable"
+        }
+      ],
+      "parsing_context": [
+        {
+          "name": "Fragment Identification",
+          "type": "Source Address, Destination Address, and Fragment Identification (for reassembly)"
+        }
+      ],
+      "helper_functions": [
+        {
+          "name": "calculate_pseudo_header_length",
+          "description": "Used for calculating the Upper-Layer Packet Length in the pseudo-header (e.g., TCP/UDP). If the upper-layer protocol provides its own length field, use that; otherwise, use the IPv6 Payload Length minus the length of any extension headers present between the IPv6 header and the upper-layer header."
+        }
+      ],
+      "transform_functions": [
+        {
+          "name": "reassemble_fragment_packet",
+          "from": "Fragment packet",
+          "to": "Reassembled original packet",
+          "description": "Performs reassembly using matching Source Address, Destination Address, and Fragment Identification. Computes the reassembled Payload Length using the formula: PL.orig = PL.first - FL.first - 8 + (8 * FO.last) + FL.last. The Fragment header is removed."
+        }
+      ]
+    }
+  ]
+}

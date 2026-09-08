@@ -1,0 +1,88 @@
+{
+  "protocol": "Generic Routing Encapsulation (GRE)",
+  "rfc": "2784",
+  "packet": [
+    {
+      "name": "gre_packet_structure_1_header_only_no_checksum_or_reserved1_fields_present_if_c_bit_is_zero",
+      "pdus": [
+        "GRE Header"
+      ],
+      "bit_string_types": [
+        {
+          "name": "checksum_present_bit",
+          "size_bits": 1
+        },
+        {
+          "name": "version_number_bits",
+          "size_bits": 3
+        }
+      ],
+      "enumerated_types": [],
+      "structures": [
+        {
+          "name": "gre_header_basic_without_optional_fields",
+          "header_size_bytes": 4,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "checksum_present_bit_c",
+              "display_name": "Checksum Present (C)",
+              "offset_bits": 0,
+              "size_bits": 1,
+              "type": "checksum_present_bit",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [],
+              "parse_from": null,
+              "serialize_to": null
+            },
+            {
+              "name": "reserved0",
+              "display_name": "Reserved0",
+              "offset_bits": 1,
+              "size_bits": 12,
+              "type": null,
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "bits 6-12 must be sent as zero",
+                "receiver must discard the packet if any of bits 1-5 are non-zero unless the receiver implements RFC 1701"
+              ],
+              "parse_from": null,
+              "serialize_to": null
+            },
+            {
+              "name": "version",
+              "display_name": "Version Number (bits 13-15)",
+              "offset_bits": 84,
+              "size_bits": 3,
+              "type": "version_number_bits",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "value == 0"
+              ],
+              "parse_from": null,
+              "serialize_to": null
+            },
+            {
+              "name": "protocol_type",
+              "display_name": "Protocol Type",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": null,
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [],
+              "parse_from": null,
+              "serialize_to": null
+            }
+          ],
+          "constraints": [],
+          "parse_from": "gre_header_with_checksum",
+          "serialize_to": "byte_string_type"
+        }
+      ]
+    }
+  ]
+}

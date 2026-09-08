@@ -1,0 +1,75 @@
+{
+  "protocol": "tftp",
+  "rfc": "1350",
+  "packet": [
+    {
+      "name": "figure_1",
+      "pdus": [],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "figure_5_1",
+      "pdus": [
+        "RRQ",
+        "WRQ"
+      ],
+      "bit_string_types": [
+        {
+          "name": "filename",
+          "size_bits": null
+        }
+      ],
+      "enumerated_types": [],
+      "structure_types": [],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "figure_5_2",
+      "pdus": [
+        "DATA"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "figure_5_3",
+      "pdus": [
+        "ACK"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "figure_5_4",
+      "pdus": [
+        "ERROR"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

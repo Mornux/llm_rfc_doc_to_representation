@@ -1,0 +1,17 @@
+{
+  "protocol": "Mandatory Output Contract",
+  "rfc": "Required JSON output only without explanation or Markdown.",
+  "packet": [
+    {
+      "name": "Protocol to Packet Conversion System",
+      "pdus": [],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

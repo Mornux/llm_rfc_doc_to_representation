@@ -1,0 +1,611 @@
+{
+  "protocol": "IPv6",
+  "rfc": "8200",
+  "packet": [
+    {
+      "name": "ipv6_base",
+      "pdus": [
+        "IPv6 Packet"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "ipv6_header",
+          "header_size_bytes": 8,
+          "byte_order": "big-endian",
+          "fields": [
+            {
+              "name": "version",
+              "display_name": "Version",
+              "offset_bits": 0,
+              "size_bits": 4,
+              "type": "bit_string",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": [
+                "value == 6"
+              ]
+            },
+            {
+              "name": "traffic_class",
+              "display_name": "Traffic Class",
+              "offset_bits": 4,
+              "size_bits": 8,
+              "type": "bit_string",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "flow_label",
+              "display_name": "Flow Label",
+              "offset_bits": 12,
+              "size_bits": 20,
+              "type": "bit_string",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "payload_length",
+              "display_name": "Payload Length",
+              "offset_bits": 32,
+              "size_bits": 16,
+              "type": "unsigned_integer",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "next_header",
+              "display_name": "Next Header",
+              "offset_bits": 48,
+              "size_bits": 8,
+              "type": "enumerated",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "hop_limit",
+              "display_name": "Hop Limit",
+              "offset_bits": 56,
+              "size_bits": 8,
+              "type": "unsigned_integer",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "source_address",
+              "display_name": "Source Address",
+              "offset_bits": 64,
+              "size_bits": 128,
+              "type": "address",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "destination_address",
+              "display_name": "Destination Address",
+              "offset_bits": 192,
+              "size_bits": 128,
+              "type": "address",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            }
+          ],
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [
+        {
+          "name": "source_address",
+          "type": "ipv6_address"
+        },
+        {
+          "name": "destination_address",
+          "type": "ipv6_address"
+        }
+      ],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "hop_by_hop_options_header",
+      "pdus": [
+        "Hop-by-Hop Options Header"
+      ],
+      "bit_string_types": [
+        {
+          "name": "next_header_field",
+          "size_bits": 8,
+          "type": "next_header_type"
+        },
+        {
+          "name": "hdr_ext_len_field",
+          "size_bits": 8,
+          "type": "header_extension_length_units"
+        }
+      ],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "hop_by_hop_options_header_structure",
+          "header_size_bytes": 8,
+          "byte_order": "big-endian",
+          "fields": [
+            {
+              "name": "next_header",
+              "display_name": "Next Header",
+              "offset_bits": 0,
+              "size_bits": 8,
+              "type": "enumerated",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": [
+                "value identifies type of header immediately following"
+              ]
+            },
+            {
+              "name": "hdr_ext_len",
+              "display_name": "Header Extension Length",
+              "offset_bits": 8,
+              "size_bits": 8,
+              "type": "unsigned_integer",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": [
+                "value indicates length in 8-octet units, not including first 8 octets"
+              ]
+            },
+            {
+              "name": "options",
+              "display_name": "Options",
+              "offset_bits": 16,
+              "size_bits": null,
+              "type": "variable_length",
+              "optional": true,
+              "presence_condition": null,
+              "constraints": [
+                "complete header is integer multiple of 8 octets",
+                "sequence of options processed strictly in order they appear"
+              ]
+            }
+          ],
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [
+        {
+          "name": "options",
+          "element_type": "option",
+          "length": "null"
+        }
+      ],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "routing_header",
+      "pdus": [
+        "Routing Header"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "routing_header_structure",
+          "header_size_bytes": 8,
+          "byte_order": "big-endian",
+          "fields": [
+            {
+              "name": "next_header",
+              "display_name": "Next Header",
+              "offset_bits": 0,
+              "size_bits": 8,
+              "type": "enumerated",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": [
+                "value identifies type of header immediately following"
+              ]
+            },
+            {
+              "name": "hdr_ext_len",
+              "display_name": "Header Extension Length",
+              "offset_bits": 8,
+              "size_bits": 8,
+              "type": "unsigned_integer",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": [
+                "value indicates length in 8-octet units"
+              ]
+            },
+            {
+              "name": "routing_type",
+              "display_name": "Routing Type",
+              "offset_bits": 16,
+              "size_bits": 8,
+              "type": "enumerated",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": [
+                "identifies particular Routing header variant"
+              ]
+            },
+            {
+              "name": "segments_left",
+              "display_name": "Segments Left",
+              "offset_bits": 24,
+              "size_bits": 8,
+              "type": "unsigned_integer",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": [
+                "number of route segments remaining"
+              ]
+            },
+            {
+              "name": "type_specific_data",
+              "display_name": "Type-Specific Data",
+              "offset_bits": 32,
+              "size_bits": null,
+              "type": "variable_length",
+              "optional": true,
+              "presence_condition": null,
+              "constraints": [
+                "length such that complete header is integer multiple of 8 octets"
+              ]
+            }
+          ],
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [
+        {
+          "name": "preceding_header_next_header",
+          "type": "must be 43"
+        }
+      ],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "fragment_header",
+      "pdus": [
+        "Fragment Header"
+      ],
+      "bit_string_types": [
+        {
+          "name": "reserved_field",
+          "size_bits": 8,
+          "type": "reserved"
+        }
+      ],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "fragment_header_structure",
+          "header_size_bytes": 8,
+          "byte_order": "big-endian",
+          "fields": [
+            {
+              "name": "next_header",
+              "display_name": "Next Header",
+              "offset_bits": 0,
+              "size_bits": 8,
+              "type": "enumerated",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": [
+                "value identifies initial header type of Fragmentable Part"
+              ]
+            },
+            {
+              "name": "reserved",
+              "display_name": "Reserved",
+              "offset_bits": 8,
+              "size_bits": 4,
+              "type": "reserved",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": [
+                "initialized to zero for transmission"
+              ]
+            },
+            {
+              "name": "fragment_offset",
+              "display_name": "Fragment Offset",
+              "offset_bits": 12,
+              "size_bits": 13,
+              "type": "unsigned_integer",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "more_fragments",
+              "display_name": "More Fragments",
+              "offset_bits": 25,
+              "size_bits": 1,
+              "type": "flag",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "identification",
+              "display_name": "Identification",
+              "offset_bits": 32,
+              "size_bits": 16,
+              "type": "unsigned_integer",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            }
+          ],
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [
+        {
+          "name": "original_packet",
+          "type": "unfragmented packet"
+        }
+      ],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "extension_options_header",
+      "pdus": [
+        "Extension Header with Options"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [
+        {
+          "name": "option_type_action",
+          "variants": [
+            {
+              "name": "skip",
+              "type": "unsigned_2bit",
+              "condition": "00"
+            },
+            {
+              "name": "process",
+              "type": "unsigned_2bit",
+              "condition": "01"
+            },
+            {
+              "name": "critical_error",
+              "type": "unsigned_2bit",
+              "condition": "1x"
+            }
+          ]
+        }
+      ],
+      "structure_types": [
+        {
+          "name": "option_structure",
+          "header_size_bytes": null,
+          "byte_order": "big-endian",
+          "fields": [
+            {
+              "name": "option_type",
+              "display_name": "Option Type",
+              "offset_bits": 0,
+              "size_bits": 8,
+              "type": "enumerated",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "option_data_len",
+              "display_name": "Option Data Length",
+              "offset_bits": 8,
+              "size_bits": 8,
+              "type": "unsigned_integer",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": [
+                "length of Option Data field in octets"
+              ]
+            },
+            {
+              "name": "option_data",
+              "display_name": "Option Data",
+              "offset_bits": 16,
+              "size_bits": "unsigned_integer(option_data_len)",
+              "type": "variable_length",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            }
+          ],
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [
+        {
+          "name": "options_sequence",
+          "element_type": "option_structure",
+          "length": "variable"
+        }
+      ],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "hop_by_hop_padding_options",
+      "pdus": [
+        "Hop-by-Hop Options Header with Padding"
+      ],
+      "bit_string_types": [
+        {
+          "name": "pad1_value",
+          "size_bits": 8,
+          "type": "padding_value"
+        },
+        {
+          "name": "padn_type_field",
+          "size_bits": 8,
+          "type": "type_field"
+        },
+        {
+          "name": "padn_opt_data_len_field",
+          "size_bits": 8,
+          "type": "length_field"
+        }
+      ],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "pad1_option_structure",
+          "header_size_bytes": null,
+          "byte_order": "big-endian",
+          "fields": [
+            {
+              "name": "value",
+              "display_name": "Value",
+              "offset_bits": 0,
+              "size_bits": 8,
+              "type": "bit_string",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": [
+                "value == 0"
+              ]
+            }
+          ],
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        },
+        {
+          "name": "padn_option_structure",
+          "header_size_bytes": null,
+          "byte_order": "big-endian",
+          "fields": [
+            {
+              "name": "type_field",
+              "display_name": "Type Field",
+              "offset_bits": 0,
+              "size_bits": 8,
+              "type": "unsigned_integer",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": [
+                "value == 1"
+              ]
+            },
+            {
+              "name": "opt_data_len",
+              "display_name": "Option Data Length",
+              "offset_bits": 8,
+              "size_bits": 8,
+              "type": "unsigned_integer",
+              "optional": null,
+              "presence_condition": null,
+              "constraints": [
+                "value contains N-2 where N is total padding octets"
+              ]
+            },
+            {
+              "name": "option_data",
+              "display_name": "Option Data",
+              "offset_bits": 16,
+              "size_bits": null,
+              "type": "padding_octets",
+              "optional": true,
+              "presence_condition": null,
+              "constraints": [
+                "N-2 zero-valued octets"
+              ]
+            }
+          ],
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [
+        {
+          "name": "calculate_padn_size"
+        }
+      ],
+      "transform_functions": []
+    },
+    {
+      "name": "extension_headers",
+      "pdus": [
+        "IPv6 Packet with Extension Headers"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [
+        {
+          "name": "next_header_type",
+          "variants": [
+            {
+              "name": "hop_by_hop_options",
+              "type": "enumerated_value",
+              "condition": "value == 0 in IPv6 header"
+            },
+            {
+              "name": "routing",
+              "type": "enumerated_value",
+              "condition": "value == 43 in preceding Next Header field"
+            },
+            {
+              "name": "fragment",
+              "type": "enumerated_value",
+              "condition": "value == 44 in preceding Next Header field"
+            }
+          ]
+        }
+      ],
+      "structure_types": [],
+      "array_types": [
+        {
+          "name": "extension_headers_sequence",
+          "element_type": "extension_header_variant",
+          "length": "variable"
+        }
+      ],
+      "parsing_context": [
+        {
+          "name": "destination_address",
+          "type": "ipv6_address"
+        },
+        {
+          "name": "preceding_next_header_value",
+          "type": "identifier_of_following_header"
+        }
+      ],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

@@ -1,29 +1,26 @@
 {
-  "protocol": "User Datagram Protocol",
-  "rfc": "1206",
+  "protocol": "UDP",
+  "rfc": "763",
   "packet": [
     {
-      "name": "udp_header",
-      "pdus": [
-        "A user datagram protocol header."
-      ],
+      "name": "udp_packet",
+      "pdus": [],
       "bit_string_types": [],
       "enumerated_types": [],
       "structure_types": [
         {
-          "name": "udp_header_structure",
+          "name": "udp_header",
           "header_size_bytes": 8,
-          "byte_order": "big-endian",
+          "byte_order": null,
           "fields": [
             {
               "name": "source_port",
               "display_name": "Source Port",
               "offset_bits": 0,
               "size_bits": 16,
-              "type": "unsigned integer",
-              "optional": null,
+              "type": "uint16",
+              "optional": true,
               "presence_condition": null,
-              "description": "Indicates the port of the sending process. If not used, a value of zero is inserted.",
               "constraints": []
             },
             {
@@ -31,10 +28,9 @@
               "display_name": "Destination Port",
               "offset_bits": 16,
               "size_bits": 16,
-              "type": "unsigned integer",
-              "optional": null,
+              "type": "uint16",
+              "optional": false,
               "presence_condition": null,
-              "description": "Indicates the port to which a reply should be addressed.",
               "constraints": []
             },
             {
@@ -42,10 +38,9 @@
               "display_name": "Length",
               "offset_bits": 32,
               "size_bits": 16,
-              "type": "unsigned integer",
-              "optional": null,
+              "type": "uint16",
+              "optional": false,
               "presence_condition": null,
-              "description": "Indicates the length of the UDP datagram.",
               "constraints": []
             },
             {
@@ -53,22 +48,31 @@
               "display_name": "Checksum",
               "offset_bits": 48,
               "size_bits": 16,
-              "type": "unsigned integer",
-              "optional": null,
+              "type": "uint16",
+              "optional": false,
               "presence_condition": null,
-              "description": "Indicates the checksum for error detection.",
+              "constraints": []
+            },
+            {
+              "name": "data_octets",
+              "display_name": "data octets",
+              "offset_bits": 64,
+              "size_bits": null,
+              "type": "variable_length_data",
+              "optional": false,
+              "presence_condition": null,
               "constraints": []
             }
-          ]
-        },
-        "constraints"
+          ],
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
       ],
-      "parse_from": "User Datagram Header Format",
-      "serialize_to": "User Datagram Header Format"
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
     }
-  ],
-  "array_types": [],
-  "parsing_context": [],
-  "helper_functions": [],
-  "transform_functions": []
+  ]
 }

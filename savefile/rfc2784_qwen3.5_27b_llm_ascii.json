@@ -1,0 +1,28 @@
+{
+  "protocol": "Generic Routing Encapsulation",
+  "rfc": "RFC 2784",
+  "packet": [
+    {
+      "name": "gre_header",
+      "structure_types": [
+        {
+          "name": "gre_header",
+          "fields": [
+            {
+              "name": "checksum_present",
+              "offset_bits": 0,
+              "size_bits": 1,
+              "type": "checksum_present_bit"
+            }
+          ]
+        }
+      ],
+      "bit_string_types": [
+        {
+          "name": "checksum_present_bit",
+          "size_bits": 1
+        }
+      ]
+    }
+  ]
+}

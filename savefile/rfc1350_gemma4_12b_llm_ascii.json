@@ -1,0 +1,207 @@
+{
+  "protocol": "TFTP",
+  "rfc": "RFC 1350",
+  "packet": [
+    {
+      "name": "TFTP",
+      "pdus": [
+        "RRQ",
+        "WRQ",
+        "DATA",
+        "ACK",
+        "ERROR"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [
+        {
+          "name": "TFTP_Opcode",
+          "variants": [
+            {
+              "name": "RRQ",
+              "type": "bit_string",
+              "condition": "opcode == 1"
+            },
+            {
+              "name": "WRQ",
+              "type": "bit_string",
+              "condition": "opcode == 2"
+            },
+            {
+              "name": "DATA",
+              "type": "bit_string",
+              "condition": "opcode == 3"
+            },
+            {
+              "name": "100%_ACK",
+              "type": "bit_string",
+              "condition": "opcode == 4"
+            },
+            {
+              "name": "ERROR",
+              "type": "bit_string",
+              "condition": "opcode == 5"
+            }
+          ]
+        }
+      ],
+      "structure_types": [
+        {
+          "name": "RRQ_WRQ_Packet",
+          "header_size_bytes": null,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "opcode",
+              "display_name": "Opcode",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "filename",
+              "display_name": "Filename",
+              "offset_bits": 16,
+              "size_bits": null,
+              "type": "string",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "terminated_by_zero_byte"
+              ]
+            },
+            {
+              "name": "mode",
+              "display_name": "Mode",
+              "offset_bits": null,
+              "size_bits": null,
+              "type": "string",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            }
+          ],
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        },
+        {
+          "name": "DATA_Packet",
+          "header_size_bytes": null,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "opcode",
+              "display_name": "Opcode",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "block_number",
+              "display_name": "Block #",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "data",
+              "display_name": "Data",
+              "offset_bits": 32,
+              "size_bits": null,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "size_between_0_and_512_bytes"
+              ]
+            }
+          ],
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        },
+        {
+          "name": "ACK_Packet",
+          "header_size_bytes": null,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "opcode",
+              "display_name": "Opcode",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "block_number",
+              "display_name": "Block #",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            }
+          ],
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        },
+        {
+          "name": "ERROR_Packet",
+          "header_size_bytes": null,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "opcode",
+              "display_name": "Opcode",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "error_code",
+              "display_name": "ErrorCode",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "error_message",
+              "display_name": "ErrMsg",
+              "offset_bits": 32,
+              "size_bits": null,
+              "type": "string",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "terminated_by_zero_byte"
+              ]
+            }
+          ],
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ]
+    }
+  ]
+}

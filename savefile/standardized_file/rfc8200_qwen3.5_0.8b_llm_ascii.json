@@ -1,0 +1,1 @@
+{"protocol": "mandatory output contract", "rfc": "required json output only without explanation or markdown.", "packet": [{"name": "protocol to packet conversion system", "pdus": [], "bit string types": [], "enumerated types": [], "structure types": [], "array types": [], "parsing context": [], "helper functions": [], "transform functions": []}]}

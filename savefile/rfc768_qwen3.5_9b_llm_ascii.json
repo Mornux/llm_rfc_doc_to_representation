@@ -1,218 +1,77 @@
 {
-  "protocol": "UDP",
-  "rfc": "768 (User Datagram Protocol)",
+  "protocol": "User Datagram Protocol",
+  "rfc": "",
   "packet": [
     {
-      "name": "user_datagram_protocol",
+      "name": "user_datagram_header",
       "pdus": [
-        "udp"
+        "User Datagram Header"
       ],
-      "bit_string_types": [
-        {
-          "name": "octets",
-          "size_bits": null,
-          "description": "raw data octets in the UDP payload"
-        }
-      ],
-      "enumerated_types": [
-        {}
-      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
       "structure_types": [
         {
-          "name": "udp_header",
-          "header_size_bytes": null,
+          "name": "user_datagram_header_structure",
+          "header_size_bytes": 8,
           "byte_order": null,
           "fields": [
             {
               "name": "source_port",
               "display_name": "Source Port",
-              "offset_bits": null,
-              "size_bits": null,
+              "offset_bits": 0,
+              "size_bits": 16,
               "type": null,
-              "optional": null,
+              "optional": true,
               "presence_condition": null,
-              "description": "optional field indicates the port of the sending process; if not used a value of zero is inserted.",
               "constraints": []
             },
             {
               "name": "destination_port",
               "display_name": "Destination Port",
-              "offset_bits": null,
-              "size_bits": null,
+              "offset_bits": 16,
+              "size_bits": 16,
               "type": null,
               "optional": null,
               "presence_condition": null,
-              "description": "indicates the port of the receiving process.",
               "constraints": []
             },
             {
               "name": "length",
               "display_name": "Length",
-              "offset_bits": null,
-              "size_bits": null,
+              "offset_bits": 32,
+              "size_bits": 16,
               "type": null,
               "optional": null,
               "presence_condition": null,
-              "description": "total length of the user datagram, measured in octets.",
               "constraints": []
             },
             {
               "name": "checksum",
               "display_name": "Checksum",
-              "offset_bits": null,
+              "offset_bits": 48,
+              "size_bits": 16,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "data_octets",
+              "display_name": "data octets",
+              "offset_bits": 64,
               "size_bits": null,
               "type": null,
               "optional": null,
               "presence_condition": null,
-              "description": "the 16-bit one's complement of the one's complement sum of a pseudo header of information from the IP header, the UDP header, and the data.",
               "constraints": []
             }
           ],
-          "constraints": []
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
         }
       ],
       "array_types": [],
-      "parsing_context": [
-        {
-          "name": "ip_protocol",
-          "type": null,
-          "description": "assumes that the Internet Protocol (IP) is used as the underlying protocol."
-        }
-      ],
-      "helper_functions": [],
-      "transform_functions": []
-    },
-    {
-      "name": "udp_pseudo_header",
-      "pdus": [
-        "udp"
-      ],
-      "bit_string_types": [
-        {}
-      ],
-      "enumerated_types": [
-        {}
-      ],
-      "structure_types": [
-        {
-          "name": "pseudo_header",
-          "header_size_bytes": null,
-          "byte_order": null,
-          "fields": [
-            {
-              "name": "source_address",
-              "display_name": "Source Address",
-              "offset_bits": null,
-              "size_bits": null,
-              "type": null,
-              "optional": null,
-              "presence_condition": null,
-              "description": "source address from the IP header.",
-              "constraints": []
-            },
-            {
-              "name": "destination_address",
-              "display_name": "Destination Address",
-              "offset_bits": null,
-              "size_bits": null,
-              "type": null,
-              "optional": null,
-              "presence_condition": null,
-              "description": "destination address from the IP header.",
-              "constraints": []
-            },
-            {
-              "name": "zero",
-              "display_name": "Zero",
-              "offset_bits": null,
-              "size_bits": null,
-              "type": null,
-              "optional": null,
-              "presence_condition": null,
-              "description": "zero octet in pseudo header.",
-              "constraints": []
-            },
-            {
-              "name": "protocol",
-              "display_name": "Protocol",
-              "offset_bits": null,
-              "size_bits": null,
-              "type": null,
-              "optional": null,
-              "presence_condition": null,
-              "description": "protocol field from the IP header.",
-              "constraints": []
-            },
-            {
-              "name": "udp_length",
-              "display_name": "UDP Length",
-              "offset_bits": null,
-              "size_bits": null,
-              "type": null,
-              "optional": null,
-              "presence_condition": null,
-              "description": "length of the UDP datagram.",
-              "constraints": []
-            }
-          ],
-          "constraints": [
-            "checksum == one's_complement_sum(pseudo_header, udp_header, data)"
-          ]
-        }
-      ],
-      "array_types": [],
-      "parsing_context": [
-        {
-          "name": "ip_headers",
-          "type": null,
-          "description": "requires IP header information for pseudo header calculation."
-        },
-        {
-          "name": "pseudo_header_padding",
-          "type": null,
-          "description": "data may be padded with zero octets at the end to make a multiple of two octets."
-        }
-      ],
-      "helper_functions": [
-        {
-          "name": "one_complement_sum",
-          "description": "calculate the one's complement sum used for UDP checksum."
-        },
-        {
-          "name": "pseudo_header_padding",
-          "description": "pad data with zero octets to make length a multiple of two octets."
-        }
-      ],
-      "transform_functions": []
-    },
-    {
-      "name": "udp_payload",
-      "pdus": [
-        "udp"
-      ],
-      "bit_string_types": [
-        {
-          "name": "data_octets",
-          "size_bits": null,
-          "description": "user data payload"
-        }
-      ],
-      "enumerated_types": [],
-      "structure_types": [
-        {
-          "name": "payload_structure",
-          "header_size_bytes": null,
-          "byte_order": null,
-          "fields": []
-        }
-      ],
-      "array_types": [
-        {
-          "name": "data_octets_array",
-          "element_type": "octet",
-          "length": "null"
-        }
-      ],
       "parsing_context": [],
       "helper_functions": [],
       "transform_functions": []

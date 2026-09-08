@@ -1,0 +1,205 @@
+{
+  "protocol": "TFTP",
+  "rfc": "1350",
+  "packet": [
+    {
+      "name": "RRQ/WRQ",
+      "pdus": [
+        "RRQ",
+        "WRQ"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [
+        {
+          "name": "opcode",
+          "variants": [
+            {
+              "name": "read_request",
+              "type": "RRQ",
+              "condition": "1"
+            },
+            {
+              "name": "write_request",
+              "type": "WRQ",
+              "condition": "2"
+            },
+            {
+              "name": "data",
+              "type": "DATA",
+              "condition": "3"
+            },
+            {
+              "name": "acknowledgment",
+              "type": "ACK",
+              "condition": "4"
+            },
+            {
+              "name": "error",
+              "type": "ERROR",
+              "condition": "5"
+            }
+          ]
+        }
+      ],
+      "structure_types": [
+        {
+          "name": "DATA",
+          "header_size_bytes": 4,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "opcode",
+              "display_name": "Opcode",
+              "offset_bits": 0,
+              "size_bits": 2,
+              "type": "Integer",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "opcode == 3 (Data)"
+              ]
+            },
+            {
+              "name": "block_number",
+              "display_name": "Block #",
+              "offset_bits": 2,
+              "size_bits": 16,
+              "type": "Integer",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "Block numbers begin with one and increase by one."
+              ]
+            },
+            {
+              "name": "data",
+              "display_name": "Data",
+              "offset_bits": 18,
+              "size_bits": 8,
+              "type": "Byte Array (netascii)",
+              "optional": true,
+              "presence_condition": null,
+              "constraints": [
+                "Length is from 0 to 512 bytes.",
+                "If length is 512 bytes, the block is not the last block.",
+                "If length is 0 to 511 bytes, it signals the end of the transfer."
+              ]
+            }
+          ],
+          "constraints": [
+            "The payload length (data) must be deterministically calculated based on the total packet size minus 4 bytes (Opcode + Block #).",
+            "The packet size can range from 4 bytes (if data is 0 bytes) up to 516 bytes (if data is 512 bytes)."
+          ],
+          "parse_from": "Figure 5-2",
+          "serialize_to": null
+        },
+        {
+          "name": "ACK",
+          "header_size_bytes": 4,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "opcode",
+              "display_name": "Opcode",
+              "offset_bits": 0,
+              "size_bits": 2,
+              "type": "Integer",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "opcode == 4 (Acknowledgment)"
+              ]
+            },
+            {
+              "name": "block_number",
+              "display_name": "Block #",
+              "offset_bits": 2,
+              "size_bits": 16,
+              "type": "Integer",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "Echoes the block number of the DATA packet being acknowledged.",
+                "If a WRQ is acknowledged, the block number is zero."
+              ]
+            },
+            {
+              "name": "padding_1",
+              "display_name": "Padding",
+              "offset_bits": 18,
+              "size_bits": null,
+              "type": "Bit String",
+              "optional": true,
+              "presence_condition": null,
+              "constraints": []
+            }
+          ],
+          "constraints": [
+            "The basic ACK structure is 4 bytes (Opcode + Block # + Padding).",
+            "The total length of the ACK packet is generally 4 bytes, but potentially includes padding."
+          ],
+          "parse_from": "Figure 5-3",
+          "serialize_to": null
+        },
+        {
+          "name": "ERROR",
+          "header_size_bytes": 8,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "opcode",
+              "display_name": "Opcode",
+              "offset_bits": 0,
+              "size_bits": 2,
+              "type": "Integer",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "opcode == 5 (Error)"
+              ]
+            },
+            {
+              "name": "error_code",
+              "display_name": "Error Code",
+              "offset_bits": 2,
+              "size_bits": 16,
+              "type": "Integer",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "Error code indicates the nature of the error. Defined values include 1 (File not found), 2 (Access violation), etc."
+              ]
+            },
+            {
+              "name": "error_message",
+              "display_name": "Error Msg",
+              "offset_bits": 18,
+              "size_bits": null,
+              "type": "String (netascii)",
+              "optional": true,
+              "presence_condition": null,
+              "constraints": [
+                "Intended for human consumption, terminated with a zero byte."
+              ]
+            }
+          ],
+          "constraints": [
+            "Minimum required size is 4 bytes (Opcode + ErrorCode).",
+            "The length of the packet is 2 bytes (Opcode) + 2 bytes (ErrorCode) + length of ErrorMsg."
+          ],
+          "parse_from": "Figure 5-4",
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [
+        {
+          "name": "TID",
+          "type": "Transfer ID (UDP Port)"
+        }
+      ],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

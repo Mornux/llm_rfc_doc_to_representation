@@ -1,0 +1,29 @@
+{
+  "protocol": "string",
+  "rfc": "string",
+  "packet": [
+    {
+      "name": "string",
+      "pdus": [
+        "string"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "string",
+          "header_size_bytes": null,
+          "byte_order": null,
+          "fields": [],
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

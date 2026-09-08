@@ -1,0 +1,506 @@
+{
+  "protocol": "Internet Protocol Version 6 (IPv6)",
+  "rfc": "8200",
+  "packet": [
+    {
+      "name": "ipv6",
+      "pdus": [
+        "ipv6_header"
+      ],
+      "bit_string_types": [
+        {
+          "name": "version_number",
+          "size_bits": 4
+        },
+        {
+          "name": "traffic_class_value",
+          "size_bits": 8
+        },
+        {
+          "name": "flow_label_value",
+          "size_bits": 20
+        },
+        {
+          "name": "payload_length_value",
+          "size_bits": 16
+        },
+        {
+          "name": "destination_address_value",
+          "size_bits": 128
+        },
+        {
+          "name": "hop_limit_value",
+          "size_bits": 8
+        },
+        {
+          "name": "source_address_value",
+          "size_bits": 128
+        },
+        {
+          "name": "next_header_value",
+          "size_bits": 8
+        }
+      ],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "ipv6_header",
+          "header_size_bytes": 40,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "version",
+              "display_name": "Version",
+              "offset_bits": 0,
+              "size_bits": 4,
+              "type": "version_number",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "== 6"
+              ]
+            },
+            {
+              "name": "traffic_class",
+              "display_name": "Traffic Class",
+              "offset_bits": 4,
+              "size_bits": 8,
+              "type": "traffic_class_value",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "flow_label",
+              "display_name": "Flow Label",
+              "offset_bits": 12,
+              "size_bits": 20,
+              "type": "flow_label_value",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "payload_length",
+              "display_name": "Payload Length",
+              "offset_bits": 32,
+              "size_bits": 16,
+              "type": "payload_length_value",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "value is the length in octets of the rest of the packet following the IPv6 header",
+                "extension headers present in the packet are included in the payload length"
+              ]
+            },
+            {
+              "name": "next_header",
+              "display_name": "Next Header",
+              "offset_bits": 48,
+              "size_bits": 8,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "hop_limit",
+              "display_name": "Hop Limit",
+              "offset_bits": 56,
+              "size_bits": 8,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "value is decremented by 1 by each node that forwards the packet"
+              ]
+            },
+            {
+              "name": "source_address",
+              "display_name": "Source Address",
+              "offset_bits": 64,
+              "size_bits": 128,
+              "type": "source_address_value",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "destination_address",
+              "display_name": "Destination Address",
+              "offset_bits": 192,
+              "size_bits": 128,
+              "type": "destination_address_value",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            }
+          ],
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        },
+        {
+          "name": "hop_by_hop_options_header",
+          "header_size_bytes": null,
+          "byte_order": "big-endian",
+          "fields": [
+            {
+              "name": "next_header",
+              "display_name": "Next Header",
+              "offset_bits": 0,
+              "size_bits": 8,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "== 0"
+              ]
+            },
+            {
+              "name": "hdr_ext_len",
+              "display_name": "Hdr Ext Len",
+              "offset_bits": 8,
+              "size_bits": 8,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "options",
+              "display_name": "Options",
+              "offset_bits": 16,
+              "size_bits": null,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            }
+          ],
+          "constraints": [
+            "total_header_length_bytes == 8 * (hdr_ext_len + 1)",
+            "total_header_length_bytes % 8 == 0"
+          ],
+          "parse_from": null,
+          "serialize_to": null
+        },
+        {
+          "name": "routing_header",
+          "header_size_bytes": null,
+          "byte_order": "big-endian",
+          "fields": [
+            {
+              "name": "next_header",
+              "display_name": "Next Header",
+              "offset_bits": 0,
+              "size_bits": 8,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "hdr_ext_len",
+              "display_name": "Hdr Ext Len",
+              "offset_bits": 8,
+              "size_bits": 8,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "routing_type",
+              "display_name": "Routing Type",
+              "offset_bits": 16,
+              "size_bits": 8,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "segments_left",
+              "display_name": "Segments Left",
+              "offset_bits": 24,
+              "size_bits": 8,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "type_specific_data",
+              "display_name": "Type-Specific Data",
+              "offset_bits": 32,
+              "size_bits": null,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            }
+          ],
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        },
+        {
+          "name": "fragment_header",
+          "header_size_bytes": null,
+          "byte_order": "big-endian",
+          "fields": [
+            {
+              "name": "next_header",
+              "display_name": "Next Header",
+              "offset_bits": 0,
+              "size_bits": 8,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "reserved",
+              "display_name": "Reserved",
+              "offset_bits": 8,
+              "size_bits": 8,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "fragment_offset",
+              "display_name": "Fragment Offset",
+              "offset_bits": 16,
+              "size_bits": 13,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "reserved2",
+              "display_name": "Reserved (for alignment)",
+              "offset_bits": 29,
+              "size_bits": 3,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "m_flag",
+              "display_name": "M flag (More Fragments)",
+              "offset_bits": 32,
+              "size_bits": 1,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "identification",
+              "display_name": "Identification",
+              "offset_bits": 33,
+              "size_bits": 32,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            }
+          ],
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        },
+        {
+          "name": "destination_options_header",
+          "header_size_bytes": null,
+          "byte_order": "big-endian",
+          "fields": [
+            {
+              "name": "next_header",
+              "display_name": "Next Header",
+              "offset_bits": 0,
+              "size_bits": 8,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "== 60"
+              ]
+            },
+            {
+              "name": "hdr_ext_len",
+              "display_name": "Hdr Ext Len",
+              "offset_bits": 8,
+              "size_bits": 8,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "options",
+              "display_name": "Options",
+              "offset_bits": 16,
+              "size_bits": null,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            }
+          ],
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        },
+        {
+          "name": "pad1_option",
+          "header_size_bytes": null,
+          "byte_order": "big-endian",
+          "fields": [
+            {
+              "name": "option_type",
+              "display_name": "Option Type",
+              "offset_bits": 0,
+              "size_bits": 8,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "== 0"
+              ]
+            }
+          ],
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        },
+        {
+          "name": "padn_option",
+          "header_size_bytes": null,
+          "byte_order": "big-endian",
+          "fields": [
+            {
+              "name": "option_type",
+              "display_name": "Option Type",
+              "offset_bits": 0,
+              "size_bits": 8,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "== 1"
+              ]
+            },
+            {
+              "name": "opt_data_len",
+              "display_name": "Opt Data Len",
+              "offset_bits": 8,
+              "size_bits": 8,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "option_data",
+              "display_name": "Option Data",
+              "offset_bits": 16,
+              "size_bits": null,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            }
+          ],
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [
+        {
+          "name": "options_array",
+          "element_type": "options",
+          "length": "hdr_ext_len * 8"
+        },
+        {
+          "name": "padn_option_data",
+          "element_type": "bit_string",
+          "length": null
+        }
+      ],
+      "parsing_context": [],
+      "helper_functions": [
+        {
+          "name": "parse_ipv6_header"
+        },
+        {
+          "name": "parse_extension_headers"
+        },
+        {
+          "name": "reassemble_fragments"
+        }
+      ],
+      "transform_functions": []
+    },
+    {
+      "name": "ipv6_option_tlv",
+      "pdus": [
+        "ipv6_option"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "ipv6_option",
+          "header_size_bytes": null,
+          "byte_order": "big-endian",
+          "fields": [
+            {
+              "name": "option_type",
+              "display_name": "Option Type",
+              "offset_bits": 0,
+              "size_bits": 8,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": [
+                "the highest-order 2 bits specify the action to take if the Option Type is not recognized",
+                "the third-highest-order bit specifies whether the Option Data may change en route",
+                "the three high-order bits are part of the full 8-bit Option Type"
+              ]
+            },
+            {
+              "name": "opt_data_len",
+              "display_name": "Opt Data Len",
+              "offset_bits": 8,
+              "size_bits": 8,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "option_data",
+              "display_name": "Option Data",
+              "offset_bits": 16,
+              "size_bits": null,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            }
+          ],
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,130 @@
+{
+  "protocol": "",
+  "rfc": "",
+  "packet": [
+    {
+      "name": "string",
+      "pdus": [
+        "string"
+      ],
+      "bit_string_types": [
+        {
+          "name": "string",
+          "size_bits": "integer or null",
+          "enumerated_types": [
+            {
+              "name": "string",
+              "variants": [
+                {
+                  "name": "string",
+                  "type": "string",
+                  "condition": "string or null"
+                }
+              ]
+            }
+          ],
+          "structure_types": [
+            {
+              "name": "string",
+              "header_size_bytes": "integer or null",
+              "byte_order": "string or null",
+              "fields": [
+                {
+                  "name": "string",
+                  "display_name": "string",
+                  "offset_bits": "integer or null",
+                  "size_bits": "integer or null",
+                  "type": "string or null",
+                  "optional": "boolean or null",
+                  "presence_condition": "string or null",
+                  "constraints": [
+                    "string"
+                  ]
+                }
+              ],
+              "constraints": [
+                "string"
+              ],
+              "parse_from": "string or null",
+              "serialize_to": "string or null"
+            }
+          ],
+          "array_types": [
+            {
+              "name": "string",
+              "element_type": "string",
+              "length": "integer, expression, or null"
+            }
+          ],
+          "parsing_context": [
+            {
+              "name": "string",
+              "type": "string",
+              "helper_functions": [
+                {
+                  "name": "string",
+                  "transform_functions": [
+                    {
+                      "name": "string",
+                      "from": "string",
+                      "to": "string",
+                      "protocol": "string",
+                      "rfc": "string",
+                      "packet": [
+                        {
+                          "name": "string",
+                          "pdus": [
+                            "string"
+                          ],
+                          "bit_string_types": [
+                            {
+                              "name": "string",
+                              "size_bits": "integer or null",
+                              "protocol": "string",
+                              "rfc": "string",
+                              "packet": [
+                                {
+                                  "name": "string",
+                                  "pdus": [
+                                    "string"
+                                  ],
+                                  "bit_string_types": [
+                                    {
+                                      "name": "string",
+                                      "size_bits": "integer or null",
+                                      "protocol": "string",
+                                      "rfc": "string",
+                                      "packet": [
+                                        {
+                                          "name": "string",
+                                          "pdus": [
+                                            "string"
+                                          ],
+                                          "bit_string_types": [
+                                            {
+                                              "name": "string",
+                                              "size_bits": "integer or null",
+                                              "protocol": ", "
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

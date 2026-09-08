@@ -1,0 +1,5 @@
+{
+  "protocol": "TFTP",
+  "rfc": "RFC 1350 (TFTP Revision 2) - July 1992",
+  "packet": []
+}

@@ -1,0 +1,113 @@
+{
+  "protocol": "TCP",
+  "rfc": "9293",
+  "packet": [
+    {
+      "name": "TCP Header",
+      "pdus": [
+        "TCP"
+      ],
+      "bit_string_types": [
+        {
+          "name": "Source Port",
+          "size_bits": 16
+        }
+      ],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "TCP Header",
+          "header_size_bytes": 20,
+          "byte_order": "Network Byte Order",
+          "fields": [
+            {
+              "name": "source_port",
+              "display_name": "Source Port",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": "uint16",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "destination_port",
+              "display_name": "Destination Port",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": "uint16",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "sequence_number",
+              "display_name": "Sequence Number",
+              "offset_bits": 32,
+              "size_bits": 32,
+              "type": "uint32",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "acknowledgment_number",
+              "display_name": "Acknowledgment Number",
+              "offset_bits": 64,
+              "size_bits": 32,
+              "type": "uint32",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "data_offset_and_flags",
+              "display_name": "Data Offset and Flags",
+              "offset_bits": 96,
+              "size_bits": 16,
+              "type": "uint16",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "window_size",
+              "display_name": "Window",
+              "offset_bits": 112,
+              "size_bits": 16,
+              "type": "uint16",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": 128,
+              "size_bits": 16,
+              "type": "uint16",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "urgent_pointer",
+              "display_name": "Urgent Pointer",
+              "offset_bits": 144,
+              "size_bits": 16,
+              "type": "uint32",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            }
+          ],
+          "constraints": [
+            "TCP Header follows IP headers",
+            "TCP Header format uses style from [66]"
+          ]
+        },
+        "array_types"
+      ]
+    }
+  ]
+}

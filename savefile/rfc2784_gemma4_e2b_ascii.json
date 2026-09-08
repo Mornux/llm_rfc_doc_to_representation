@@ -1,0 +1,107 @@
+{
+  "protocol": "GRE",
+  "rfc": "RFC 2784",
+  "packet": [
+    {
+      "name": "GRE_Header",
+      "pdus": [
+        "GRE_Packet"
+      ],
+      "bit_string_types": [
+        {
+          "name": "C",
+          "size_bits": 1
+        },
+        {
+          "name": "Reserved0",
+          "size_bits": 8
+        },
+        {
+          "name": "Ver",
+          "size_bits": 4
+        },
+        {
+          "name": "Protocol Type",
+          "size_bits": 8
+        }
+      ],
+      "enumerated_types": [
+        {
+          "name": "Protocol Type",
+          "variants": [
+            {
+              "name": "Unknown",
+              "type": "Unknown",
+              "condition": "true"
+            }
+          ]
+        },
+        {
+          "name": "Checksum Present",
+          "variants": [
+            {
+              "name": "No",
+              "type": "No",
+              "condition": "Checksum Present == 0"
+            },
+            {
+              "name": "Yes",
+              "type": "Yes",
+              "condition": "Checksum Present == 1"
+            }
+          ]
+        }
+      ],
+      "structure_types": [
+        {
+          "name": "GRE_Header",
+          "header_size_bytes": 1,
+          "byte_order": "network",
+          "fields": [
+            {
+              "name": "C",
+              "display_name": "C",
+              "offset_bits": 0,
+              "size_bits": 1,
+              "type": "bit",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "Reserved0",
+              "display_name": "Reserved0",
+              "offset_bits": 1,
+              "size_bits": 8,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "Ver",
+              "display_name": "Ver",
+              "offset_bits": 9,
+              "size_bits": 4,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            },
+            {
+              "name": "Protocol Type",
+              "display_name": "Protocol Type",
+              "offset_bits": 13,
+              "size_bits": 8,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "constraints": []
+            }
+          ]
+        },
+        "constraints$: [], "
+      ]
+    }
+  ]
+}

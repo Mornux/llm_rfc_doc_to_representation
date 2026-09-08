@@ -11,7 +11,7 @@
         {
           "name": "User Datagram Header",
           "header_size_bytes": 8,
-          "byte_order": "little",
+          "byte_order": "little-endian",
           "fields": [
             {
               "name": "Source Port",
@@ -19,14 +19,13 @@
               "offset_bits": "0-7",
               "size_bits": "8",
               "type": "Enumerated Type",
-              "optional": "false",
-              "presence_condition": "null",
-              "description": "Indicates the port of the sending process, and may be assumed to be the port to which a reply should be addressed in the absence of any other information.",
+              "optional": true,
+              "presence_condition": "source_port != 0",
               "constraints": [
-                "0 <= value <= 65535"
+                "0 <= source_port <= 65535"
               ],
-              "parse_from": "Source Port field",
-              "serialize_to": "Source Port field"
+              "parse_from": "RFC 768, CANDIDATE number=1 lines 30-42",
+              "serialize_to": "RFC 768, CANDIDATE number=1 lines 30-42"
             },
             {
               "name": "Destination Port",
@@ -34,14 +33,13 @@
               "offset_bits": "8-15",
               "size_bits": "8",
               "type": "Enumerated Type",
-              "optional": "false",
-              "presence_condition": "null",
-              "description": "Indicates the port to which the datagram is addressed.",
+              "optional": true,
+              "presence_condition": "destination_port != 0",
               "constraints": [
-                "0 <= value <= 65535"
+                "0 <= destination_port <= 65535"
               ],
-              "parse_from": "Destination Port field",
-              "serialize_to": "Destination Port field"
+              "parse_from": "RFC 768, CANDIDATE number=1 lines 30-42",
+              "serialize_to": "RFC 768, CANDIDATE number=1 lines 30-42"
             },
             {
               "name": "Length",
@@ -49,14 +47,13 @@
               "offset_bits": "16-23",
               "size_bits": "16",
               "type": "Bit String Type",
-              "optional": "false",
-              "presence_condition": "null",
-              "description": "Specifies the length of the data field in bytes.",
+              "optional": false,
+              "presence_condition": "",
               "constraints": [
                 "Length >= 8"
               ],
-              "parse_from": "Length field",
-              "serialize_to": "Length field"
+              "parse_from": "RFC 768, CANDIDATE number=1 lines 30-42",
+              "serialize_to": "RFC 768, CANDIDATE number=1 lines 30-42"
             },
             {
               "name": "Checksum",
@@ -64,41 +61,42 @@
               "offset_bits": "24-31",
               "size_bits": "16",
               "type": "Bit String Type",
-              "optional": "false",
-              "presence_condition": "null",
-              "description": "A 16-bit one's complement checksum over the entire UDP header (including pseudo header).",
+              "optional": false,
+              "presence_condition": "",
               "constraints": [
-                "Checksum is the one's complement of the ones' complement sum of all the 16-bit words in the pseudo header and data, padded with zeros to be a multiple of 2 bytes"
+                "Checksum is the 16-bit one's complement of the one's complement sum of a pseudo header of information from the IP header, the UDP header, and the data, padded with zero octets at the end (if necessary) to make a multiple of two octets."
               ],
-              "parse_from": "Checksum field",
-              "serialize_to": "Checksum field"
-            },
-            {
-              "name": "Data",
-              "display_name": "Data",
-              "offset_bits": "32-",
-              "size_bits": "var",
-              "type": "Variable Length Data Type",
-              "optional": "true",
-              "presence_condition": "null",
-              "description": "The user data itself.",
-              "constraints": [
-                "0 <= Length"
-              ],
-              "parse_from": "Data field",
-              "serialize_to": "Data field"
+              "parse_from": "RFC 768, CANDIDATE number=1 lines 30-42",
+              "serialize_to": "RFC 768, CANDIDATE number=1 lines 30-42"
             }
-          ],
-          "array_types": [],
-          "parsing_context": [],
-          "helper_functions": [],
-          "transform_functions": []
+          ]
         }
       ],
       "array_types": [],
       "parsing_context": [],
       "helper_functions": [],
       "transform_functions": []
+    },
+    {
+      "name": "User Data",
+      "display_name": "User Data",
+      "byte_order": "little-endian",
+      "fields": [
+        {
+          "name": "data octets",
+          "display_name": "data octets",
+          "offset_bits": "32-",
+          "size_bits": "length",
+          "type": "Bit String Type",
+          "optional": true,
+          "presence_condition": "",
+          "constraints": [
+            "size >= 0"
+          ],
+          "parse_from": "RFC 768, CANDIDATE number=2 lines 83-92",
+          "serialize_to": "RFC 768, CANDIDATE number=2 lines 83-92"
+        }
+      ]
     }
   ]
 }
