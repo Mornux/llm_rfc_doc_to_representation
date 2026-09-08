@@ -148,7 +148,7 @@ def run_model(model_name, user_text, json_output=False): #send text to a model r
 
     #send the request and return only the generated response text
     try:
-        with urllib.request.urlopen(request, timeout=300) as response:  #call ollama
+        with urllib.request.urlopen(request, timeout=3000) as response:  #call ollama
             result = json.loads(response.read().decode("utf-8"))
         response_text = result.get("response", "")
         if response_text:

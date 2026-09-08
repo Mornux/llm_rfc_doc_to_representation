@@ -79,17 +79,15 @@ becomes:
 "name": "source_port",
 "display_name": "Source Port"
 
-10. Preserve the semantic meaning of field descriptions, but descriptions may be
-    shortened.
 
-11. A field may only have:
+10. A field may only have:
 
 "optional": true
 
 when the RFC explicitly defines it as optional or defines a condition under
 which it is present.
 
-12. If the presence of a field depends on another field, store that dependency in:
+11. If the presence of a field depends on another field, store that dependency in:
 
 "presence_condition"
 
@@ -97,7 +95,7 @@ Example:
 
 "presence_condition": "x == 1"
 
-13. Only generate constraints that are explicitly stated in the RFC or can be
+12. Only generate constraints that are explicitly stated in the RFC or can be
     deterministically expressed from an RFC requirement.
 
 Examples:
@@ -106,11 +104,11 @@ Examples:
 "version == 4"
 "payload_length == length - 8"
 
-14. If no constraint is available, use:
+13. If no constraint is available, use:
 
 "constraints": []
 
-15. Variable-length data must not be converted into an arbitrary fixed size.
+14. Variable-length data must not be converted into an arbitrary fixed size.
 
 Represent its size using an expression when possible.
 
@@ -118,28 +116,28 @@ Example:
 
 "size": "length - 8"
 
-16. Each distinct packet-format ASCII diagram must be represented as a separate
+15. Each distinct packet-format ASCII diagram must be represented as a separate
     entry in "packet". All extracted information associated with that
     diagram, including PDUs, bit string types, enumerated types, structure types,
     array types, parsing context, helper functions, and transform functions,
     must be stored only within that diagram's entry. Information from different
     diagrams must not be merged.
 
-17. If multiple packet formats are alternatives of a common packet type, they may
+16. If multiple packet formats are alternatives of a common packet type, they may
     be represented as variants of an enumerated type.
 
-18. Different fields with the same bit width may still represent different
+17. Different fields with the same bit width may still represent different
     semantic types.
 
-19. Create parsing context information only when parsing depends on:
+18. Create parsing context information only when parsing depends on:
     - previous packets;
     - external state;
     - out-of-band information.
 
-20. Create helper functions or transform functions only when the RFC explicitly
+19. Create helper functions or transform functions only when the RFC explicitly
     describes such processing.
 
-21. Never guess missing information.
+20. Never guess missing information.
 
 When evidence is insufficient, use:
 - null
@@ -179,7 +177,6 @@ The JSON must follow this structure:
         {
           "name": "string",
           "size_bits": "integer or null",
-          "description": "string"
         }
       ],
 
@@ -213,7 +210,6 @@ The JSON must follow this structure:
               "type": "string or null",
               "optional": "boolean or null",
               "presence_condition": "string or null",
-              "description": "string",
               "constraints": [
                 "string"
               ]
@@ -241,14 +237,12 @@ The JSON must follow this structure:
         {
           "name": "string",
           "type": "string",
-          "description": "string"
         }
       ],
 
       "helper_functions": [
         {
           "name": "string",
-          "description": "string"
         }
       ],
 
@@ -257,7 +251,6 @@ The JSON must follow this structure:
           "name": "string",
           "from": "string",
           "to": "string",
-          "description": "string"
         }
       ]
     }

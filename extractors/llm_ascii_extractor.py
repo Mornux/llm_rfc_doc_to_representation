@@ -22,9 +22,27 @@ def parse_diagram_ranges(answer, line_count):
         raise ValueError("diagram location response is not valid json") from error
     if not isinstance(data, dict):
         raise ValueError("diagram location response must be a json object")
+
+    #Small local models sometimes return the right range in a slightly different
+    #JSON shape.  Normalize the common variants before validating the contents.
     ranges = data.get("diagram_ranges")
-    if not isinstance(ranges, list):
-        raise ValueError("diagram_ranges must be an array")
+    if ranges is None and "diagram_range" in data:
+        ranges = data.get("diagram_range")
+    if ranges is None and "ranges" in data:
+        ranges = data.get("ranges")
+    if ranges is None and "start_line" in data and "end_line" in data:
+        ranges = data
+    if isinstance(ranges, str):
+        try:
+            ranges = json.loads(ranges)
+        except json.JSONDecodeError as error:
+            raise ValueError("diagram_ranges string is not valid json") from error
+    if ranges is None:
+        ranges = []
+    elif isinstance(ranges, dict):
+        ranges = [ranges]
+    elif not isinstance(ranges, list):
+        raise ValueError("diagram_ranges must be an array or an object")
 
     valid_ranges = []
     for item in ranges:
@@ -78,7 +96,5 @@ def extract_llm_ascii_evidence(rfc_number, document, model_name=None):
         raise ValueError("A model name is required for llm_ascii extraction.")
     ranges = locate_diagram_ranges(rfc_number, document, model_name)
     if not ranges:
-        raise RuntimeError(
-            "Model " + model_name + " found no packet ASCII diagram."
-        )
+        return ""
     return extract_diagram_evidence(document, ranges)

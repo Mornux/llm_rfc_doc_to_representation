@@ -1,13 +1,76 @@
 import json
 import os
-import Levenshtein
-import nltk.translate.bleu_score
 import difflib
 
-from torch.distributed.nn import all_gather
+
+def attribute_accuracy(reference, generated, attributes=None):
+    if attributes is None:
+        attributes = (
+            "display name",
+            "offset bits",
+            "size bits",
+            "type",
+            "optional",
+            "presence condition",
+            "constraints",
+        )
+
+    documents = []
+    for document in (reference, generated):
+        if isinstance(document, (str, os.PathLike)):
+            with open(document, "r", encoding="utf-8") as file:
+                document = json.load(file)
+        documents.append(document)
+
+    all_fields = []
+    for document in documents:
+        fields = []
+        stack = [document]
+        while stack:
+            value = stack.pop()
+            if isinstance(value, dict):
+                for key, child in value.items():
+                    if key.replace("_", " ").lower() == "fields" and isinstance(child, list):
+                        fields.extend(field for field in child if isinstance(field, dict))
+                    else:
+                        stack.append(child)
+            elif isinstance(value, list):
+                stack.extend(reversed(value))
+        all_fields.append(fields)
+
+    reference_fields, generated_fields = all_fields
+
+    generated_by_name = {}
+    for field in generated_fields:
+        name = field.get("name") or field.get("display name")
+        if isinstance(name, str):
+            name = " ".join(name.lower().replace("_", " ").split())
+            generated_by_name.setdefault(name, []).append(field)
+
+    correct = 0
+    total = 0
+    for reference_field in reference_fields:
+        name = reference_field.get("name") or reference_field.get("display name")
+        if not isinstance(name, str):
+            continue
+        name = " ".join(name.lower().replace("_", " ").split())
+
+        candidates = generated_by_name.get(name, [])
+        if not candidates:
+            continue
+        generated_field = candidates.pop(0)
+
+        for attribute in attributes:
+            total += 1
+            if attribute in generated_field and generated_field[attribute] == reference_field.get(attribute):
+                correct += 1
+
+    return correct / total if total else 0
 
 
 def NLS(reference, standardized_test_file):
+    import Levenshtein
+
     with open(reference, "r", encoding="utf-8") as file:
         rf = json.dumps(json.load(file), sort_keys=True) #reference file
 
@@ -173,13 +236,14 @@ def save_evaluation_results():
 
         nls = NLS(reference_path, generated_path)
         precision, recall, f1 = score_merge_output(reference_path, generated_path)
+        accuracy = attribute_accuracy(reference_path, generated_path)
 
         if model_method not in model_scores:
             model_scores[model_method] = []
-        model_scores[model_method].append((nls, precision, recall, f1))
+        model_scores[model_method].append((nls, precision, recall, f1, accuracy))
 
     with open(result_path, "w", encoding="utf-8") as file:
-        file.write(f"{'model_name':<30}{'method':<20}{'anls':<20}{'average_precision':<20}{'average_recall':<20}{'average_f1':<20}\n")
+        file.write(f"{'model_name':<30}{'method':<20}{'anls':<20}{'attribute_accuracy':<20}{'average_precision':<20}{'average_recall':<20}{'average_f1':<20}\n")
 
         for model_name, method in sorted(model_scores):
             all_scores = model_scores[(model_name, method)]
@@ -189,8 +253,9 @@ def save_evaluation_results():
             average_precision = sum(score[1] for score in all_scores) / count
             average_recall = sum(score[2] for score in all_scores) / count
             average_f1 = sum(score[3] for score in all_scores) / count
+            average_accuracy = sum(score[4] for score in all_scores) / count
 
-            file.write(f"{model_name:<30}{method:<20}{average_nls:<20.2f}{average_precision:<20.2f}{average_recall:<20.2f}{average_f1:<20.2f}\n")
+            file.write(f"{model_name:<30}{method:<20}{average_nls:<20.2f}{average_accuracy:<20.2f}{average_precision:<20.2f}{average_recall:<20.2f}{average_f1:<20.2f}\n")
 
     return 0
 

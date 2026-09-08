@@ -8,7 +8,7 @@ def run_batch_test():
     ensure_ollama_server()
 
     models = load_models()
-    rfc_numbers = discover_rfc_numbers(1)
+    rfc_numbers = discover_rfc_numbers(5)
 
     for rfc_number in rfc_numbers:
         for method in METHODS:
