@@ -218,13 +218,12 @@ def build_representation_repair_prompt(original_prompt, invalid_answer, error):
     )
 
 
-DIAGRAM_LOCATION_INSTRUCTION = """Read the complete numbered RFC document below.
+DIAGRAM_LOCATION_INSTRUCTION = """
+Read the complete numbered RFC document below.
 
-Find every ASCII diagram that defines the layout of a network packet, message,
-header, frame, or protocol data unit.
+Find every ASCII diagram that defines the layout of a network packet, message, header, frame, or protocol data unit.
 
-Reject ordinary tables, state machines, timelines, examples, and message flow
-diagrams.
+Reject ordinary tables, state machines, timelines, examples, and message flow diagrams.
 
 Return exactly one JSON object in this form:
 
@@ -237,14 +236,15 @@ Return exactly one JSON object in this form:
   ]
 }}
 
-Use an empty diagram_ranges array when no packet layout exists. Include only line
-ranges that belong to the ASCII diagram itself.
+Use an empty diagram_ranges array when no packet layout exists. 
+Include only line ranges that belong to the ASCII diagram itself.
 
 <RFC number="{rfc_number}">
 
 {numbered_document}
 
-</RFC>"""
+</RFC>
+"""
 
 
 def build_diagram_location_prompt(rfc_number, numbered_document):
@@ -255,10 +255,11 @@ def build_diagram_location_prompt(rfc_number, numbered_document):
     )
 
 
-DIAGRAM_REPAIR_INSTRUCTION = """Correct the diagram location response below.
+DIAGRAM_REPAIR_INSTRUCTION = """
+Correct the diagram location response below.
 
-Return exactly one JSON object with a diagram_ranges array. Every array item must
-contain integer start_line and end_line values between 1 and {line_count}.
+Return exactly one JSON object with a diagram_ranges array.
+Every array item must contain integer start_line and end_line values between 1 and {line_count}.
 
 The previous response failed validation because:
 
@@ -268,7 +269,8 @@ The previous response failed validation because:
 
 {invalid_answer}
 
-</INVALID_RESPONSE>"""
+</INVALID_RESPONSE>
+"""
 
 
 def build_diagram_repair_prompt(line_count, invalid_answer, error):
